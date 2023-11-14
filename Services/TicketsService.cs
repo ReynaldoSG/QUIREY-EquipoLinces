@@ -16,13 +16,16 @@ namespace marcatel_api.Services
              connection = settings.ConnectionString;
         }
 
-        public List<GetTicketsModel> GetTickets()
+
+        public List<GetTicketsModel> GetTickets(GetTicketsFiltroModel ticket)
         {
             ArrayList parametros = new ArrayList();
             ConexionDataAccess dac = new ConexionDataAccess(connection);
             var lista = new List<GetTicketsModel>();
+
             try
             {
+                parametros.Add(new SqlParameter { ParameterName = "@pIdSucursal", SqlDbType = SqlDbType.Int, Value = ticket.IdSucursal });
                 DataSet ds = dac.Fill("sp_GetTickets", parametros);
                 if (ds.Tables[0].Rows.Count > 0)
                 {
@@ -41,14 +44,11 @@ namespace marcatel_api.Services
                     }
                 }
                 return lista;
-                
             }
             catch (Exception ex)
             {
                 throw ex;
             }
-            
-            
         }
 
         public int InsertTickets(InsertTicketsModel ticket)

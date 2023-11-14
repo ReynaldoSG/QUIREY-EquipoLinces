@@ -56,12 +56,38 @@ namespace marcatel_api.Controllers
 
 
         //[Authorize(AuthenticationSchemes = "Bearer")]
-        [HttpGet("Get")] 
-        public IActionResult GetTickets()
+        [HttpGet("Get")]
+        public IActionResult GetTickets(GetTicketsFiltroModel ticket)
         {
-            var articulo = _ticketsService.GetTickets();
-            return Ok(articulo);
+            var tickets = _ticketsService.GetTickets(ticket);
+            return Ok(tickets);
         }
+        // public JsonResult GetTicket([FromBody] GetTicketsFiltroModel ticket)
+        // {
+        //     var objectResponse = Helper.GetStructResponse();
+        //     try
+        //     {
+        //         var CatClienteResponse = _ticketsService.GetTickets(ticket);
+                
+        //         objectResponse.StatusCode = (int)HttpStatusCode.OK;
+        //         objectResponse.success = true;
+        //         objectResponse.message = "Registros encontrados con exito";
+
+        //         objectResponse.response = new
+        //         {
+        //             data = CatClienteResponse
+        //         };
+        //     }
+        //     catch (System.Exception ex)
+        //     {
+        //         Console.Write(ex.Message);
+        //         throw;
+        //     }
+
+
+        //     return new JsonResult(objectResponse);
+
+        // }
 
         [HttpPut("Update")]
         public JsonResult UpdateTickets([FromBody] UpdateTicketsModel ticket)

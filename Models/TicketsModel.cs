@@ -12,6 +12,11 @@ namespace marcatel_api.Models
         public string Estatus {get;set;}
     }
 
+    public class GetTicketsFiltroModel
+    {
+        public string IdSucursal { get; set; }
+    }
+
     public class InsertTicketsModel
     {
         public int IdSucursal { get; set; }
