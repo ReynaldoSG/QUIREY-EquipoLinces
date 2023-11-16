@@ -8,15 +8,13 @@ using System.Collections;
 
 namespace marcatel_api.Services
 {
-    public class DetalleTicketService
+    public class DetalleMovimientoService
     {
         private  string connection;
-        public DetalleTicketService(IMarcatelDatabaseSetting settings)
+        public DetalleMovimientoService(IMarcatelDatabaseSetting settings)
         {
              connection = settings.ConnectionString;
         }
-
-
                 public List<GetDetalleTicketModel> GetDetalleTicket()
                 {
                     ArrayList parametros = new ArrayList();
@@ -24,7 +22,7 @@ namespace marcatel_api.Services
                     var lista = new List<GetDetalleTicketModel>();
                     try
                     {
-                        DataSet ds = dac.Fill("sp_GetDetalleTicket", parametros);
+                        DataSet ds = dac.Fill("sp_GetDetalleMovimiento", parametros);
                         if (ds.Tables[0].Rows.Count > 0)
                         {
                             foreach (DataRow row in ds.Tables[0].Rows)
