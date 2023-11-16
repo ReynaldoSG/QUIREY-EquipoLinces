@@ -9,7 +9,7 @@ namespace marcatel_api.Models
     public int UM {get; set;}
     public string Costo{get;set;}
     public string Precio{get;set;}
-    public int Usuario{get;set;}
+    public string Usuario{get;set;}
     public DateTime Fecha {get;set;}
 
 }

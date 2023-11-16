@@ -8,10 +8,10 @@ using System.Collections;
 
 namespace marcatel_api.Services
 {
-    public class DetalleTicketService
+    public class DetalleMovimientoService
     {
         private  string connection;
-        public DetalleTicketService(IMarcatelDatabaseSetting settings)
+        public DetalleMovimientoService(IMarcatelDatabaseSetting settings)
         {
              connection = settings.ConnectionString;
         }

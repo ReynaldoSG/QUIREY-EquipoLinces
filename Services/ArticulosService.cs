@@ -37,7 +37,7 @@ namespace marcatel_api.Services
                             UM = int.Parse(row["UnidadMedida"].ToString()),
                             Costo = row["Costo"].ToString(),
                             Precio = row["Precio"].ToString(),
-                            Usuario = int.Parse(row["UsuarioActualiza"].ToString()),
+                            Usuario = row["UsuarioActualiza"].ToString(),
                             Fecha = DateTime.Parse(row["FechaRegistro"].ToString())
                         });
                     }
@@ -80,7 +80,7 @@ namespace marcatel_api.Services
                             UM = int.Parse(row["UnidadMedida"].ToString()),
                             Costo = row["Costo"].ToString(),
                             Precio = row["Precio"].ToString(),
-                            Usuario = int.Parse(row["UsuarioActualiza"].ToString())
+                            Usuario = row["UsuarioActualiza"].ToString()
                         });
                     }
                 }
@@ -121,7 +121,7 @@ namespace marcatel_api.Services
                             UM = int.Parse(row["UnidadMedida"].ToString()),
                             Costo = row["Costo"].ToString(),
                             Precio = row["Precio"].ToString(),
-                            Usuario = int.Parse(row["UsuarioActualiza"].ToString())
+                            Usuario = row["UsuarioActualiza"].ToString()
                         });
                     }
                 }
