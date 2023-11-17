@@ -36,7 +36,7 @@ namespace marcatel_api.Services
                         {
                             Nombre = row["Nombre"].ToString(),
                             Direccion = row["Direccion"].ToString(),
-                            Usuario = int.Parse(row["UsuarioActualiza"].ToString())
+                            Usuario = row["UsuarioActualiza"].ToString()
                         });
                     }
                 }
@@ -66,7 +66,7 @@ namespace marcatel_api.Services
                             Id = int.Parse(row["Id"].ToString()),
                             Nombre = row["Nombre"].ToString(),
                             Direccion = row["Direccion"].ToString(),
-                            Usuario = int.Parse(row["UsuarioActualiza"].ToString()),
+                            Usuario = row["UsuarioActualiza"].ToString(),
                             Fecha = DateTime.Parse(row["FechaActualiza"].ToString())
                         });
                     }
@@ -104,7 +104,7 @@ namespace marcatel_api.Services
                             Id = int.Parse(row["Id"].ToString()),
                             Nombre = row["Nombre"].ToString(),
                             Direccion = row["Direccion"].ToString(),
-                            Usuario = int.Parse(row["UsuarioActualiza"].ToString())
+                            Usuario = row["UsuarioActualiza"].ToString()
                         });
                     }
                 }
@@ -136,7 +136,7 @@ namespace marcatel_api.Services
                             Id = int.Parse(row["Id"].ToString()),
                             Nombre = row["Nombre"].ToString(),
                             Direccion = row["Direccion"].ToString(),
-                            Usuario = int.Parse(row["UsuarioActualiza"].ToString())
+                            Usuario = row["UsuarioActualiza"].ToString()
                         });
                     }
                 }
