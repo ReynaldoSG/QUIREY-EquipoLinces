@@ -12,13 +12,13 @@ namespace marcatel_api.Controllers
 {
    
     [Route("api/[controller]")]
-    public class AlmacenesController: ControllerBase
+    public class SucursalesController: ControllerBase
     {
-        private readonly AlmacenesService _almacenesService;
+        private readonly SucursalesService _sucursalesService;
 
-    public AlmacenesController(AlmacenesService almacenesservice)
+    public SucursalesController(SucursalesService sucursalesservice)
     {
-            _almacenesService = almacenesservice;
+            _sucursalesService = sucursalesservice;
     }
 
         
@@ -26,12 +26,12 @@ namespace marcatel_api.Controllers
         
 
         [HttpPost("Insert")]
-        public JsonResult InsertAlmacen([FromBody] InsertAlmacenesModel almacen)
+        public JsonResult InsertSucursal([FromBody] InsertSucursalesModel sucursal)
         {
             var objectResponse = Helper.GetStructResponse();
             try
             {
-                var CatClienteResponse = _almacenesService.InsertAlmacenes(almacen);
+                var CatClienteResponse = _sucursalesService.InsertSucursales(sucursal);
                 
                 objectResponse.StatusCode = (int)HttpStatusCode.OK;
                 objectResponse.success = true;
@@ -58,20 +58,20 @@ namespace marcatel_api.Controllers
         //[Authorize(AuthenticationSchemes = "Bearer")]
         
         [HttpGet("Get")] 
-        public IActionResult GetAlmacenes()
+        public IActionResult GetSucursales()
         {
-            var almacen = _almacenesService.GetAlmacenes();
-            return Ok(almacen);
+            var sucursal = _sucursalesService.GetSucursales();
+            return Ok(sucursal);
         }
         
 
         [HttpPut("Update")]
-        public JsonResult UpdateAlmacen([FromBody] UpdateAlmacenesModel almacen)
+        public JsonResult UpdateSucursal([FromBody] UpdateSucursalesModel sucursal)
         {
             var objectResponse = Helper.GetStructResponse();
             try
             {
-                var CatClienteResponse = _almacenesService.UpdateAlmacenes(almacen);
+                var CatClienteResponse = _sucursalesService.UpdateSucursales(sucursal);
                 
                 objectResponse.StatusCode = (int)HttpStatusCode.OK;
                 objectResponse.success = true;
@@ -94,12 +94,12 @@ namespace marcatel_api.Controllers
         }
 
         [HttpDelete("Delete")]
-        public JsonResult DeleteAlmacen([FromBody] DeleteAlmacenesModel almacen)
+        public JsonResult DeleteSucursal([FromBody] DeleteSucursalesModel sucursal)
         {
             var objectResponse = Helper.GetStructResponse();
             try
             {
-                var CatClienteResponse = _almacenesService.DeleteAlmacenes(almacen);
+                var CatClienteResponse = _sucursalesService.DeleteSucursales(sucursal);
                 
                 objectResponse.StatusCode = (int)HttpStatusCode.OK;
                 objectResponse.success = true;
