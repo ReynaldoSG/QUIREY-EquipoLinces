@@ -21,6 +21,29 @@ namespace marcatel_api.Models
 
     public class InsertMovimientoModels
     {
+        public int IdTipoMov {get; set;}
 
+        public int IdAlmacen {get; set;}
+
+        public int UsuarioActualiza {get; set;}
+
+    }
+
+    public class UpdateMovimientoInvModel
+    {
+        public int Id { get; set;}
+
+        public int IdTipoMov {get; set;}
+
+        public int IdAlmacen {get; set;}
+
+        public int UsuarioActualiza {get; set;}
+
+        public int Estatus {get; set;}
+    }
+
+    public class DeleteMovimientoInvModel
+    {
+        public int Id {get; set;}
     }
 }
