@@ -8,34 +8,32 @@ using System.Collections;
 
 namespace marcatel_api.Services
 {
-    public class AlmacenesService
+    public class SucursalesService
     {
         private  string connection;
-        public AlmacenesService(IMarcatelDatabaseSetting settings)
+        public SucursalesService(IMarcatelDatabaseSetting settings)
         {
              connection = settings.ConnectionString;
         }
 
-        public int InsertAlmacenes(InsertAlmacenesModel almacen)
+        public int InsertSucursales(InsertSucursalesModel sucursal)
         {
             ArrayList parametros = new ArrayList();
             ConexionDataAccess dac = new ConexionDataAccess(connection);
-            var lista = new List<GetAlmacenesModel>();
+            var lista = new List<GetSucursalesModel>();
 
             try
             {
-                parametros.Add(new SqlParameter { ParameterName = "@pNombre", SqlDbType = SqlDbType.VarChar, Value = almacen.Nombre });
-                parametros.Add(new SqlParameter { ParameterName = "@pDireccion", SqlDbType = SqlDbType.VarChar, Value = almacen.Direccion });
-                parametros.Add(new SqlParameter { ParameterName = "@pUsuarioActualiza", SqlDbType = SqlDbType.Int, Value = almacen.Usuario });
-                DataSet ds = dac.Fill("sp_InsertAlmacenes", parametros);
+                parametros.Add(new SqlParameter { ParameterName = "@pNombre", SqlDbType = SqlDbType.VarChar, Value = sucursal.Nombre });
+                parametros.Add(new SqlParameter { ParameterName = "@pUsuarioActualiza", SqlDbType = SqlDbType.VarChar, Value = sucursal.Usuario });
+                DataSet ds = dac.Fill("GABR.sp_InsertSucursales", parametros);
                 if (ds.Tables[0].Rows.Count > 0)
                 {
                     foreach (DataRow row in ds.Tables[0].Rows)
                     {
-                        lista.Add(new GetAlmacenesModel
+                        lista.Add(new GetSucursalesModel
                         {
-                            Nombre = row["Nombre"].ToString(),
-                            Direccion = row["Direccion"].ToString(),
+                            Nombre = row["NombreSucursal"].ToString(),
                             Usuario = row["UsuarioActualiza"].ToString()
                         });
                     }
@@ -49,25 +47,24 @@ namespace marcatel_api.Services
             }
         }
 
-        public List<GetAlmacenesModel> GetAlmacenes()
+        public List<GetSucursalesModel> GetSucursales()
         {
             ArrayList parametros = new ArrayList();
             ConexionDataAccess dac = new ConexionDataAccess(connection);
-            var lista = new List<GetAlmacenesModel>();
+            var lista = new List<GetSucursalesModel>();
             try
             {
-                DataSet ds = dac.Fill("sp_GetAlmacenes", parametros);
+                DataSet ds = dac.Fill("GABR.sp_GetSucursales", parametros);
                 if (ds.Tables[0].Rows.Count > 0)
                 {
                     foreach (DataRow row in ds.Tables[0].Rows)
                     {
-                        lista.Add(new GetAlmacenesModel
+                        lista.Add(new GetSucursalesModel
                         {
                             Id = int.Parse(row["Id"].ToString()),
-                            Nombre = row["Nombre"].ToString(),
-                            Direccion = row["Direccion"].ToString(),
+                            Nombre = row["NombreSucursal"].ToString(),
                             Usuario = row["UsuarioActualiza"].ToString(),
-                            Fecha = DateTime.Parse(row["FechaActualiza"].ToString())
+                            Fecha = DateTime.Parse(row["FechaRegistro"].ToString())
                         });
                     }
                 }
@@ -82,28 +79,26 @@ namespace marcatel_api.Services
             
         }
 
-        public int UpdateAlmacenes(UpdateAlmacenesModel almacen)
+        public int UpdateSucursales(UpdateSucursalesModel sucursal)
         {
             ArrayList parametros = new ArrayList();
             ConexionDataAccess dac = new ConexionDataAccess(connection);
-            var lista = new List<GetAlmacenesModel>();
+            var lista = new List<GetSucursalesModel>();
 
             try
             {
-                parametros.Add(new SqlParameter { ParameterName = "@pId", SqlDbType = SqlDbType.Int, Value = almacen.Id });
-                parametros.Add(new SqlParameter { ParameterName = "@pNombre", SqlDbType = SqlDbType.VarChar, Value = almacen.Nombre });
-                parametros.Add(new SqlParameter { ParameterName = "@pDireccion", SqlDbType = SqlDbType.VarChar, Value = almacen.Direccion });
-                parametros.Add(new SqlParameter { ParameterName = "@pUsuarioActualiza", SqlDbType = SqlDbType.Int, Value = almacen.Usuario });
-                DataSet ds = dac.Fill("sp_UpdateAlmacenes", parametros);
+                parametros.Add(new SqlParameter { ParameterName = "@pId", SqlDbType = SqlDbType.VarChar, Value = sucursal.Id });
+                parametros.Add(new SqlParameter { ParameterName = "@pNombre", SqlDbType = SqlDbType.VarChar, Value = sucursal.Nombre });
+                parametros.Add(new SqlParameter { ParameterName = "@pUsuarioActualiza", SqlDbType = SqlDbType.VarChar, Value = sucursal.Usuario });
+                DataSet ds = dac.Fill("GABR.sp_UpdateSucursales", parametros);
                 if (ds.Tables[0].Rows.Count > 0)
                 {
                     foreach (DataRow row in ds.Tables[0].Rows)
                     {
-                        lista.Add(new GetAlmacenesModel
+                        lista.Add(new GetSucursalesModel
                         {
                             Id = int.Parse(row["Id"].ToString()),
-                            Nombre = row["Nombre"].ToString(),
-                            Direccion = row["Direccion"].ToString(),
+                            Nombre = row["NombreSucursal"].ToString(),
                             Usuario = row["UsuarioActualiza"].ToString()
                         });
                     }
@@ -117,7 +112,7 @@ namespace marcatel_api.Services
             }
         }
 
-        public int DeleteAlmacenes(DeleteAlmacenesModel almacen)
+        public int DeleteSucursales(DeleteSucursalesModel sucursal)
         {
             ArrayList parametros = new ArrayList();
             ConexionDataAccess dac = new ConexionDataAccess(connection);
@@ -125,8 +120,8 @@ namespace marcatel_api.Services
 
             try
             {
-                parametros.Add(new SqlParameter { ParameterName = "@pId", SqlDbType = SqlDbType.Int, Value = almacen.Id });
-                DataSet ds = dac.Fill("sp_DeleteAlmacenes", parametros);
+                parametros.Add(new SqlParameter { ParameterName = "@pId", SqlDbType = SqlDbType.Int, Value = sucursal.Id });
+                DataSet ds = dac.Fill("GABR.sp_DeleteSucursales", parametros);
                 if (ds.Tables[0].Rows.Count > 0)
                 {
                     foreach (DataRow row in ds.Tables[0].Rows)
@@ -134,9 +129,6 @@ namespace marcatel_api.Services
                         lista.Add(new GetAlmacenesModel
                         {
                             Id = int.Parse(row["Id"].ToString()),
-                            Nombre = row["Nombre"].ToString(),
-                            Direccion = row["Direccion"].ToString(),
-                            Usuario = row["UsuarioActualiza"].ToString()
                         });
                     }
                 }

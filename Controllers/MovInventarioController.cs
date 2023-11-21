@@ -31,6 +31,93 @@ namespace marcatel_api.Controllers
             var MovInventario = _movInventarioService.GetMovInventario();
             return Ok(MovInventario);
         }
+         
+         [HttpPost("Insert")]
+        public JsonResult InsertMovInventario([FromBody] InsertMovimientoModels MovInv)
+        {
+            var objectResponse = Helper.GetStructResponse();
+            try
+            {
+                var CatClienteResponse = _movInventarioService.InsertMovInventario(MovInv);
+                
+                objectResponse.StatusCode = (int)HttpStatusCode.OK;
+                objectResponse.success = true;
+                objectResponse.message = "Registro insertado con exito";
+
+                objectResponse.response = new
+                {
+                    data = CatClienteResponse
+                };
+            }
+            catch (System.Exception ex)
+            {
+                Console.Write(ex.Message);
+                throw;
+            }
+
+
+            return new JsonResult(objectResponse);
+
+        }
+         [HttpPut("Update")]
+        public JsonResult UpdateMovInventario([FromBody] UpdateMovimientoInvModel MovimientoInv)
+        {
+            var objectResponse = Helper.GetStructResponse();
+            try
+            {
+                var CatClienteResponse = _movInventarioService.UpdateMovIntentario(MovimientoInv);
+                
+                objectResponse.StatusCode = (int)HttpStatusCode.OK;
+                objectResponse.success = true;
+                objectResponse.message = "Registro modificado con éxito";
+
+                objectResponse.response = new
+                {
+                    data = CatClienteResponse
+                };
+            }
+            catch (System.Exception ex)
+            {
+                Console.Write(ex.Message);
+                throw;
+            }
+
+
+            return new JsonResult(objectResponse);
+
+        }
+
+        
+        [HttpDelete("Delete")]
+        public JsonResult DeleteMovInventario([FromBody] DeleteMovimientoInvModel MovimientoInv)
+        {
+            var objectResponse = Helper.GetStructResponse();
+            try
+            {
+                var CatClienteResponse = _movInventarioService.DeleteMovInventario(MovimientoInv);
+                
+                objectResponse.StatusCode = (int)HttpStatusCode.OK;
+                objectResponse.success = true;
+                objectResponse.message = "Información eliminada con éxito";
+
+                objectResponse.response = new
+                {
+                    data = CatClienteResponse
+                };
+            }
+            catch (System.Exception ex)
+            {
+                Console.Write(ex.Message);
+                throw;
+            }
+
+
+            return new JsonResult(objectResponse);
+
+        }
+
+
+
 
 
         
