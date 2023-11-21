@@ -58,9 +58,9 @@ namespace marcatel_api.Services
 
             try
             {
-                parametros.Add(new SqlParameter{ParameterName = "@pnombreVendedor",SqlDbType= SqlDbType.VarChar,Value= vendedores.NombreVendedor});
-                parametros.Add(new SqlParameter{ParameterName = "@pDescripcion",SqlDbType= SqlDbType.VarChar,Value= vendedores.IdSucursal});
-                parametros.Add(new SqlParameter{ParameterName = "@pUM",SqlDbType= SqlDbType.Int,Value= vendedores.Usuario});
+                parametros.Add(new SqlParameter{ParameterName = "@pNombreVendedor",SqlDbType= SqlDbType.VarChar,Value= vendedores.NombreVendedor});
+                parametros.Add(new SqlParameter{ParameterName = "@pIdSucursal",SqlDbType= SqlDbType.VarChar,Value= vendedores.IdSucursal});
+                parametros.Add(new SqlParameter{ParameterName = "@pUsuario",SqlDbType= SqlDbType.Int,Value= vendedores.Usuario});
                 DataSet ds = dac.Fill("sp_InsertVendedores", parametros);
                 if (ds.Tables[0].Rows.Count > 0)
                 {
@@ -73,6 +73,41 @@ namespace marcatel_api.Services
                             IdSucursal= int.Parse(row["IdSucursal"].ToString()),
                             Usuario = int.Parse(row["UsuarioActualiza"].ToString()),
                            
+                        });
+                    }
+                }
+                return 1;
+            }
+            catch (Exception ex)
+            {
+                Console.Write(ex.Message);
+                return 0;
+            }
+        }
+        
+        public int UpdateVendedores(UpdateVendedoresModel vendedores)
+        {
+            ArrayList parametros = new ArrayList();
+            ConexionDataAccess dac = new ConexionDataAccess(connection);
+            var lista = new List<UpdateVendedoresModel>();
+
+            try
+            {
+                parametros.Add(new SqlParameter{ParameterName = "@pId",SqlDbType= SqlDbType.Int,Value= vendedores.Id});
+                parametros.Add(new SqlParameter{ParameterName = "@pNombreVendedor",SqlDbType= SqlDbType.VarChar,Value= vendedores.NombreVendedor});
+                parametros.Add(new SqlParameter{ParameterName = "@pIdSucursal",SqlDbType= SqlDbType.Int,Value= vendedores.IdSucursal});
+                parametros.Add(new SqlParameter{ParameterName = "@pUsuario",SqlDbType= SqlDbType.Int,Value= vendedores.Usuario});
+                DataSet ds = dac.Fill("sp_UpdateVendedores", parametros);
+                if (ds.Tables[0].Rows.Count > 0)
+                {
+                    foreach (DataRow row in ds.Tables[0].Rows)
+                    {
+                        lista.Add(new UpdateVendedoresModel
+                        {
+                            Id= int.Parse(row["Id"].ToString()),
+                            NombreVendedor = row["NombreVendedor"].ToString(),
+                            IdSucursal= int.Parse(row["IdSucursal"].ToString()),
+                            Usuario = int.Parse(row["UsuarioActualiza"].ToString()),
                         });
                     }
                 }

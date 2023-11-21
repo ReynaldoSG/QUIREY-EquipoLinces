@@ -28,5 +28,64 @@ namespace marcatel_api.Controllers
             var Vendedores = _VendedoresService.GetVendedores();
             return Ok(Vendedores);
         }
-    }
+
+
+        [HttpPut("Update")]
+        public JsonResult UpdateVendedores([FromBody] UpdateVendedoresModel vendedores)
+        {
+            var objectResponse = Helper.GetStructResponse();
+            try
+            {
+                var CatClienteResponse = _VendedoresService.UpdateVendedores(vendedores);
+                
+                objectResponse.StatusCode = (int)HttpStatusCode.OK;
+                objectResponse.success = true;
+                objectResponse.message = "Información actualizada con éxito";
+
+                objectResponse.response = new
+                {
+                    data = CatClienteResponse
+                };
+            }
+            catch (System.Exception ex)
+            {
+                Console.Write(ex.Message);
+                throw;
+            }
+            
+            return new JsonResult(objectResponse);
+
+        }
+        
+
+        [HttpPost("Insert")]
+        public JsonResult InsertVendedores([FromBody] InsertVendedoresModel vendedores)
+        {
+            var objectResponse = Helper.GetStructResponse();
+            try
+            {
+                var CatClienteResponse = _VendedoresService.InsertVendedores(vendedores);
+                
+                objectResponse.StatusCode = (int)HttpStatusCode.OK;
+                objectResponse.success = true;
+                objectResponse.message = "Registro insertado con exito";
+
+                objectResponse.response = new
+                {
+                    data = CatClienteResponse
+                };
+            }
+            catch (System.Exception ex)
+            {
+                Console.Write(ex.Message);
+                throw;
+            }
+
+
+            return new JsonResult(objectResponse);
+
+        }
+
+    
+}
 }
