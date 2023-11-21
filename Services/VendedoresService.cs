@@ -15,8 +15,6 @@ namespace marcatel_api.Services
         {
              connection = settings.ConnectionString;
         }
-
-
     public List<GetVendedoresModel> GetVendedores()
         {
             ArrayList parametros = new ArrayList();
@@ -24,7 +22,7 @@ namespace marcatel_api.Services
             var lista = new List<GetVendedoresModel>();
             try
             {
-                DataSet ds = dac.Fill("sp_GetVendedores", parametros);
+                DataSet ds = dac.Fill("dbo.sp_getVendedores", parametros);
                 if (ds.Tables[0].Rows.Count > 0)
                 {
                     foreach (DataRow row in ds.Tables[0].Rows)
@@ -47,7 +45,7 @@ namespace marcatel_api.Services
             }
             catch (Exception ex)
             {
-                throw ex; // Opcional: lanzar la excepción para mantener el flujo
+                throw ex;
             }
             
             
