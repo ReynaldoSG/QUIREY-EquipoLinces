@@ -17,13 +17,15 @@ namespace marcatel_api.Services
         }
 
 
-                public List<GetDetalleTicketModel> GetDetalleTicket()
+                public List<GetDetalleTicketModel> GetDetalleTicket(GetDetalleTicketSearchModel detalleticket)
                 {
                     ArrayList parametros = new ArrayList();
                     ConexionDataAccess dac = new ConexionDataAccess(connection);
                     var lista = new List<GetDetalleTicketModel>();
                     try
                     {
+                        parametros.Add(new SqlParameter { ParameterName = "@pIdTicket", SqlDbType = SqlDbType.Int, Value = detalleticket.idTicket });
+
                         DataSet ds = dac.Fill("sp_GetDetalleTicket", parametros);
                         if (ds.Tables[0].Rows.Count > 0)
                         {
@@ -34,12 +36,12 @@ namespace marcatel_api.Services
                                     Id = int.Parse(row["Id"].ToString()),
                                     IdTicket = int.Parse(row["IdTicket"].ToString()),
                                     Codigo = row["Codigo"].ToString(),
-                                    Articulo = row["Descripcion_Articulo"].ToString(),
+                                   Articulo = row["Descripcion_Articulo"].ToString(),
                                     Cantidad = decimal.Parse(row["Cantidad"].ToString()),
                                     PrecioVenta = decimal.Parse(row["PrecioVenta"].ToString()),
-                                    Fecha = DateTime.Parse(row["FechaActualiza"].ToString()),
+                                    Total = decimal.Parse(row["Total"].ToString()),
                                     Estatus = row["Estatus"].ToString(),
-                                    Usuario = int.Parse(row["UsuarioActualiza"].ToString())
+                                    Usuario = row["UsuarioActualiza"].ToString()
                                 });
                             }
                         }
@@ -79,7 +81,7 @@ namespace marcatel_api.Services
                             Codigo = row["Codigo"].ToString(),
                             Cantidad = decimal.Parse(row["Cantidad"].ToString()),
                             PrecioVenta = decimal.Parse(row["PrecioVenta"].ToString()),
-                            Usuario = int.Parse(row["UsuarioActualiza"].ToString())
+                            Usuario = row["UsuarioActualiza"].ToString()
                         });
                     }
                 }
@@ -120,7 +122,7 @@ namespace marcatel_api.Services
                             Cantidad = decimal.Parse(row["Cantidad"].ToString()),
                             PrecioVenta = decimal.Parse(row["PrecioVenta"].ToString()),
                             Estatus = row["Estatus"].ToString(),
-                            Usuario = int.Parse(row["Usuario"].ToString())
+                            Usuario = row["Usuario"].ToString()
 
                         });
                     }

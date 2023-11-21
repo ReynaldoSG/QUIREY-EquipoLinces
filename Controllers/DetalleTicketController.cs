@@ -58,9 +58,9 @@ namespace marcatel_api.Controllers
 
         //[Authorize(AuthenticationSchemes = "Bearer")]
         [HttpGet("Get")] 
-        public IActionResult GetDetalleTicket()
+        public IActionResult GetDetalleTicket(GetDetalleTicketSearchModel detalleticket)
         {
-            var articulo = _DetalleTicketService.GetDetalleTicket();
+            var articulo = _DetalleTicketService.GetDetalleTicket(detalleticket);
             return Ok(articulo);
         }
 

@@ -9,9 +9,14 @@ namespace marcatel_api.Models
     public string Articulo { get; set; }
     public decimal Cantidad { get; set; }
     public decimal PrecioVenta { get; set; }
-    public DateTime Fecha {get;set;}
-    public int Usuario {get;set;}
+    public decimal Total { get; set; }
+    public string Usuario {get;set;}
     public string Estatus {get;set;}
+}
+
+public class GetDetalleTicketSearchModel
+{
+    public int idTicket {get; set;}
 }
 
 public class InsertDetalleTicketModel
