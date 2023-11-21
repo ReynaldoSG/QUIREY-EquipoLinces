@@ -54,7 +54,7 @@ namespace marcatel_api.Services
         {
             ArrayList parametros = new ArrayList();
             ConexionDataAccess dac = new ConexionDataAccess(connection);
-            var lista = new List<GetDetalleMovimientoModel>();
+            var lista = new List<InsertDetalleMovimientoModel>();
 
             try
             {
@@ -69,15 +69,13 @@ namespace marcatel_api.Services
                 {
                     foreach (DataRow row in ds.Tables[0].Rows)
                     {
-                        lista.Add(new GetDetalleMovimientoModel
+                        lista.Add(new InsertDetalleMovimientoModel
                         {
-                            Id = int.Parse(row["Id"].ToString()),
-                            NombreMovimiento = row["NombreMovimiento"].ToString(),
+                            IdMovimiento = int.Parse(row["Id"].ToString()),
+                            Codigo = row["NombreMovimiento"].ToString(),
                             Cantidad = decimal.Parse(row["Cantidad"].ToString()),
                             Costo = decimal.Parse(row["Costo"].ToString()),
-                            FechaActualiza = DateTime.Parse(row["FechaActualiza"].ToString()),
-                            Estatus = row["Estatus"].ToString(),
-                            UsuarioActualiza = row["UsuarioActualiza"].ToString()
+                            UsuarioActualiza = int.Parse(row["UsuarioActualiza"].ToString())
                         });
                     }
                 }
