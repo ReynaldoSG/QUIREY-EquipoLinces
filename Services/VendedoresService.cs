@@ -50,5 +50,39 @@ namespace marcatel_api.Services
             
             
         }
+                public int InsertVendedores(InsertVendedoresModel vendedores)
+        {
+            ArrayList parametros = new ArrayList();
+            ConexionDataAccess dac = new ConexionDataAccess(connection);
+            var lista = new List<InsertVendedoresModel>();
+
+            try
+            {
+                parametros.Add(new SqlParameter{ParameterName = "@pnombreVendedor",SqlDbType= SqlDbType.VarChar,Value= vendedores.NombreVendedor});
+                parametros.Add(new SqlParameter{ParameterName = "@pDescripcion",SqlDbType= SqlDbType.VarChar,Value= vendedores.IdSucursal});
+                parametros.Add(new SqlParameter{ParameterName = "@pUM",SqlDbType= SqlDbType.Int,Value= vendedores.Usuario});
+                DataSet ds = dac.Fill("sp_InsertVendedores", parametros);
+                if (ds.Tables[0].Rows.Count > 0)
+                {
+                    foreach (DataRow row in ds.Tables[0].Rows)
+                    {
+                        lista.Add(new InsertVendedoresModel
+                        {
+                            
+                            NombreVendedor = row["NombreVendedor"].ToString(),
+                            IdSucursal= int.Parse(row["IdSucursal"].ToString()),
+                            Usuario = int.Parse(row["UsuarioActualiza"].ToString()),
+                           
+                        });
+                    }
+                }
+                return 1;
+            }
+            catch (Exception ex)
+            {
+                Console.Write(ex.Message);
+                return 0;
+            }
+        }
     }
 }
