@@ -62,6 +62,7 @@ namespace marcatel_api
             services.AddSingleton<TicketsService>();
             services.AddSingleton<ArticulosService>();
             services.AddSingleton<DetalleTicketService>();
+            services.AddSingleton<DetalleMovimientoService>();
             services.AddSingleton<MovInventarioService>();
             services.AddCors();
             
