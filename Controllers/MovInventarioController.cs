@@ -60,12 +60,12 @@ namespace marcatel_api.Controllers
 
         }
          [HttpPut("Update")]
-        public JsonResult UpdateMovInventario([FromBody] UpdateMovimientoInvModel MovInv)
+        public JsonResult UpdateMovInventario([FromBody] UpdateMovimientoInvModel MovimientoInv)
         {
             var objectResponse = Helper.GetStructResponse();
             try
             {
-                var CatClienteResponse = _movInventarioService.UpdateMovIntentario(MovInv);
+                var CatClienteResponse = _movInventarioService.UpdateMovIntentario(MovimientoInv);
                 
                 objectResponse.StatusCode = (int)HttpStatusCode.OK;
                 objectResponse.success = true;
@@ -89,12 +89,12 @@ namespace marcatel_api.Controllers
 
         
         [HttpDelete("Delete")]
-        public JsonResult DeleteMovInventario([FromBody] DeleteMovimientoInvModel MovInv)
+        public JsonResult DeleteMovInventario([FromBody] DeleteMovimientoInvModel MovimientoInv)
         {
             var objectResponse = Helper.GetStructResponse();
             try
             {
-                var CatClienteResponse = _movInventarioService.DeleteMovInventario(MovInv);
+                var CatClienteResponse = _movInventarioService.DeleteMovInventario(MovimientoInv);
                 
                 objectResponse.StatusCode = (int)HttpStatusCode.OK;
                 objectResponse.success = true;

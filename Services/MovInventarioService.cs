@@ -102,7 +102,7 @@ namespace marcatel_api.Services
                 parametros.Add(new SqlParameter { ParameterName = "@pIdAlmacen", SqlDbType = SqlDbType.Int, Value = MovInv.IdAlmacen });
                 parametros.Add(new SqlParameter { ParameterName = "@pUsuarioActualiza", SqlDbType = SqlDbType.Int, Value = MovInv.IdAlmacen });
                 parametros.Add(new SqlParameter { ParameterName = "@pEstatus", SqlDbType = SqlDbType.Int, Value = MovInv.Estatus });
-                DataSet ds = dac.Fill("sp_UpdateTickets", parametros);
+                DataSet ds = dac.Fill("sp_UpdateMov_Inventario", parametros);
                 if (ds.Tables[0].Rows.Count > 0)
                 {
                     foreach (DataRow row in ds.Tables[0].Rows)
@@ -112,10 +112,8 @@ namespace marcatel_api.Services
                             Id = int.Parse(row["Id"].ToString()),
                             IdTipoMov = row["TipoMovimiento"].ToString(),
                             IdAlmacen = row["Almacen"].ToString(),
-                            fechaMovimiento = DateTime.Parse(row["FechaMovimiento"].ToString()),
                             Estatus = row["Estatus"].ToString(),
                             Usuario = row["UsuarioActualiza"].ToString(),
-                            FechaActualiza = DateTime.Parse(row["FechaActualiza"].ToString())
                         });
                     }
                 }
@@ -137,7 +135,7 @@ namespace marcatel_api.Services
             try
             {
                 parametros.Add(new SqlParameter { ParameterName = "@pId", SqlDbType = SqlDbType.Int, Value = MovInv.Id });
-                DataSet ds = dac.Fill("sp_DeleteMovInventario", parametros);
+                DataSet ds = dac.Fill("dbo.sp_DeleteMovInventario", parametros);
                 if (ds.Tables[0].Rows.Count > 0)
                 {
                     foreach (DataRow row in ds.Tables[0].Rows)
