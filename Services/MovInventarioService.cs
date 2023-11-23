@@ -72,16 +72,10 @@ namespace marcatel_api.Services
                         lista.Add(new GetMovInventarioModels
                         {
                             Id = int.Parse(row["Id"].ToString()),
-                            IdTipoMov = row["TipoMovimiento"].ToString(),
-                            IdAlmacen = row["Almacen"].ToString(),
-                            fechaMovimiento = DateTime.Parse(row["FechaMovimiento"].ToString()),
-                            Estatus = row["Estatus"].ToString(),
-                            Usuario = row["UsuarioActualiza"].ToString(),
-                            FechaActualiza = DateTime.Parse(row["FechaActualiza"].ToString())
                         });
                     }
                 }
-                return 1;
+                return lista[0].Id;
             }
             catch (Exception ex)
             {
