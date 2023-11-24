@@ -58,7 +58,7 @@ namespace marcatel_api.Services
         {
             ArrayList parametros = new ArrayList();
             ConexionDataAccess dac = new ConexionDataAccess(connection);
-            var lista = new List<GetArticulosModel>();
+            var lista = new List<InsertArticulosModel>();
 
             try
             {
@@ -72,13 +72,13 @@ namespace marcatel_api.Services
                 {
                     foreach (DataRow row in ds.Tables[0].Rows)
                     {
-                        lista.Add(new GetArticulosModel
+                        lista.Add(new InsertArticulosModel
                         {
                             Descripcion = row["Descripcion"].ToString(),
                             UM = int.Parse(row["UnidadMedida"].ToString()),
                             Costo = row["Costo"].ToString(),
                             Precio = row["Precio"].ToString(),
-                            Usuario = row["UsuarioActualiza"].ToString()
+                            Usuario = int.Parse(row["UsuarioActualiza"].ToString())
                         });
                     }
                 }
@@ -95,12 +95,11 @@ namespace marcatel_api.Services
         {
             ArrayList parametros = new ArrayList();
             ConexionDataAccess dac = new ConexionDataAccess(connection);
-            var lista = new List<GetArticulosModel>();
+            var lista = new List<UpdateArticulosModel>();
 
             try
             {
                 parametros.Add(new SqlParameter{ParameterName = "@pId",SqlDbType= SqlDbType.VarChar,Value= articulo.Id});
-                parametros.Add(new SqlParameter{ParameterName = "@pCodigo",SqlDbType= SqlDbType.VarChar,Value= articulo.Codigo});
                 parametros.Add(new SqlParameter{ParameterName = "@pDescripcion",SqlDbType= SqlDbType.VarChar,Value= articulo.Descripcion});
                 parametros.Add(new SqlParameter{ParameterName = "@pUnidadMedida",SqlDbType= SqlDbType.Int,Value= articulo.UM});
                 parametros.Add(new SqlParameter{ParameterName = "@pCosto",SqlDbType= SqlDbType.Decimal,Value= articulo.Costo});
@@ -111,15 +110,14 @@ namespace marcatel_api.Services
                 {
                     foreach (DataRow row in ds.Tables[0].Rows)
                     {
-                        lista.Add(new GetArticulosModel
+                        lista.Add(new UpdateArticulosModel
                         {
                             Id = int.Parse(row["Id"].ToString()),
-                            Codigo = row["Codigo"].ToString(),
                             Descripcion = row["Descripcion"].ToString(),
                             UM = int.Parse(row["UnidadMedida"].ToString()),
                             Costo = row["Costo"].ToString(),
                             Precio = row["Precio"].ToString(),
-                            Usuario = row["UsuarioActualiza"].ToString()
+                            Usuario = int.Parse(row["UsuarioActualiza"].ToString())
                         });
                     }
                 }

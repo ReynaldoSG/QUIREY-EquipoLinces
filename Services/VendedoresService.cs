@@ -119,5 +119,35 @@ namespace marcatel_api.Services
                 return 0;
             }
         }
+              public int DeleteVendedores(DeleteVendedoresModel vendedores)
+        {
+
+            ArrayList parametros = new ArrayList();
+            ConexionDataAccess dac = new ConexionDataAccess(connection);
+            var lista = new List<DeleteVendedoresModel>();
+
+            try
+            {
+                parametros.Add(new SqlParameter{ParameterName = "@pId",SqlDbType = SqlDbType.Int, Value = vendedores.Id});
+                DataSet ds =dac.Fill("sp_DeleteVendedores",parametros);
+                if(ds.Tables[0].Rows.Count>0)
+                {
+                    foreach(DataRow row in ds.Tables[0].Rows)
+                    {
+                        lista.Add(new DeleteVendedoresModel
+                        {
+                            Id = int.Parse(row["Id"].ToString()),
+                        });
+                    }
+                }
+            return 1;
+            }
+            catch (Exception ex)
+            {
+                Console.Write(ex.Message);
+                return 0;
+            }
+                
+        }
     }
 }

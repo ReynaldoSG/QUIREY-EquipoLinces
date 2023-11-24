@@ -12,22 +12,26 @@ namespace marcatel_api.Controllers
 {
    
     [Route("api/[controller]")]
-    public class DetalleMovimientoController: ControllerBase
+    public class UsuariosController: ControllerBase
     {
-        private readonly DetalleMovimientoService _DetalleMovimientoService;
+        private readonly UsuariosService _UsuarioService;
 
-    public DetalleMovimientoController(DetalleMovimientoService detalleMovimientoService) 
+    public UsuariosController(UsuariosService usuariosService) 
     {
-            _DetalleMovimientoService = detalleMovimientoService;
-
+            _UsuarioService = usuariosService;
     }
+
+        
+
+        
+
         [HttpPost("Insert")]
-        public JsonResult InsertDetalleMovimientos([FromBody] InsertDetalleMovimientoModel detalleMovimiento)
+        public JsonResult InsertPdersonas([FromBody] InsertUsuariosModel usuarios)
         {
             var objectResponse = Helper.GetStructResponse();
             try
             {
-                var CatClienteResponse = _DetalleMovimientoService.InsertDetalleMovimiento(detalleMovimiento);
+                var CatClienteResponse = _UsuarioService.InsertUsuarios(usuarios);
                 
                 objectResponse.StatusCode = (int)HttpStatusCode.OK;
                 objectResponse.success = true;
@@ -53,23 +57,24 @@ namespace marcatel_api.Controllers
 
         //[Authorize(AuthenticationSchemes = "Bearer")]
         [HttpGet("Get")] 
-        public IActionResult GetDetalleMovimiento(GetDetalleMovimientoFiltroModel dm)
+        public IActionResult GetUsuario()
         {
-            var articulo = _DetalleMovimientoService.GetDetalleMovimiento(dm);
-            return Ok(articulo);
+            var usuarios = _UsuarioService.GetUsuarios();
+            return Ok(usuarios);
         }
 
+        
         [HttpPut("Update")]
-        public JsonResult UpdateDetalleMovimiento([FromBody] UpdateDetalleMovimientoModel detalleMovimiento)
+        public JsonResult UpdatePersonas([FromBody] UpdateUsuariosModel usuarios)
         {
             var objectResponse = Helper.GetStructResponse();
             try
             {
-                var CatClienteResponse = _DetalleMovimientoService.UpdateDetalleMovimiento(detalleMovimiento);
+                var CatClienteResponse = _UsuarioService.UpdateUsuarios(usuarios);
                 
                 objectResponse.StatusCode = (int)HttpStatusCode.OK;
                 objectResponse.success = true;
-                objectResponse.message = "Registro actualizado con exito";
+                objectResponse.message = "Información actualizada con éxito";
 
                 objectResponse.response = new
                 {
@@ -88,16 +93,16 @@ namespace marcatel_api.Controllers
         }
 
         [HttpDelete("Delete")]
-        public JsonResult DeleteDetalleMovimiento([FromBody] DeleteDetalleMovimientoModel detalleMovimiento)
+        public JsonResult DeletePersonas([FromBody] DeleteUsuariosModel usuarios)
         {
             var objectResponse = Helper.GetStructResponse();
             try
             {
-                var CatClienteResponse = _DetalleMovimientoService.DeleteDetalleMovimiento(detalleMovimiento);
+                var CatClienteResponse = _UsuarioService.DeleteUsuarios(usuarios);
                 
                 objectResponse.StatusCode = (int)HttpStatusCode.OK;
                 objectResponse.success = true;
-                objectResponse.message = "Registro eliminado con exito";
+                objectResponse.message = "Información eliminada con éxito";
 
                 objectResponse.response = new
                 {
