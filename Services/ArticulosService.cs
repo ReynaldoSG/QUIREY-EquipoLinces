@@ -62,7 +62,6 @@ namespace marcatel_api.Services
 
             try
             {
-                parametros.Add(new SqlParameter{ParameterName = "@pCodigo",SqlDbType= SqlDbType.VarChar,Value= articulo.Codigo});
                 parametros.Add(new SqlParameter{ParameterName = "@pDescripcion",SqlDbType= SqlDbType.VarChar,Value= articulo.Descripcion});
                 parametros.Add(new SqlParameter{ParameterName = "@pUM",SqlDbType= SqlDbType.Int,Value= articulo.UM});
                 parametros.Add(new SqlParameter{ParameterName = "@pCosto",SqlDbType= SqlDbType.Decimal,Value= articulo.Costo});
@@ -75,7 +74,6 @@ namespace marcatel_api.Services
                     {
                         lista.Add(new GetArticulosModel
                         {
-                            Codigo = row["Codigo"].ToString(),
                             Descripcion = row["Descripcion"].ToString(),
                             UM = int.Parse(row["UnidadMedida"].ToString()),
                             Costo = row["Costo"].ToString(),

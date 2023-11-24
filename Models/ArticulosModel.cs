@@ -16,7 +16,6 @@ namespace marcatel_api.Models
 
 public class InsertArticulosModel
 {
-    public string Codigo {get; set;}
     public string Descripcion {get; set;}
     public int UM {get; set;}
     public decimal Costo{get;set;}
