@@ -24,4 +24,8 @@ namespace marcatel_api.Models
         public int IdSucursal{get;set;}
         public int Usuario{get;set;}
     }
+    public class DeleteVendedoresModel
+{
+    public int Id {get; set;}
+}
 }

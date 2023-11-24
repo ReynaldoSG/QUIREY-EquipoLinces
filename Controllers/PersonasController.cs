@@ -12,30 +12,26 @@ namespace marcatel_api.Controllers
 {
    
     [Route("api/[controller]")]
-    public class VendedoresController: ControllerBase
+    public class PersonasController: ControllerBase
     {
-        private readonly VendedoresService _VendedoresService;
+        private readonly PersonasService _PersonasService;
 
-    public VendedoresController(VendedoresService vendedoresService) 
+    public PersonasController(PersonasService personasService) 
     {
-            _VendedoresService = vendedoresService;
+            _PersonasService = personasService;
     }
 
+        
 
-        [HttpGet("Get")] 
-        public IActionResult GetVendedores()
-        {
-            var Vendedores = _VendedoresService.GetVendedores();
-            return Ok(Vendedores);
-        }        
+        
 
         [HttpPost("Insert")]
-        public JsonResult InsertVendedores([FromBody] InsertVendedoresModel vendedores)
+        public JsonResult InsertPdersonas([FromBody] InsertPersonasModel personas)
         {
             var objectResponse = Helper.GetStructResponse();
             try
             {
-                var CatClienteResponse = _VendedoresService.InsertVendedores(vendedores);
+                var CatClienteResponse = _PersonasService.InsertPersonas(personas);
                 
                 objectResponse.StatusCode = (int)HttpStatusCode.OK;
                 objectResponse.success = true;
@@ -57,14 +53,24 @@ namespace marcatel_api.Controllers
 
         }
 
-    
+
+
+        //[Authorize(AuthenticationSchemes = "Bearer")]
+        [HttpGet("Get")] 
+        public IActionResult GetPersonas()
+        {
+            var personas = _PersonasService.GetPersonas();
+            return Ok(personas);
+        }
+
+        
         [HttpPut("Update")]
-        public JsonResult UpdateVendedores([FromBody] UpdateVendedoresModel vendedores)
+        public JsonResult UpdatePersonas([FromQuery] UpdatePersonasModel personas)
         {
             var objectResponse = Helper.GetStructResponse();
             try
             {
-                var CatClienteResponse = _VendedoresService.UpdateVendedores(vendedores);
+                var CatClienteResponse = _PersonasService.UpdatePersonas(personas);
                 
                 objectResponse.StatusCode = (int)HttpStatusCode.OK;
                 objectResponse.success = true;
@@ -80,17 +86,19 @@ namespace marcatel_api.Controllers
                 Console.Write(ex.Message);
                 throw;
             }
-            
+
+
             return new JsonResult(objectResponse);
 
         }
-                [HttpDelete("Delete")]
-        public JsonResult DeleteVendedores([FromQuery] DeleteVendedoresModel vededores)
+
+        [HttpDelete("Delete")]
+        public JsonResult DeletePersonas([FromBody] DeletePersonasModel personas)
         {
             var objectResponse = Helper.GetStructResponse();
             try
             {
-                var CatClienteResponse = _VendedoresService.DeleteVendedores(vededores);
+                var CatClienteResponse = _PersonasService.DeletePersonas(personas);
                 
                 objectResponse.StatusCode = (int)HttpStatusCode.OK;
                 objectResponse.success = true;
@@ -111,5 +119,12 @@ namespace marcatel_api.Controllers
             return new JsonResult(objectResponse);
 
         }
-}
+
+
+        
+
+        
+
+        
+    }
 }
