@@ -15,13 +15,14 @@ namespace marcatel_api.Services
         {
              connection = settings.ConnectionString;
         }
-                public List<GetDetalleMovimientoModel> GetDetalleMovimiento()
+                public List<GetDetalleMovimientoModel> GetDetalleMovimiento(GetDetalleMovimientoFiltroModel dm)
                 {
                     ArrayList parametros = new ArrayList();
                     ConexionDataAccess dac = new ConexionDataAccess(connection);
                     var lista = new List<GetDetalleMovimientoModel>();
                     try
                     {
+                        parametros.Add(new SqlParameter { ParameterName = "@pId", SqlDbType = SqlDbType.Int, Value = dm.Id });
                         DataSet ds = dac.Fill("sp_GetDetalleMovimiento", parametros);
                         if (ds.Tables[0].Rows.Count > 0)
                         {
@@ -30,12 +31,6 @@ namespace marcatel_api.Services
                                 lista.Add(new GetDetalleMovimientoModel
                                 {
                                     Id = int.Parse(row["Id"].ToString()),
-                                    NombreMovimiento = row["NombreMovimiento"].ToString(),
-                                    Cantidad = decimal.Parse(row["Cantidad"].ToString()),
-                                    Costo = decimal.Parse(row["Costo"].ToString()),
-                                    FechaActualiza = DateTime.Parse(row["FechaActualiza"].ToString()),
-                                    Estatus = row["Estatus"].ToString(),
-                                    UsuarioActualiza = row["UsuarioActualiza"].ToString()
                                 });
                             }
                         }

@@ -53,9 +53,9 @@ namespace marcatel_api.Controllers
 
         //[Authorize(AuthenticationSchemes = "Bearer")]
         [HttpGet("Get")] 
-        public IActionResult GetDetalleMovimiento()
+        public IActionResult GetDetalleMovimiento(GetDetalleMovimientoFiltroModel dm)
         {
-            var articulo = _DetalleMovimientoService.GetDetalleMovimiento();
+            var articulo = _DetalleMovimientoService.GetDetalleMovimiento(dm);
             return Ok(articulo);
         }
 
