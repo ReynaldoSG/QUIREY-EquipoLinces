@@ -67,6 +67,7 @@ namespace marcatel_api
             services.AddSingleton<SucursalesService>();
             services.AddSingleton<VendedoresService>();
             services.AddSingleton<PersonasService>();
+            services.AddSingleton<UsuariosService>();
 
             services.AddCors();
             
