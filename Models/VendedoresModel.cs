@@ -11,4 +11,17 @@ namespace marcatel_api.Models
         public DateTime FechaRegistro{get;set;}
         public DateTime FechaActualiza{get;set;}
     }
+    public class InsertVendedoresModel
+    {
+        public string NombreVendedor{get;set;}
+        public int IdSucursal{get;set;}
+        public int Usuario{get;set;}
+    }
+    public class UpdateVendedoresModel
+    {
+        public int Id{get;set;}
+        public string NombreVendedor{get;set;}
+        public int IdSucursal{get;set;}
+        public int Usuario{get;set;}
+    }
 }
