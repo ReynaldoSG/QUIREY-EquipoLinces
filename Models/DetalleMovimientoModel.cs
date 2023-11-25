@@ -1,11 +1,6 @@
 using System;
 namespace marcatel_api.Models
 {
-    public class GetDetalleMovimientoFiltroModel
-    {
-        public int Id { get; set; }
-    }
-
     public class GetDetalleMovimientoModel
     {
         public int Id { get; set; }
@@ -15,6 +10,11 @@ namespace marcatel_api.Models
         public DateTime FechaActualiza {get;set;}
         public string UsuarioActualiza {get;set;}
         public string Estatus {get;set;}
+    }
+
+    public class GetDetalleMovimientoSearchModel
+    {
+        public int Id { get; set; }
     }
 
     public class InsertDetalleMovimientoModel

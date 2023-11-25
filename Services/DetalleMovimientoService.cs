@@ -15,7 +15,7 @@ namespace marcatel_api.Services
         {
              connection = settings.ConnectionString;
         }
-                public List<GetDetalleMovimientoModel> GetDetalleMovimiento(GetDetalleMovimientoFiltroModel dm)
+                public List<GetDetalleMovimientoModel> GetDetalleMovimiento(GetDetalleMovimientoSearchModel dm)
                 {
                     ArrayList parametros = new ArrayList();
                     ConexionDataAccess dac = new ConexionDataAccess(connection);
@@ -23,7 +23,7 @@ namespace marcatel_api.Services
                     try
                     {
                         parametros.Add(new SqlParameter { ParameterName = "@pId", SqlDbType = SqlDbType.Int, Value = dm.Id });
-                        DataSet ds = dac.Fill("GABR.sp_GetDetalleMovimiento", parametros);
+                        DataSet ds = dac.Fill("sp_GetDetalleMovimiento", parametros);
                         if (ds.Tables[0].Rows.Count > 0)
                         {
                             foreach (DataRow row in ds.Tables[0].Rows)
@@ -31,6 +31,12 @@ namespace marcatel_api.Services
                                 lista.Add(new GetDetalleMovimientoModel
                                 {
                                     Id = int.Parse(row["Id"].ToString()),
+                                NombreMovimiento = row["NombreMovimiento"].ToString(),
+                                Cantidad = decimal.Parse(row["Cantidad"].ToString()),
+                                Costo = decimal.Parse(row["Costo"].ToString()),
+                                FechaActualiza = DateTime.Parse(row["FechaActualiza"].ToString()),
+                                Estatus = row["Estatus"].ToString(),
+                                UsuarioActualiza = row["UsuarioActualiza"].ToString()
                                 });
                             }
                         }
@@ -59,7 +65,7 @@ namespace marcatel_api.Services
                 parametros.Add(new SqlParameter { ParameterName = "@pCosto", SqlDbType = SqlDbType.Decimal, Value = detalleMovimiento.Costo });
                 parametros.Add(new SqlParameter { ParameterName = "@pUsuarioActualiza",SqlDbType= SqlDbType.Int,Value= detalleMovimiento.UsuarioActualiza});
 
-                DataSet ds = dac.Fill("GABR.sp_InsertDetalleMovimiento", parametros);
+                DataSet ds = dac.Fill("sp_InsertDetalleMovimiento", parametros);
                 if (ds.Tables[0].Rows.Count > 0)
                 {
                     foreach (DataRow row in ds.Tables[0].Rows)
@@ -98,7 +104,7 @@ namespace marcatel_api.Services
                 parametros.Add(new SqlParameter { ParameterName = "@pCosto", SqlDbType = SqlDbType.Decimal, Value = detalleMovimiento.Costo });
                 parametros.Add(new SqlParameter { ParameterName = "@pEstatus", SqlDbType = SqlDbType.Int, Value = detalleMovimiento.Estatus });
                 parametros.Add(new SqlParameter { ParameterName = "@pUsuarioActualiza", SqlDbType = SqlDbType.Int, Value = detalleMovimiento.UsuarioActualiza });
-                DataSet ds = dac.Fill("GABR.sp_UpdateDetalleMovimiento", parametros);
+                DataSet ds = dac.Fill("sp_UpdateDetalleMovimiento", parametros);
                 if (ds.Tables[0].Rows.Count > 0)
                 {
                     foreach (DataRow row in ds.Tables[0].Rows)
@@ -133,7 +139,7 @@ namespace marcatel_api.Services
             try
             {
                 parametros.Add(new SqlParameter { ParameterName = "@pId", SqlDbType = SqlDbType.Int, Value = detalleMovimiento.Id });
-                DataSet ds = dac.Fill("GABR.sp_DeleteDetalleMovimiento", parametros);
+                DataSet ds = dac.Fill("sp_DeleteDetalleMovimiento", parametros);
                 if (ds.Tables[0].Rows.Count > 0)
                 {
                     foreach (DataRow row in ds.Tables[0].Rows)
