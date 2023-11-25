@@ -12,22 +12,26 @@ namespace marcatel_api.Controllers
 {
    
     [Route("api/[controller]")]
-    public class DetalleMovimientoController: ControllerBase
+    public class TiposMovController: ControllerBase
     {
-        private readonly DetalleMovimientoService _DetalleMovimientoService;
+        private readonly TiposMovService _tiposmovService;
 
-    public DetalleMovimientoController(DetalleMovimientoService detalleMovimientoService) 
+    public TiposMovController(TiposMovService tiposmovservice) 
     {
-            _DetalleMovimientoService = detalleMovimientoService;
-
+            _tiposmovService = tiposmovservice;
     }
+
+        
+
+        
+
         [HttpPost("Insert")]
-        public JsonResult InsertDetalleMovimientos([FromBody] InsertDetalleMovimientoModel detalleMovimiento)
+        public JsonResult InsertTiposMov([FromBody] InsertTiposMovModel tipomov)
         {
             var objectResponse = Helper.GetStructResponse();
             try
             {
-                var CatClienteResponse = _DetalleMovimientoService.InsertDetalleMovimiento(detalleMovimiento);
+                var CatClienteResponse = _tiposmovService.InsertTiposMov(tipomov);
                 
                 objectResponse.StatusCode = (int)HttpStatusCode.OK;
                 objectResponse.success = true;
@@ -53,23 +57,24 @@ namespace marcatel_api.Controllers
 
         //[Authorize(AuthenticationSchemes = "Bearer")]
         [HttpGet("Get")] 
-        public IActionResult GetDetalleMovimiento(GetDetalleMovimientoFiltroModel dm)
+        public IActionResult GetTiposMov()
         {
-            var articulo = _DetalleMovimientoService.GetDetalleMovimiento(dm);
+            var articulo = _tiposmovService.GetTiposMov();
             return Ok(articulo);
         }
 
+        
         [HttpPut("Update")]
-        public JsonResult UpdateDetalleMovimiento([FromBody] UpdateDetalleMovimientoModel detalleMovimiento)
+        public JsonResult UpdateTiposMov([FromQuery] UpdateTiposMovModel tiposmov)
         {
             var objectResponse = Helper.GetStructResponse();
             try
             {
-                var CatClienteResponse = _DetalleMovimientoService.UpdateDetalleMovimiento(detalleMovimiento);
+                var CatClienteResponse = _tiposmovService.UpdateTiposMov(tiposmov);
                 
                 objectResponse.StatusCode = (int)HttpStatusCode.OK;
                 objectResponse.success = true;
-                objectResponse.message = "Registro actualizado con exito";
+                objectResponse.message = "Información actualizada con éxito";
 
                 objectResponse.response = new
                 {
@@ -88,16 +93,16 @@ namespace marcatel_api.Controllers
         }
 
         [HttpDelete("Delete")]
-        public JsonResult DeleteDetalleMovimiento([FromBody] DeleteDetalleMovimientoModel detalleMovimiento)
+        public JsonResult DeleteTiposMov([FromQuery] DeleteTiposMovModel tiposmov)
         {
             var objectResponse = Helper.GetStructResponse();
             try
             {
-                var CatClienteResponse = _DetalleMovimientoService.DeleteDetalleMovimiento(detalleMovimiento);
+                var CatClienteResponse = _tiposmovService.DeleteTiposMov(tiposmov);
                 
                 objectResponse.StatusCode = (int)HttpStatusCode.OK;
                 objectResponse.success = true;
-                objectResponse.message = "Registro eliminado con exito";
+                objectResponse.message = "Información eliminada con éxito";
 
                 objectResponse.response = new
                 {
