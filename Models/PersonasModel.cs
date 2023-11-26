@@ -9,7 +9,7 @@ namespace marcatel_api.Models
         public string ApMaterno {get; set;}
         public string Direccion {get; set;}
         public string Usuario {get; set;}
-        public DateTime Fecha {get; set;}
+        public DateTime FechaAct {get; set;}
     }
     public class InsertPersonasModel
     {
