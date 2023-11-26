@@ -59,7 +59,7 @@ namespace marcatel_api.Services
                 parametros.Add(new SqlParameter { ParameterName = "@pCosto", SqlDbType = SqlDbType.Decimal, Value = detalleMovimiento.Costo });
                 parametros.Add(new SqlParameter { ParameterName = "@pUsuarioActualiza",SqlDbType= SqlDbType.Int,Value= detalleMovimiento.UsuarioActualiza});
 
-                DataSet ds = dac.Fill("sp_InsertDetalleMovimiento", parametros);
+                DataSet ds = dac.Fill("sp_InsertDetalleMov", parametros);
                 if (ds.Tables[0].Rows.Count > 0)
                 {
                     foreach (DataRow row in ds.Tables[0].Rows)
