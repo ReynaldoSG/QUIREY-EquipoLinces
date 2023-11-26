@@ -12,13 +12,13 @@ namespace marcatel_api.Controllers
 {
    
     [Route("api/[controller]")]
-    public class ArticulosController: ControllerBase
+    public class ExistenciasController: ControllerBase
     {
-        private readonly ArticulosService _articulosService;
+        private readonly ExistenciasService _existenciasService;
 
-    public ArticulosController(ArticulosService articulosservice) 
+    public ExistenciasController(ExistenciasService existenciasservice) 
     {
-            _articulosService = articulosservice;
+            _existenciasService = existenciasservice;
     }
 
         
@@ -26,12 +26,12 @@ namespace marcatel_api.Controllers
         
 
         [HttpPost("Insert")]
-        public JsonResult InsertArticulo([FromBody] InsertArticulosModel articulo)
+        public JsonResult InsertExistencias([FromBody] InsertExistenciasModel existencia)
         {
             var objectResponse = Helper.GetStructResponse();
             try
             {
-                var CatClienteResponse = _articulosService.InsertArticulos(articulo);
+                var CatClienteResponse = _existenciasService.InsertExistencias(existencia);
                 
                 objectResponse.StatusCode = (int)HttpStatusCode.OK;
                 objectResponse.success = true;
@@ -56,25 +56,50 @@ namespace marcatel_api.Controllers
 
 
         //[Authorize(AuthenticationSchemes = "Bearer")]
-        [HttpGet("Get")] 
-        public IActionResult GetArticulos()
+        [HttpGet("Get")]
+        public IActionResult GetExistencias(GetExistenciasFiltroModel existencia)
         {
-            var articulo = _articulosService.GetArticulos();
-            return Ok(articulo);
+            var existencias = _existenciasService.GetExistencias(existencia);
+            return Ok(existencias);
         }
+        // public JsonResult GetTicket([FromBody] GetTicketsFiltroModel ticket)
+        // {
+        //     var objectResponse = Helper.GetStructResponse();
+        //     try
+        //     {
+        //         var CatClienteResponse = _ticketsService.GetTickets(ticket);
+                
+        //         objectResponse.StatusCode = (int)HttpStatusCode.OK;
+        //         objectResponse.success = true;
+        //         objectResponse.message = "Registros encontrados con exito";
 
-        
+        //         objectResponse.response = new
+        //         {
+        //             data = CatClienteResponse
+        //         };
+        //     }
+        //     catch (System.Exception ex)
+        //     {
+        //         Console.Write(ex.Message);
+        //         throw;
+        //     }
+
+
+        //     return new JsonResult(objectResponse);
+
+        // }
+
         [HttpPut("Update")]
-        public JsonResult UpdateArticulo([FromBody] UpdateArticulosModel articulo)
+        public JsonResult UpdateExistencia([FromBody] UpdateExistenciasModel existencia)
         {
             var objectResponse = Helper.GetStructResponse();
             try
             {
-                var CatClienteResponse = _articulosService.UpdateArticulos(articulo);
+                var CatClienteResponse = _existenciasService.UpdateExistencias(existencia);
                 
                 objectResponse.StatusCode = (int)HttpStatusCode.OK;
                 objectResponse.success = true;
-                objectResponse.message = "Información actualizada con éxito";
+                objectResponse.message = "Registro modificado con éxito";
 
                 objectResponse.response = new
                 {
@@ -93,12 +118,12 @@ namespace marcatel_api.Controllers
         }
 
         [HttpDelete("Delete")]
-        public JsonResult DeleteArticulo([FromBody] DeleteArticulosModel articulo)
+        public JsonResult DeleteExistencias([FromBody] DeleteExistenciasModel existencia)
         {
             var objectResponse = Helper.GetStructResponse();
             try
             {
-                var CatClienteResponse = _articulosService.DeleteArticulos(articulo);
+                var CatClienteResponse = _existenciasService.DeleteExistencias(existencia);
                 
                 objectResponse.StatusCode = (int)HttpStatusCode.OK;
                 objectResponse.success = true;
@@ -119,6 +144,8 @@ namespace marcatel_api.Controllers
             return new JsonResult(objectResponse);
 
         }
+
+        
 
 
         

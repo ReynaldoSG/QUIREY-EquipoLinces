@@ -12,13 +12,13 @@ namespace marcatel_api.Controllers
 {
    
     [Route("api/[controller]")]
-    public class ArticulosController: ControllerBase
+    public class ClientesController: ControllerBase
     {
-        private readonly ArticulosService _articulosService;
+        private readonly ClientesService _clientesService;
 
-    public ArticulosController(ArticulosService articulosservice) 
+    public ClientesController(ClientesService clientesservice) 
     {
-            _articulosService = articulosservice;
+            _clientesService = clientesservice;
     }
 
         
@@ -26,12 +26,12 @@ namespace marcatel_api.Controllers
         
 
         [HttpPost("Insert")]
-        public JsonResult InsertArticulo([FromBody] InsertArticulosModel articulo)
+        public JsonResult InsertClientes([FromBody] InsertClientesModel cliente)
         {
             var objectResponse = Helper.GetStructResponse();
             try
             {
-                var CatClienteResponse = _articulosService.InsertArticulos(articulo);
+                var CatClienteResponse = _clientesService.InsertClientes(cliente);
                 
                 objectResponse.StatusCode = (int)HttpStatusCode.OK;
                 objectResponse.success = true;
@@ -57,20 +57,20 @@ namespace marcatel_api.Controllers
 
         //[Authorize(AuthenticationSchemes = "Bearer")]
         [HttpGet("Get")] 
-        public IActionResult GetArticulos()
+        public IActionResult GetClientes()
         {
-            var articulo = _articulosService.GetArticulos();
-            return Ok(articulo);
+            var cliente = _clientesService.GetClientes();
+            return Ok(cliente);
         }
 
         
         [HttpPut("Update")]
-        public JsonResult UpdateArticulo([FromBody] UpdateArticulosModel articulo)
+        public JsonResult UpdateClientes([FromQuery] UpdateClientesModel cliente)
         {
             var objectResponse = Helper.GetStructResponse();
             try
             {
-                var CatClienteResponse = _articulosService.UpdateArticulos(articulo);
+                var CatClienteResponse = _clientesService.UpdateClientes(cliente);
                 
                 objectResponse.StatusCode = (int)HttpStatusCode.OK;
                 objectResponse.success = true;
@@ -93,12 +93,12 @@ namespace marcatel_api.Controllers
         }
 
         [HttpDelete("Delete")]
-        public JsonResult DeleteArticulo([FromBody] DeleteArticulosModel articulo)
+        public JsonResult DeleteClientes([FromQuery] DeleteClientesModel cliente)
         {
             var objectResponse = Helper.GetStructResponse();
             try
             {
-                var CatClienteResponse = _articulosService.DeleteArticulos(articulo);
+                var CatClienteResponse = _clientesService.DeleteClientes(cliente);
                 
                 objectResponse.StatusCode = (int)HttpStatusCode.OK;
                 objectResponse.success = true;

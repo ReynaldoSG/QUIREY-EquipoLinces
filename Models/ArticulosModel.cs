@@ -10,13 +10,15 @@ namespace marcatel_api.Models
     public string Costo{get;set;}
     public string Precio{get;set;}
     public string Usuario{get;set;}
-    public DateTime Fecha {get;set;}
+    public DateTime FechaReg {get;set;}
+    public DateTime FechaAct{get;set;}
 
 }
 
 public class InsertArticulosModel
 {
     public string Descripcion {get; set;}
+    public string Codigo {get;set;}
     public int UM {get; set;}
     public string Costo{get;set;}
     public string Precio{get;set;}
