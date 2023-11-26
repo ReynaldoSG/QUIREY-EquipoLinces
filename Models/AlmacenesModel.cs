@@ -7,7 +7,9 @@ namespace marcatel_api.Models
     public string Nombre { get; set; }
     public string Direccion { get; set; }
     public string Usuario { get; set; }
-    public DateTime Fecha { get; set; }
+    public DateTime FechaReg { get; set; }
+    public DateTime FechaAct { get; set; }
+
 }
 
 public class InsertAlmacenesModel
@@ -15,6 +17,7 @@ public class InsertAlmacenesModel
     public string Nombre { get; set; }
     public string Direccion { get; set; }
     public int Usuario { get; set; }
+
 }
 
 public class UpdateAlmacenesModel
