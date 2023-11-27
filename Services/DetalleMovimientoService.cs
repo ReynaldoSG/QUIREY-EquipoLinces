@@ -15,7 +15,7 @@ namespace marcatel_api.Services
         {
              connection = settings.ConnectionString;
         }
-                public List<GetDetalleMovimientoModel> GetDetalleMovimiento(GetDetalleMovimientoFiltroModel dm)
+                public List<GetDetalleMovimientoModel> GetDetalleMovimiento(GetDetalleMovimientoSearchModel dm)
                 {
                     ArrayList parametros = new ArrayList();
                     ConexionDataAccess dac = new ConexionDataAccess(connection);
@@ -31,6 +31,12 @@ namespace marcatel_api.Services
                                 lista.Add(new GetDetalleMovimientoModel
                                 {
                                     Id = int.Parse(row["Id"].ToString()),
+                                NombreMovimiento = row["NombreMovimiento"].ToString(),
+                                Cantidad = decimal.Parse(row["Cantidad"].ToString()),
+                                Costo = decimal.Parse(row["Costo"].ToString()),
+                                FechaActualiza = DateTime.Parse(row["FechaActualiza"].ToString()),
+                                Estatus = row["Estatus"].ToString(),
+                                UsuarioActualiza = row["UsuarioActualiza"].ToString()
                                 });
                             }
                         }
@@ -59,7 +65,7 @@ namespace marcatel_api.Services
                 parametros.Add(new SqlParameter { ParameterName = "@pCosto", SqlDbType = SqlDbType.Decimal, Value = detalleMovimiento.Costo });
                 parametros.Add(new SqlParameter { ParameterName = "@pUsuarioActualiza",SqlDbType= SqlDbType.Int,Value= detalleMovimiento.UsuarioActualiza});
 
-                DataSet ds = dac.Fill("sp_InsertDetalleMov", parametros);
+                DataSet ds = dac.Fill("sp_InsertDetalleMovimiento", parametros);
                 if (ds.Tables[0].Rows.Count > 0)
                 {
                     foreach (DataRow row in ds.Tables[0].Rows)

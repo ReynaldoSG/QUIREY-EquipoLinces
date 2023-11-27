@@ -12,27 +12,22 @@ namespace marcatel_api.Controllers
 {
    
     [Route("api/[controller]")]
-    public class DetalleTicketController: ControllerBase
+    public class EstadosController: ControllerBase
     {
-        private readonly DetalleTicketService _DetalleTicketService;
+        private readonly EstadosService _EstadosService;
 
-    public DetalleTicketController(DetalleTicketService detalleticketservice) 
+    public EstadosController(EstadosService EstadosService) 
     {
-            _DetalleTicketService = detalleticketservice;
+            _EstadosService = EstadosService;
 
     }
-
-        
-
-        
-
         [HttpPost("Insert")]
-        public JsonResult InsertDetalleTickets([FromBody] InsertDetalleTicketModel detalleticket)
+        public JsonResult InsertEstados([FromBody] InsertEstadosModel Estados)
         {
             var objectResponse = Helper.GetStructResponse();
             try
             {
-                var CatClienteResponse = _DetalleTicketService.InsertDetalleTicket(detalleticket);
+                var CatClienteResponse = _EstadosService.InsertEstados(Estados);
                 
                 objectResponse.StatusCode = (int)HttpStatusCode.OK;
                 objectResponse.success = true;
@@ -58,19 +53,19 @@ namespace marcatel_api.Controllers
 
         //[Authorize(AuthenticationSchemes = "Bearer")]
         [HttpGet("Get")] 
-        public IActionResult GetDetalleTicket(GetDetalleTicketSearchModel detalleticket)
+        public IActionResult GetEstados(GetEstadosSearchModel es)
         {
-            var articulo = _DetalleTicketService.GetDetalleTicket(detalleticket);
+            var articulo = _EstadosService.GetEstados(es);
             return Ok(articulo);
         }
 
         [HttpPut("Update")]
-        public JsonResult UpdateDetalleTicket([FromBody] UpdateDetalleTicketModel detalleticket)
+        public JsonResult UpdateEstados([FromBody] UpdateEstadosModel Estados)
         {
             var objectResponse = Helper.GetStructResponse();
             try
             {
-                var CatClienteResponse = _DetalleTicketService.UpdateDetalleTicket(detalleticket);
+                var CatClienteResponse = _EstadosService.UpdateEstados(Estados);
                 
                 objectResponse.StatusCode = (int)HttpStatusCode.OK;
                 objectResponse.success = true;
@@ -90,41 +85,6 @@ namespace marcatel_api.Controllers
 
             return new JsonResult(objectResponse);
 
-        }
-
-        [HttpDelete("Delete")]
-        public JsonResult DeleteDetalleTicket([FromBody] DeleteDetalleTicketModel detalleticket)
-        {
-            var objectResponse = Helper.GetStructResponse();
-            try
-            {
-                var CatClienteResponse = _DetalleTicketService.DeleteDetalleTicket(detalleticket);
-                
-                objectResponse.StatusCode = (int)HttpStatusCode.OK;
-                objectResponse.success = true;
-                objectResponse.message = "Registro eliminado con exito";
-
-                objectResponse.response = new
-                {
-                    data = CatClienteResponse
-                };
-            }
-            catch (System.Exception ex)
-            {
-                Console.Write(ex.Message);
-                throw;
-            }
-
-
-            return new JsonResult(objectResponse);
-
-        }
-
-
-        
-
-        
-
-        
+        }    
     }
 }
