@@ -26,7 +26,7 @@ namespace marcatel_api.Controllers
         
 
         [HttpPost("Insert")]
-        public JsonResult InsertPdersonas([FromBody] InsertPersonasModel personas)
+        public JsonResult InsertPersonas([FromBody] InsertPersonasModel personas)
         {
             var objectResponse = Helper.GetStructResponse();
             try
@@ -65,7 +65,7 @@ namespace marcatel_api.Controllers
 
         
         [HttpPut("Update")]
-        public JsonResult UpdatePersonas([FromQuery] UpdatePersonasModel personas)
+        public JsonResult UpdatePersonas([FromBody] UpdatePersonasModel personas)
         {
             var objectResponse = Helper.GetStructResponse();
             try

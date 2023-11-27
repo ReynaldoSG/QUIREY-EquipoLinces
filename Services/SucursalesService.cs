@@ -26,7 +26,7 @@ namespace marcatel_api.Services
             {
                 parametros.Add(new SqlParameter { ParameterName = "@pNombre", SqlDbType = SqlDbType.VarChar, Value = sucursal.Nombre });
                 parametros.Add(new SqlParameter { ParameterName = "@pUsuarioActualiza", SqlDbType = SqlDbType.VarChar, Value = sucursal.Usuario });
-                DataSet ds = dac.Fill("GABR.sp_InsertSucursales", parametros);
+                DataSet ds = dac.Fill("sp_InsertSucursales", parametros);
                 if (ds.Tables[0].Rows.Count > 0)
                 {
                     foreach (DataRow row in ds.Tables[0].Rows)
@@ -54,7 +54,7 @@ namespace marcatel_api.Services
             var lista = new List<GetSucursalesModel>();
             try
             {
-                DataSet ds = dac.Fill("GABR.sp_GetSucursales", parametros);
+                DataSet ds = dac.Fill("sp_GetSucursales", parametros);
                 if (ds.Tables[0].Rows.Count > 0)
                 {
                     foreach (DataRow row in ds.Tables[0].Rows)
@@ -64,8 +64,9 @@ namespace marcatel_api.Services
                             Id = int.Parse(row["Id"].ToString()),
                             Nombre = row["NombreSucursal"].ToString(),
                             Usuario = row["UsuarioActualiza"].ToString(),
-                            Fecha = DateTime.Parse(row["FechaRegistro"].ToString())
-                        });
+                            FechaAct = DateTime.Parse(row["FechaActualiza"].ToString()),
+                            FechaReg = DateTime.Parse(row["FechaRegistro"].ToString())
+});
                     }
                 }
                 return lista;
@@ -90,7 +91,7 @@ namespace marcatel_api.Services
                 parametros.Add(new SqlParameter { ParameterName = "@pId", SqlDbType = SqlDbType.VarChar, Value = sucursal.Id });
                 parametros.Add(new SqlParameter { ParameterName = "@pNombre", SqlDbType = SqlDbType.VarChar, Value = sucursal.Nombre });
                 parametros.Add(new SqlParameter { ParameterName = "@pUsuarioActualiza", SqlDbType = SqlDbType.VarChar, Value = sucursal.Usuario });
-                DataSet ds = dac.Fill("GABR.sp_UpdateSucursales", parametros);
+                DataSet ds = dac.Fill("sp_UpdateSucursales", parametros);
                 if (ds.Tables[0].Rows.Count > 0)
                 {
                     foreach (DataRow row in ds.Tables[0].Rows)
@@ -121,7 +122,7 @@ namespace marcatel_api.Services
             try
             {
                 parametros.Add(new SqlParameter { ParameterName = "@pId", SqlDbType = SqlDbType.Int, Value = sucursal.Id });
-                DataSet ds = dac.Fill("GABR.sp_DeleteSucursales", parametros);
+                DataSet ds = dac.Fill("sp_DeleteSucursales", parametros);
                 if (ds.Tables[0].Rows.Count > 0)
                 {
                     foreach (DataRow row in ds.Tables[0].Rows)
