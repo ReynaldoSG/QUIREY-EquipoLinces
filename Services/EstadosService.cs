@@ -86,8 +86,8 @@ namespace marcatel_api.Services
 
             try
             {
-                parametros.Add(new SqlParameter { ParameterName = "@pId", SqlDbType = SqlDbType.Int, Value = estados.Id });
-                parametros.Add(new SqlParameter { ParameterName = "@pNombreEstado", SqlDbType = SqlDbType.VarChar, Value = estados.NombreEstado });
+                parametros.Add(new SqlParameter { ParameterName = "@pId", SqlDbType = SqlDbType.Int, Value = Estados.Id });
+                parametros.Add(new SqlParameter { ParameterName = "@pNombreEstado", SqlDbType = SqlDbType.VarChar, Value = Estados.NombreEstado });
                 DataSet ds = dac.Fill("sp_UpdateEstados", parametros);
                 if (ds.Tables[0].Rows.Count > 0)
                 {
@@ -108,6 +108,4 @@ namespace marcatel_api.Services
                 return 0;
             }
         }
-        }
-    }
-}
+    }}
