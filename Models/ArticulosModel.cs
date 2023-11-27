@@ -6,7 +6,7 @@ namespace marcatel_api.Models
     public int Id {get; set;}
     public string Codigo {get; set;}
     public string Descripcion {get; set;}
-    public int UM {get; set;}
+    public string UM {get; set;}
     public string Costo{get;set;}
     public string Precio{get;set;}
     public string Usuario{get;set;}
