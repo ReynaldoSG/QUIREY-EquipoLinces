@@ -34,7 +34,7 @@ namespace marcatel_api.Services
                             Id = int.Parse(row["Id"].ToString()),
                             Codigo = row["Codigo"].ToString(),
                             Descripcion = row["Descripcion"].ToString(),
-                            UM = int.Parse(row["UnidadMedida"].ToString()),
+                            UM = row["UnidadMedida"].ToString(),
                             Costo = row["Costo"].ToString(),
                             Precio = row["Precio"].ToString(),
                             Usuario = row["UsuarioActualiza"].ToString(),
