@@ -68,6 +68,8 @@ namespace marcatel_api
             services.AddSingleton<VendedoresService>();
             services.AddSingleton<TiposMovService>();
             services.AddSingleton<ClientesService>();
+            services.AddSingleton<UsuariosService>();
+            services.AddSingleton<PersonasService>();
             services.AddSingleton<ExistenciasService>();
             services.AddCors();
             

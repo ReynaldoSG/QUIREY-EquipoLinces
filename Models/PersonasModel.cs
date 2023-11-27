@@ -10,6 +10,8 @@ namespace marcatel_api.Models
         public string Direccion {get; set;}
         public string Usuario {get; set;}
         public DateTime FechaAct {get; set;}
+        public DateTime FechaReg {get; set;}
+
     }
     public class InsertPersonasModel
     {
@@ -26,7 +28,7 @@ namespace marcatel_api.Models
         public string ApPaterno {get; set;}
         public string ApMaterno {get; set;}
         public string Direccion {get; set;}
-        public string Usuario {get; set;}
+        public int Usuario {get; set;}
     }
     public class DeletePersonasModel
     {
