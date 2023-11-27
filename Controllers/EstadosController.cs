@@ -53,9 +53,9 @@ namespace marcatel_api.Controllers
 
         //[Authorize(AuthenticationSchemes = "Bearer")]
         [HttpGet("Get")] 
-        public IActionResult GetEstados(GetEstadosSearchModel es)
+        public IActionResult GetEstados()
         {
-            var articulo = _EstadosService.GetEstados(es);
+            var articulo = _EstadosService.GetEstados();
             return Ok(articulo);
         }
 
