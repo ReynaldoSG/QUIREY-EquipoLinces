@@ -32,7 +32,7 @@ namespace marcatel_api.Services
                                 lista.Add(new GetEstadosModel
                                 {
                                     Id = int.Parse(row["Id"].ToString()),
-                                    NombreEstado = row["Codigo"].ToString()
+                                    NombreEstado = row["NombreEstado"].ToString()
                                 });
                             }
                         }
@@ -65,7 +65,7 @@ namespace marcatel_api.Services
                         lista.Add(new GetEstadosModel
                         {
                             Id = int.Parse(row["Id"].ToString()),
-                            NombreEstado = row["Codigo"].ToString()
+                            NombreEstado = row["NombreEstado"].ToString()
                         });
                     }
                 }
