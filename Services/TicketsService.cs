@@ -70,15 +70,11 @@ namespace marcatel_api.Services
                     {
                         lista.Add(new GetTicketsModel
                         {
-                            Sucursal = row["IdSucursal"].ToString(),
-                            Cliente = row["IdCliente"].ToString(),
-                            Vendedor = row["IdVendedor"].ToString(),
-                            Usuario = row["UsuarioActualiza"].ToString()
-
+                            Id = int.Parse(row["Id"].ToString())
                         });
                     }
                 }
-                return 1;
+                return lista[0].Id;
             }
             catch (Exception ex)
             {
