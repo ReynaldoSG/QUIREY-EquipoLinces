@@ -65,7 +65,7 @@ namespace marcatel_api.Controllers
 
         
         [HttpPut("Update")]
-        public JsonResult UpdateTiposMov([FromQuery] UpdateTiposMovModel tiposmov)
+        public JsonResult UpdateTiposMov([FromBody] UpdateTiposMovModel tiposmov)
         {
             var objectResponse = Helper.GetStructResponse();
             try
@@ -93,7 +93,7 @@ namespace marcatel_api.Controllers
         }
 
         [HttpDelete("Delete")]
-        public JsonResult DeleteTiposMov([FromQuery] DeleteTiposMovModel tiposmov)
+        public JsonResult DeleteTiposMov([FromBody] DeleteTiposMovModel tiposmov)
         {
             var objectResponse = Helper.GetStructResponse();
             try
