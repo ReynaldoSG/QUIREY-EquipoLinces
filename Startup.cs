@@ -73,6 +73,7 @@ namespace marcatel_api
             services.AddSingleton<UsuariosService>();
             services.AddSingleton<EstadosService>();
             services.AddSingleton<UMService>();
+            services.AddSingleton<RutasService>();
             services.AddCors();
             
 

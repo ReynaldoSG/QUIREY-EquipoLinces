@@ -33,10 +33,10 @@ namespace marcatel_api.Services
                         {
                             Id = int.Parse(row["Id"].ToString()),
                             Nombre = row["NombreMovimiento"].ToString(),
-                            Tipo = row["TipoMovimiento"].ToString(),
-                            Usuario = row["UsuarioActualiza"].ToString(),
-                            FechaAct = row["FechaActualiza"].ToString(),
-                            FechaReg =row["FechaRegistro"].ToString(),
+                            Tipo = int.Parse(row["TipoMovimiento"].ToString()),
+                            Usuario = int.Parse(row["UsuarioActualiza"].ToString()),
+                            FechaAct = DateTime.Parse(row["FechaActualiza"].ToString()),
+                            FechaReg = DateTime.Parse(row["FechaRegistro"].ToString()),
                         });
                     }
                 }
@@ -61,7 +61,7 @@ namespace marcatel_api.Services
             try
             {
                 parametros.Add(new SqlParameter{ParameterName = "@pNombreMov",SqlDbType= SqlDbType.VarChar,Value= tipomov.Nombre});
-                parametros.Add(new SqlParameter{ParameterName = "@pTipoMov",SqlDbType= SqlDbType.VarChar,Value= tipomov.Tipo});
+                parametros.Add(new SqlParameter{ParameterName = "@pTipoMov",SqlDbType= SqlDbType.Int,Value= tipomov.Tipo});
                 parametros.Add(new SqlParameter{ParameterName = "@pUsuarioActualiza",SqlDbType= SqlDbType.Int,Value= tipomov.Usuario});
                 DataSet ds = dac.Fill("sp_InsertTiposMov", parametros);
                 if (ds.Tables[0].Rows.Count > 0)
@@ -71,8 +71,8 @@ namespace marcatel_api.Services
                         lista.Add(new GetTiposMovModel
                         {
                             Nombre = row["NombreMovimiento"].ToString(),
-                            Tipo = row["TipoMovimiento"].ToString(),
-                            Usuario = row["UsuarioActualiza"].ToString()
+                            Tipo = int.Parse(row["TipoMovimiento"].ToString()),
+                            Usuario = int.Parse(row["UsuarioActualiza"].ToString())
                         });
                     }
                 }
@@ -93,9 +93,9 @@ namespace marcatel_api.Services
 
             try
             {
-                parametros.Add(new SqlParameter{ParameterName = "@pId",SqlDbType= SqlDbType.VarChar,Value= tipomov.Id});
+                parametros.Add(new SqlParameter{ParameterName = "@pId",SqlDbType= SqlDbType.Int,Value= tipomov.Id});
                 parametros.Add(new SqlParameter{ParameterName = "@pNombreMov",SqlDbType= SqlDbType.VarChar,Value= tipomov.Nombre});
-                parametros.Add(new SqlParameter{ParameterName = "@pTipoMov",SqlDbType= SqlDbType.VarChar,Value= tipomov.Tipo});
+                parametros.Add(new SqlParameter{ParameterName = "@pTipoMov",SqlDbType= SqlDbType.Int,Value= tipomov.Tipo});
                 parametros.Add(new SqlParameter{ParameterName = "@pUsuarioActualiza",SqlDbType= SqlDbType.Int,Value= tipomov.Usuario});
                 DataSet ds = dac.Fill("sp_UpdateTiposMov", parametros);
                 if (ds.Tables[0].Rows.Count > 0)
@@ -106,8 +106,8 @@ namespace marcatel_api.Services
                         {
                             Id = int.Parse(row["Id"].ToString()),
                             Nombre = row["NombreMovimiento"].ToString(),
-                            Tipo = row["TipoMovimiento"].ToString(),
-                            Usuario = row["UsuarioActualiza"].ToString()
+                            Tipo = int.Parse(row["TipoMovimiento"].ToString()),
+                            Usuario = int.Parse(row["UsuarioActualiza"].ToString())
                         });
                     }
                 }
