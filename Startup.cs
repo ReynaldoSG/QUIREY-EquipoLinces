@@ -66,12 +66,12 @@ namespace marcatel_api
             services.AddSingleton<MovInventarioService>();
             services.AddSingleton<SucursalesService>();
             services.AddSingleton<VendedoresService>();
-            services.AddSingleton<TiposMovService>();
-            services.AddSingleton<ClientesService>();
-            services.AddSingleton<ExistenciasService>();
             services.AddSingleton<PersonasService>();
             services.AddSingleton<UsuariosService>();
             services.AddSingleton<EstadosService>();
+            services.AddSingleton<TiposMovService>();
+            services.AddSingleton<ClientesService>();
+            services.AddSingleton<ExistenciasService>();
             services.AddSingleton<UMService>();
             services.AddSingleton<RutasService>();
             services.AddCors();

@@ -34,7 +34,7 @@ namespace marcatel_api.Services
                             Id = int.Parse(row["Id"].ToString()),
                             Nombre = row["NombreMovimiento"].ToString(),
                             Tipo = int.Parse(row["TipoMovimiento"].ToString()),
-                            Usuario = int.Parse(row["UsuarioActualiza"].ToString()),
+                            Usuario = row["UsuarioActualiza"].ToString(),
                             FechaAct = DateTime.Parse(row["FechaActualiza"].ToString()),
                             FechaReg = DateTime.Parse(row["FechaRegistro"].ToString()),
                         });
@@ -72,7 +72,7 @@ namespace marcatel_api.Services
                         {
                             Nombre = row["NombreMovimiento"].ToString(),
                             Tipo = int.Parse(row["TipoMovimiento"].ToString()),
-                            Usuario = int.Parse(row["UsuarioActualiza"].ToString())
+                            Usuario = row["UsuarioActualiza"].ToString()
                         });
                     }
                 }
@@ -107,7 +107,7 @@ namespace marcatel_api.Services
                             Id = int.Parse(row["Id"].ToString()),
                             Nombre = row["NombreMovimiento"].ToString(),
                             Tipo = int.Parse(row["TipoMovimiento"].ToString()),
-                            Usuario = int.Parse(row["UsuarioActualiza"].ToString())
+                            Usuario = row["UsuarioActualiza"].ToString()
                         });
                     }
                 }
