@@ -35,7 +35,8 @@ namespace marcatel_api.Services
                             Nombre = row["NombreMovimiento"].ToString(),
                             Tipo = row["TipoMovimiento"].ToString(),
                             Usuario = row["UsuarioActualiza"].ToString(),
-                            Fecha = DateTime.Parse(row["FechaActualiza"].ToString())
+                            FechaAct = row["FechaActualiza"].ToString(),
+                            FechaReg =row["FechaRegistro"].ToString(),
                         });
                     }
                 }
