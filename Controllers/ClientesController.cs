@@ -65,7 +65,7 @@ namespace marcatel_api.Controllers
 
         
         [HttpPut("Update")]
-        public JsonResult UpdateClientes([FromQuery] UpdateClientesModel cliente)
+        public JsonResult UpdateClientes([FromBody] UpdateClientesModel cliente)
         {
             var objectResponse = Helper.GetStructResponse();
             try
@@ -92,8 +92,8 @@ namespace marcatel_api.Controllers
 
         }
 
-        [HttpDelete("Delete")]
-        public JsonResult DeleteClientes([FromQuery] DeleteClientesModel cliente)
+        [HttpPut("Delete")]
+        public JsonResult DeleteClientes([FromBody] DeleteClientesModel cliente)
         {
             var objectResponse = Helper.GetStructResponse();
             try

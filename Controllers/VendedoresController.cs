@@ -84,7 +84,7 @@ namespace marcatel_api.Controllers
             return new JsonResult(objectResponse);
 
         }
-                [HttpDelete("Delete")]
+                [HttpPut("Delete")]
         public JsonResult DeleteVendedores([FromQuery] DeleteVendedoresModel vededores)
         {
             var objectResponse = Helper.GetStructResponse();
