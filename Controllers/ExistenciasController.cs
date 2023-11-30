@@ -117,7 +117,7 @@ namespace marcatel_api.Controllers
 
         }
 
-        [HttpDelete("Delete")]
+        [HttpPut("Delete")]
         public JsonResult DeleteExistencias([FromBody] DeleteExistenciasModel existencia)
         {
             var objectResponse = Helper.GetStructResponse();

@@ -93,7 +93,7 @@ namespace marcatel_api.Controllers
 
         }
 
-        [HttpDelete("Delete")]
+        [HttpPut("Delete")]
         public JsonResult DeleteSucursal([FromBody] DeleteSucursalesModel sucursal)
         {
             var objectResponse = Helper.GetStructResponse();
