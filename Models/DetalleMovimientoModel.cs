@@ -33,7 +33,6 @@ namespace marcatel_api.Models
         public string Codigo { get; set; }
         public decimal Cantidad { get; set; }
         public decimal Costo { get; set; }
-        public int Estatus { get; set; }
         public int UsuarioActualiza{get;set;}
     }
 
