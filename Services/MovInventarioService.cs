@@ -92,10 +92,9 @@ namespace marcatel_api.Services
             try
             {
                 parametros.Add(new SqlParameter { ParameterName = "@pId", SqlDbType = SqlDbType.Int, Value = MovInv.Id });
-                parametros.Add(new SqlParameter { ParameterName = "@pTipoMov", SqlDbType = SqlDbType.Int, Value = MovInv.IdTipoMov });
+                parametros.Add(new SqlParameter { ParameterName = "@pIdTipoMov", SqlDbType = SqlDbType.Int, Value = MovInv.IdTipoMov });
                 parametros.Add(new SqlParameter { ParameterName = "@pIdAlmacen", SqlDbType = SqlDbType.Int, Value = MovInv.IdAlmacen });
                 parametros.Add(new SqlParameter { ParameterName = "@pUsuarioActualiza", SqlDbType = SqlDbType.Int, Value = MovInv.IdAlmacen });
-                parametros.Add(new SqlParameter { ParameterName = "@pEstatus", SqlDbType = SqlDbType.Int, Value = MovInv.Estatus });
                 DataSet ds = dac.Fill("sp_UpdateMov_Inventario", parametros);
                 if (ds.Tables[0].Rows.Count > 0)
                 {
@@ -106,7 +105,6 @@ namespace marcatel_api.Services
                             Id = int.Parse(row["Id"].ToString()),
                             IdTipoMov = row["TipoMovimiento"].ToString(),
                             IdAlmacen = row["Almacen"].ToString(),
-                            Estatus = row["Estatus"].ToString(),
                             Usuario = row["UsuarioActualiza"].ToString(),
                         });
                     }

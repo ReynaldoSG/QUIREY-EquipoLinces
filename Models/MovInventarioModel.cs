@@ -38,8 +38,6 @@ namespace marcatel_api.Models
         public int IdAlmacen {get; set;}
 
         public int UsuarioActualiza {get; set;}
-
-        public int Estatus {get; set;}
     }
 
     public class DeleteMovimientoInvModel
