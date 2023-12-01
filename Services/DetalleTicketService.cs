@@ -106,9 +106,9 @@ namespace marcatel_api.Services
                 parametros.Add(new SqlParameter { ParameterName = "@pIdTicket", SqlDbType = SqlDbType.Int, Value = detalleticket.IdTicket});
                 parametros.Add(new SqlParameter { ParameterName = "@pCodigo", SqlDbType = SqlDbType.VarChar, Value = detalleticket.Codigo });
                 parametros.Add(new SqlParameter { ParameterName = "@pCantidad", SqlDbType = SqlDbType.Decimal, Value = detalleticket.Cantidad });
-                parametros.Add(new SqlParameter { ParameterName = "@pPrecioVenta", SqlDbType = SqlDbType.Decimal, Value = detalleticket.PrecioVenta });
+                parametros.Add(new SqlParameter { ParameterName = "@pPrecioventa", SqlDbType = SqlDbType.Decimal, Value = detalleticket.PrecioVenta });
                 parametros.Add(new SqlParameter { ParameterName = "@pEstatus", SqlDbType = SqlDbType.Int, Value = detalleticket.Estatus });
-                parametros.Add(new SqlParameter { ParameterName = "@pUsuario", SqlDbType = SqlDbType.Int, Value = detalleticket.Usuario });
+                parametros.Add(new SqlParameter { ParameterName = "@pUsuarioActualiza", SqlDbType = SqlDbType.Int, Value = detalleticket.Usuario });
                 DataSet ds = dac.Fill("sp_UpdateDetalleTicket", parametros);
                 if (ds.Tables[0].Rows.Count > 0)
                 {
