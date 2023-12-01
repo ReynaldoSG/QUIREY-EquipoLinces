@@ -5,7 +5,7 @@ namespace marcatel_api.Models
     {
         public int Id {get; set;}
         public string Nombre {get; set;}
-        public string Contraseña {get; set;}
+        public string Contrasena {get; set;}
         public string Rol {get; set;}
         public string Usuario {get; set;}
         public DateTime FechaAct {get; set;}
@@ -14,7 +14,7 @@ namespace marcatel_api.Models
     public class InsertUsuariosModel
     {
         public string Nombre {get; set;}
-        public string Contraseña {get; set;}
+        public string Contrasena {get; set;}
         public int Rol {get; set;}
         public int Usuario {get; set;}
     } 
@@ -22,7 +22,7 @@ namespace marcatel_api.Models
     {
         public int Id {get; set;}
         public string Nombre {get; set;}
-        public string Contraseña {get; set;}
+        public string Contrasena {get; set;}
         public int Rol {get; set;}
         public int Usuario {get; set;}
     }

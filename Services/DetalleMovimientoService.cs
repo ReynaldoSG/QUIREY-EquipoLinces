@@ -102,7 +102,6 @@ namespace marcatel_api.Services
                 parametros.Add(new SqlParameter { ParameterName = "@pCodigo", SqlDbType = SqlDbType.VarChar, Value = detalleMovimiento.Codigo });
                 parametros.Add(new SqlParameter { ParameterName = "@pCantidad", SqlDbType = SqlDbType.Int, Value = detalleMovimiento.Cantidad });
                 parametros.Add(new SqlParameter { ParameterName = "@pCosto", SqlDbType = SqlDbType.Decimal, Value = detalleMovimiento.Costo });
-                parametros.Add(new SqlParameter { ParameterName = "@pEstatus", SqlDbType = SqlDbType.Int, Value = detalleMovimiento.Estatus });
                 parametros.Add(new SqlParameter { ParameterName = "@pUsuarioActualiza", SqlDbType = SqlDbType.Int, Value = detalleMovimiento.UsuarioActualiza });
                 DataSet ds = dac.Fill("sp_UpdateDetalleMovimiento", parametros);
                 if (ds.Tables[0].Rows.Count > 0)
@@ -116,7 +115,6 @@ namespace marcatel_api.Services
                             Cantidad = decimal.Parse(row["Cantidad"].ToString()),
                             Costo = decimal.Parse(row["Costo"].ToString()),
                             FechaActualiza = DateTime.Parse(row["FechaActualiza"].ToString()),
-                            Estatus = row["Estatus"].ToString(),
                             UsuarioActualiza = row["UsuarioActualiza"].ToString()
                         });
                     }
