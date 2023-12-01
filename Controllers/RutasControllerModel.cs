@@ -65,7 +65,7 @@ namespace marcatel_api.Controllers
 
         
         [HttpPut("Update")]
-        public JsonResult UpdateRutas([FromQuery] UpdateRutasModel rutas)
+        public JsonResult UpdateRutas([FromBody] UpdateRutasModel rutas)
         {
             var objectResponse = Helper.GetStructResponse();
             try
