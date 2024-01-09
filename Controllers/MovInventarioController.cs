@@ -88,7 +88,7 @@ namespace marcatel_api.Controllers
         }
 
         
-        [HttpPut("Delete")]
+        [HttpPost("Delete")]
         public JsonResult DeleteMovInventario([FromBody] DeleteMovimientoInvModel MovimientoInv)
         {
             var objectResponse = Helper.GetStructResponse();

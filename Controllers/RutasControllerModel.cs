@@ -94,7 +94,7 @@ namespace marcatel_api.Controllers
         }
 
         [HttpPut("Delete")]
-        public JsonResult DeleteRutas([FromQuery] DeleteRutasModel rutas)
+        public JsonResult DeleteRutas([FromBody] DeleteRutasModel rutas)
         {
             var objectResponse = Helper.GetStructResponse();
             try

@@ -86,6 +86,7 @@ namespace marcatel_api.Services
 
             try
             {
+                parametros.Add(new SqlParameter { ParameterName = "@pId", SqlDbType = SqlDbType.Int, Value = UpdateRutas.Id });
                 parametros.Add(new SqlParameter { ParameterName = "@pNombre", SqlDbType = SqlDbType.VarChar, Value = UpdateRutas.Nombre });
                 parametros.Add(new SqlParameter { ParameterName = "@pUsuario", SqlDbType = SqlDbType.Int, Value = UpdateRutas.Usuario });
                 DataSet ds = dac.Fill("sp_UpdateRutas", parametros);
