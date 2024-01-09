@@ -56,7 +56,7 @@ namespace marcatel_api.Controllers
 
 
         //[Authorize(AuthenticationSchemes = "Bearer")]
-        [HttpPost("Get")]
+        [HttpGet("Get")]
         public IActionResult GetExistencias(GetExistenciasFiltroModel existencia)
         {
             var existencias = _existenciasService.GetExistencias(existencia);
@@ -117,7 +117,7 @@ namespace marcatel_api.Controllers
 
         }
 
-        [HttpPost("Delete")]
+        [HttpPut("Delete")]
         public JsonResult DeleteExistencias([FromBody] DeleteExistenciasModel existencia)
         {
             var objectResponse = Helper.GetStructResponse();

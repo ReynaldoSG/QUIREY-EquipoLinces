@@ -57,7 +57,7 @@ namespace marcatel_api.Controllers
 
 
         //[Authorize(AuthenticationSchemes = "Bearer")]
-        [HttpPost("Get")] 
+        [HttpGet("Get")] 
         public IActionResult GetDetalleTicket(GetDetalleTicketSearchModel detalleticket)
         {
             var articulo = _DetalleTicketService.GetDetalleTicket(detalleticket);
@@ -92,7 +92,7 @@ namespace marcatel_api.Controllers
 
         }
 
-        [HttpPost("Delete")]
+        [HttpPut("Delete")]
         public JsonResult DeleteDetalleTicket([FromBody] DeleteDetalleTicketModel detalleticket)
         {
             var objectResponse = Helper.GetStructResponse();

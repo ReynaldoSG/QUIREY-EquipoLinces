@@ -52,7 +52,7 @@ namespace marcatel_api.Controllers
 
 
         //[Authorize(AuthenticationSchemes = "Bearer")]
-        [HttpGet("Get")] 
+        [HttpPut("Get")] 
         public IActionResult GetDetalleMovimiento(GetDetalleMovimientoSearchModel dm)
         {
             var articulo = _DetalleMovimientoService.GetDetalleMovimiento(dm);
@@ -87,7 +87,7 @@ namespace marcatel_api.Controllers
 
         }
 
-        [HttpDelete("Delete")]
+        [HttpPut("Delete")]
         public JsonResult DeleteDetalleMovimiento([FromBody] DeleteDetalleMovimientoModel detalleMovimiento)
         {
             var objectResponse = Helper.GetStructResponse();
