@@ -78,6 +78,7 @@ namespace marcatel_api
             services.AddSingleton<CatModuloService>();
             services.AddSingleton<EmpleadosService>();
             services.AddSingleton<PuestosService>();
+            services.AddSingleton<ModUsuarioService>();
             services.AddCors();
 
 
