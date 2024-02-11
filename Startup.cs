@@ -29,7 +29,7 @@ namespace marcatel_api
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
-      
+
         }
 
         public IConfiguration Configuration { get; }
@@ -37,7 +37,7 @@ namespace marcatel_api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            
+
             var key = "BusinessCaseMarcatelApiV2Tibs!*";
 
             // requires using Microsoft.Extensions.Options
@@ -45,7 +45,7 @@ namespace marcatel_api
             Configuration.GetSection(nameof(MarcatelDatabaseSetting)));
 
             //services.Configure<EmailstoreSettings>(
-                //Configuration.GetSection(nameof(EmailstoreSettings)));
+            //Configuration.GetSection(nameof(EmailstoreSettings)));
 
             // Get KudotibsDatabaseSettings
             services.AddSingleton<IMarcatelDatabaseSetting>(sp =>
@@ -75,8 +75,9 @@ namespace marcatel_api
             services.AddSingleton<UMService>();
             services.AddSingleton<RutasService>();
             services.AddSingleton<ModuloService>();            
+            services.AddSingleton<CatModuloService>();
             services.AddCors();
-            
+
 
             services.AddControllers()
                 .AddNewtonsoftJson(options => options.UseMemberCasing())
@@ -144,7 +145,7 @@ namespace marcatel_api
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            
+
             // Enable middleware to serve generated swagger as a JSON endpoint.
             app.UseSwagger();
 
@@ -172,13 +173,13 @@ namespace marcatel_api
                 .AllowAnyHeader()
                 .SetIsOriginAllowed(origin => true) // allow any origin
                 .AllowCredentials()); // allow credentials
-                
+
             app.UseAuthentication();
 
             app.UseAuthorization();
 
 
-            
+
 
             app.UseEndpoints(endpoints =>
             {
