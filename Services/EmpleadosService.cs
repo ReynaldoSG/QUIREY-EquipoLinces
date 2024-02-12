@@ -37,7 +37,7 @@ namespace marcatel_api.Services
                                     Persona = row["Persona"].ToString(),
                                     Sucursal = row["Sucursal"].ToString(),
                                     Puesto = row["Puesto"].ToString(),
-                                    UsuarioActualiza = row["UsuarioActualiza"].ToString(),
+                                    usuarioActualiza = row["UsuarioActualiza"].ToString(),
                                     fechaRegistro = DateTime.Parse(row["fechaRegistro"].ToString()),
                                     fechaActualiza = DateTime.Parse(row["fechaActualiza"].ToString())
                                     
@@ -80,7 +80,7 @@ namespace marcatel_api.Services
                                   Puesto = row["Puesto"].ToString(),
                                   fechaRegistro = DateTime.Parse(row["fechaRegistro"].ToString()),
                                   fechaActualiza = DateTime.Parse(row["fechaActualiza"].ToString()),
-                                  UsuarioActualiza = row["UsuarioActualiza"].ToString()
+                                  usuarioActualiza = row["UsuarioActualiza"].ToString()
                                 });
                     }
                 }
@@ -118,7 +118,7 @@ namespace marcatel_api.Services
                           Puesto = row["Puesto"].ToString(),
                           fechaRegistro = DateTime.Parse(row["fechaRegistro"].ToString()),
                           fechaActualiza = DateTime.Parse(row["fechaActualiza"].ToString()),
-                          UsuarioActualiza = row["UsuarioActualiza"].ToString()
+                          usuarioActualiza = row["UsuarioActualiza"].ToString()
 
                         });
                     }
