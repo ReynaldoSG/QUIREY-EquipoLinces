@@ -74,6 +74,7 @@ namespace marcatel_api
             services.AddSingleton<ExistenciasService>();
             services.AddSingleton<UMService>();
             services.AddSingleton<RutasService>();
+            services.AddSingleton<DetallePerfilService>();
             services.AddCors();
             
 
