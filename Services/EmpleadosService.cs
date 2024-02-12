@@ -37,7 +37,7 @@ namespace marcatel_api.Services
                                     Persona = row["Persona"].ToString(),
                                     Sucursal = row["Sucursal"].ToString(),
                                     Puesto = row["Puesto"].ToString(),
-                                    usuarioActualiza = row["UsuarioActualiza"].ToString(),
+                                    usuarioActualiza = row["usuarioActualiza"].ToString(),
                                     fechaRegistro = DateTime.Parse(row["fechaRegistro"].ToString()),
                                     fechaActualiza = DateTime.Parse(row["fechaActualiza"].ToString())
                                     

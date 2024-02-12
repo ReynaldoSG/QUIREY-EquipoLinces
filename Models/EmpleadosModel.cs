@@ -7,9 +7,11 @@ namespace marcatel_api.Models
     public string Persona {get; set;}
     public string Sucursal {get; set;}
     public string Puesto {get; set;}
+
+     public string usuarioActualiza{get; set;}
     public DateTime fechaRegistro {get; set;}
     public DateTime fechaActualiza{get; set;}
-    public string usuarioActualiza{get; set;}
+   
   }
 
   public class InsertEmpleadosModel
