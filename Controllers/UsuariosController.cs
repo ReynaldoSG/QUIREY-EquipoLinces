@@ -128,6 +128,16 @@ namespace marcatel_api.Controllers
             {
                 var CatClienteResponse = _UsuarioService.GetLogin(usuarios);
 
+                if (CatClienteResponse.Count < 1)
+                {
+                    objectResponse.StatusCode = (int)HttpStatusCode.OK;
+                    objectResponse.success = false;
+                    objectResponse.message = "Usuario o contrasena incorrectos";
+
+                    objectResponse.response = null;
+                    return new JsonResult(objectResponse);
+                }
+
                 objectResponse.StatusCode = (int)HttpStatusCode.OK;
                 objectResponse.success = true;
                 objectResponse.message = "Registro Obtenido con exito";

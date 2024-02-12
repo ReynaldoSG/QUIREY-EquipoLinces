@@ -170,7 +170,9 @@ namespace marcatel_api.Services
                     {
                         lista.Add(new GetLoginUserModel
                         {
-                            Nombre = row["Nombre"].ToString()
+                            Id = int.Parse(row["Id"].ToString()),
+                            Perfil = row["Perfil"].ToString(),
+                            Nombre = row["Nombre"].ToString(),
                         });
                     }
 

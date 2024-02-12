@@ -14,6 +14,7 @@ namespace marcatel_api.Models
     public class GetLoginUserModel
     {
         public int Id { get; set; }
+        public string Perfil { get; set; }
         public string Nombre { get; set; }
         public string Contrasena { get; set; }
     }
