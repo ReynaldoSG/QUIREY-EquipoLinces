@@ -15,14 +15,13 @@ namespace marcatel_api.Services
         {
              connection = settings.ConnectionString;
         }
-                public List<GetDetallePerfilModel> GetDetallePerfil(GetDetallePerfilSearchModel dm)
+                public List<GetDetallePerfilModel> GetDetallePerfil()
                 {
                     ArrayList parametros = new ArrayList();
                     ConexionDataAccess dac = new ConexionDataAccess(connection);
                     var lista = new List<GetDetallePerfilModel>();
                     try
                     {
-                        parametros.Add(new SqlParameter { ParameterName = "@pId", SqlDbType = SqlDbType.Int, Value = dm.Id });
                         DataSet ds = dac.Fill("sp_GetDetallePerfil", parametros);
                         if (ds.Tables[0].Rows.Count > 0)
                         {
@@ -37,7 +36,7 @@ namespace marcatel_api.Services
                                     fechaRegistro = DateTime.Parse(row["fechaRegistro"].ToString()),
                                     fechaActualiza = DateTime.Parse(row["fechaActualiza"].ToString()),
                                     Estatus = row["Estatus"].ToString(),
-                                    UsuarioActualiza = row["UsuarioActualiza"].ToString()
+                                    UsuarioActualiza = row["Usuario Actualiza"].ToString()
                                 });
                             }
                         }
