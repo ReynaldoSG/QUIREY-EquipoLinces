@@ -61,7 +61,7 @@ namespace marcatel_api.Services
                     {
                         lista.Add(new GetModUserModel
                         {
-                            Id = int.Parse(row["ID"].ToString()),
+                            Id = int.Parse(row["Id"].ToString()),
                             Modulo = row["Modulo"].ToString(),
                             Usuario = row["Usuario"].ToString(),
                             FechaRegistro = DateTime.Parse(row["FechaRegistro"].ToString()),
