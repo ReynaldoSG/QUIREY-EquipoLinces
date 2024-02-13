@@ -52,7 +52,7 @@ namespace marcatel_api.Controllers
 
 
         //[Authorize(AuthenticationSchemes = "Bearer")]
-        [HttpPut("Get")] 
+        [HttpGet("Get")] 
         public IActionResult GetDetallePerfil()
         {
             var articulo = _DetallePerfilService.GetDetallePerfil();
