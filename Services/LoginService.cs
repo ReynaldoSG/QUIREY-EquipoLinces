@@ -46,31 +46,6 @@ namespace marcatel_api.Services
             }
         }
 
-        public GetCatPerfil GetCatPerfil(int id)
-        {
-            GetCatPerfil usuario = new GetCatPerfil();
-            ConexionDataAccess dac = new ConexionDataAccess(connection);
-            try
-            {
-                ArrayList parametros = new ArrayList();
-                parametros.Add(new SqlParameter { ParameterName = "@pId", SqlDbType = SqlDbType.VarChar, Value = id });
-                DataSet ds = dac.Fill("sp_GetCategoriaConPerfil", parametros);
-                if (ds.Tables[0].Rows.Count > 0)
-                {
-                    foreach (DataRow row in ds.Tables[0].Rows)
-                    {
-                        usuario.Id = int.Parse(row["Id"].ToString());
-                        usuario.Categoria = row["Categoria"].ToString();
-                    
-                    }
-                }
-                return usuario;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
-
+        
     }
 }
