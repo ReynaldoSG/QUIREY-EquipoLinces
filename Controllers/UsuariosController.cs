@@ -10,20 +10,20 @@ using marcatel_api.Helpers;
 
 namespace marcatel_api.Controllers
 {
-   
+
     [Route("api/[controller]")]
-    public class UsuariosController: ControllerBase
+    public class UsuariosController : ControllerBase
     {
         private readonly UsuariosService _UsuarioService;
 
-    public UsuariosController(UsuariosService usuariosService) 
-    {
+        public UsuariosController(UsuariosService usuariosService)
+        {
             _UsuarioService = usuariosService;
-    }
+        }
 
-        
 
-        
+
+
 
         [HttpPost("Insert")]
         public JsonResult InsertPdersonas([FromBody] InsertUsuariosModel usuarios)
@@ -32,7 +32,7 @@ namespace marcatel_api.Controllers
             try
             {
                 var CatClienteResponse = _UsuarioService.InsertUsuarios(usuarios);
-                
+
                 objectResponse.StatusCode = (int)HttpStatusCode.OK;
                 objectResponse.success = true;
                 objectResponse.message = "Registro insertado con exito";
@@ -56,14 +56,14 @@ namespace marcatel_api.Controllers
 
 
         //[Authorize(AuthenticationSchemes = "Bearer")]
-        [HttpGet("Get")] 
+        [HttpGet("Get")]
         public IActionResult GetUsuario()
         {
             var usuarios = _UsuarioService.GetUsuarios();
             return Ok(usuarios);
         }
 
-        
+
         [HttpPut("Update")]
         public JsonResult UpdatePersonas([FromBody] UpdateUsuariosModel usuarios)
         {
@@ -71,7 +71,7 @@ namespace marcatel_api.Controllers
             try
             {
                 var CatClienteResponse = _UsuarioService.UpdateUsuarios(usuarios);
-                
+
                 objectResponse.StatusCode = (int)HttpStatusCode.OK;
                 objectResponse.success = true;
                 objectResponse.message = "Información actualizada con éxito";
@@ -99,7 +99,7 @@ namespace marcatel_api.Controllers
             try
             {
                 var CatClienteResponse = _UsuarioService.DeleteUsuarios(usuarios);
-                
+
                 objectResponse.StatusCode = (int)HttpStatusCode.OK;
                 objectResponse.success = true;
                 objectResponse.message = "Información eliminada con éxito";
@@ -120,11 +120,47 @@ namespace marcatel_api.Controllers
 
         }
 
+        [HttpPost("GetLogin")]
+        public JsonResult GetLogin([FromBody] GetLoginUserModel usuarios)
+        {
+            var objectResponse = Helper.GetStructResponse();
+            try
+            {
+                var CatClienteResponse = _UsuarioService.GetLogin(usuarios);
 
-        
+                if (CatClienteResponse.Count < 1)
+                {
+                    objectResponse.StatusCode = (int)HttpStatusCode.OK;
+                    objectResponse.success = false;
+                    objectResponse.message = "Usuario o contrasena incorrectos";
 
-        
+                    objectResponse.response = null;
+                    return new JsonResult(objectResponse);
+                }
 
-        
+                objectResponse.StatusCode = (int)HttpStatusCode.OK;
+                objectResponse.success = true;
+                objectResponse.message = "Registro Obtenido con exito";
+
+                objectResponse.response = new
+                {
+                    data = CatClienteResponse
+                };
+            }
+            catch (System.Exception ex)
+            {
+                Console.Write(ex.Message);
+                throw;
+            }
+
+
+            return new JsonResult(objectResponse);
+
+        }
+
+
+
+
+
     }
 }
