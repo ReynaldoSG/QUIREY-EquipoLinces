@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using marcatel_api.DataContext;
@@ -15,9 +16,23 @@ namespace marcatel_api.Services
              connection = settings.ConnectionString;
         }
 
-        public GetCatPerfil GetCatPerfil(int perfil)
+        public List<CategoriasModulos> ListaModulosPerfil(int idPerfil){
+            var categorias = this.GetCatPerfil(idPerfil);
+            List<CategoriasModulos> Modulos = new List<CategoriasModulos>();
+            foreach (var categoria in categorias){
+                var modulos = this.GetModCat(categoria.Id);
+                Modulos.Add(new CategoriasModulos{
+                    Categoria = categoria,
+                    Modulos = modulos
+                });
+            }
+            return Modulos;
+
+        }
+
+        public List<GetCatPerfil> GetCatPerfil(int perfil)
         {
-            GetCatPerfil usuario = new GetCatPerfil();
+            List<GetCatPerfil> usuario = new List<GetCatPerfil>();
             ConexionDataAccess dac = new ConexionDataAccess(connection);
             try
             {
@@ -28,8 +43,11 @@ namespace marcatel_api.Services
                 {
                     foreach (DataRow row in ds.Tables[0].Rows)
                     {
-                        usuario.Id = int.Parse(row["Id"].ToString());
-                        usuario.Categoria = row["Categoria"].ToString();
+                        
+                        usuario.Add(new GetCatPerfil{
+                           Id = int.Parse(row["Id"].ToString()),
+                           Categoria = row["Categoria"].ToString()
+                        });
                     
                     }
                 }
@@ -41,9 +59,9 @@ namespace marcatel_api.Services
             }
         }
 
-        public GetModCat GetModCat(int categoria)
+        public List<GetModCat> GetModCat(int categoria)
         {
-            GetModCat usuario = new GetModCat();
+            List<GetModCat> usuario = new List<GetModCat>();
             ConexionDataAccess dac = new ConexionDataAccess(connection);
             try
             {
@@ -54,11 +72,13 @@ namespace marcatel_api.Services
                 {
                     foreach (DataRow row in ds.Tables[0].Rows)
                     {
-                        usuario.Id = int.Parse(row["Id"].ToString());
-                        usuario.Modulo = row["Modulo"].ToString();
-                        usuario.Categoria = row["Categoria"].ToString();
+                       usuario.Add(new GetModCat{
+                        Id = int.Parse(row["Id"].ToString()),
+                        Modulo = row["Modulo"].ToString(),
+                        Categoria = row["Categoria"].ToString()
+                       });
                     
-                    }
+                    };
                 }
                 return usuario;
             }

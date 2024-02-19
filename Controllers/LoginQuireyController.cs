@@ -27,7 +27,7 @@ namespace marcatel_api.Controllers
             var objectResponse = Helper.GetStructResponse();
             try
             {
-                var CatClienteResponse = _LoginQuireyService.GetCatPerfil(LoginQuirey.IdPerfil);
+                var CatClienteResponse = _LoginQuireyService.ListaModulosPerfil(LoginQuirey.IdPerfil);
                 
                 objectResponse.StatusCode = (int)HttpStatusCode.OK;
                 objectResponse.success = true;
