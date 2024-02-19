@@ -3,8 +3,7 @@ namespace marcatel_api.Models
 {
     public class GetModUserModel
     {
-        public int Id { get; set; }
-
+        public int ID { get; set; }
         public string Modulo { get; set; }
         public string Usuario{get;set;}
         public DateTime FechaRegistro { get; set; }

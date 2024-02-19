@@ -6,7 +6,7 @@ namespace marcatel_api.Models
         public int Id { get; set; }
         public string nombreModulo { get; set; }
         public string Rol { get; set; }
-        public int acceso { get; set; }
+        public string Acceso { get; set; }
         public DateTime fechaRegistro {get;set;}
         public DateTime fechaActualiza {get;set;}
         public string Estatus {get;set;}
