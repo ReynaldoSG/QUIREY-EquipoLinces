@@ -1,0 +1,5 @@
+
+*.cache
+*.props
+bin/
+obj/
