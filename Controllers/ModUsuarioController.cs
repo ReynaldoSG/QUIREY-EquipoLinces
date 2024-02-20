@@ -90,7 +90,7 @@ namespace marcatel_api.Controllers
             }
         }
 
-        [HttpDelete("Delete")]
+        [HttpPut("Delete")]
         public IActionResult DeleteModUser([FromBody] DeleteModUserModel modUser)
         {
             try
