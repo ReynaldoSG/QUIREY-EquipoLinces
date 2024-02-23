@@ -81,6 +81,7 @@ namespace marcatel_api
             services.AddSingleton<ModUsuarioService>();
             services.AddSingleton<DetallePerfilService>();
             services.AddSingleton<LoginQuireyService>();
+            services.AddSingleton<RolesService>();
             services.AddCors();
 
 
