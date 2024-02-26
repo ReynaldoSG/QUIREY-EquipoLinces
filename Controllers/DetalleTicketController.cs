@@ -10,21 +10,21 @@ using marcatel_api.Helpers;
 
 namespace marcatel_api.Controllers
 {
-   
+
     [Route("api/[controller]")]
-    public class DetalleTicketController: ControllerBase
+    public class DetalleTicketController : ControllerBase
     {
         private readonly DetalleTicketService _DetalleTicketService;
 
-    public DetalleTicketController(DetalleTicketService detalleticketservice) 
-    {
+        public DetalleTicketController(DetalleTicketService detalleticketservice)
+        {
             _DetalleTicketService = detalleticketservice;
 
-    }
+        }
 
-        
 
-        
+
+
 
         [HttpPost("Insert")]
         public JsonResult InsertDetalleTickets([FromBody] InsertDetalleTicketModel detalleticket)
@@ -33,7 +33,7 @@ namespace marcatel_api.Controllers
             try
             {
                 var CatClienteResponse = _DetalleTicketService.InsertDetalleTicket(detalleticket);
-                
+
                 objectResponse.StatusCode = (int)HttpStatusCode.OK;
                 objectResponse.success = true;
                 objectResponse.message = "Registro insertado con exito";
@@ -57,7 +57,7 @@ namespace marcatel_api.Controllers
 
 
         //[Authorize(AuthenticationSchemes = "Bearer")]
-        [HttpPost("Get")] 
+        [HttpGet("Get")]
         public IActionResult GetDetalleTicket(GetDetalleTicketSearchModel detalleticket)
         {
             var articulo = _DetalleTicketService.GetDetalleTicket(detalleticket);
@@ -71,7 +71,7 @@ namespace marcatel_api.Controllers
             try
             {
                 var CatClienteResponse = _DetalleTicketService.UpdateDetalleTicket(detalleticket);
-                
+
                 objectResponse.StatusCode = (int)HttpStatusCode.OK;
                 objectResponse.success = true;
                 objectResponse.message = "Registro actualizado con exito";
@@ -92,14 +92,14 @@ namespace marcatel_api.Controllers
 
         }
 
-        [HttpPost("Delete")]
+        [HttpPut("Delete")]
         public JsonResult DeleteDetalleTicket([FromBody] DeleteDetalleTicketModel detalleticket)
         {
             var objectResponse = Helper.GetStructResponse();
             try
             {
                 var CatClienteResponse = _DetalleTicketService.DeleteDetalleTicket(detalleticket);
-                
+
                 objectResponse.StatusCode = (int)HttpStatusCode.OK;
                 objectResponse.success = true;
                 objectResponse.message = "Registro eliminado con exito";
@@ -121,10 +121,10 @@ namespace marcatel_api.Controllers
         }
 
 
-        
 
-        
 
-        
+
+
+
     }
 }
