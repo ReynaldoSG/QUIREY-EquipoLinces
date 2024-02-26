@@ -10,51 +10,51 @@ namespace marcatel_api.Services
 {
     public class DetalleTicketService
     {
-        private  string connection;
+        private string connection;
         public DetalleTicketService(IMarcatelDatabaseSetting settings)
         {
-             connection = settings.ConnectionString;
+            connection = settings.ConnectionString;
         }
 
 
-                public List<GetDetalleTicketModel> GetDetalleTicket(GetDetalleTicketSearchModel detalleticket)
-                {
-                    ArrayList parametros = new ArrayList();
-                    ConexionDataAccess dac = new ConexionDataAccess(connection);
-                    var lista = new List<GetDetalleTicketModel>();
-                    try
-                    {
-                        parametros.Add(new SqlParameter { ParameterName = "@pIdTicket", SqlDbType = SqlDbType.Int, Value = detalleticket.idTicket });
+        public List<GetDetalleTicketModel> GetDetalleTicket(GetDetalleTicketSearchModel detalleticket)
+        {
+            ArrayList parametros = new ArrayList();
+            ConexionDataAccess dac = new ConexionDataAccess(connection);
+            var lista = new List<GetDetalleTicketModel>();
+            try
+            {
+                parametros.Add(new SqlParameter { ParameterName = "@pIdTicket", SqlDbType = SqlDbType.Int, Value = detalleticket.idTicket });
 
-                        DataSet ds = dac.Fill("sp_GetDetalleTicket", parametros);
-                        if (ds.Tables[0].Rows.Count > 0)
-                        {
-                            foreach (DataRow row in ds.Tables[0].Rows)
-                            {
-                                lista.Add(new GetDetalleTicketModel
-                                {
-                                    Id = int.Parse(row["Id"].ToString()),
-                                    IdTicket = int.Parse(row["IdTicket"].ToString()),
-                                    Codigo = row["Codigo"].ToString(),
-                                   Articulo = row["Descripcion_Articulo"].ToString(),
-                                    Cantidad = decimal.Parse(row["Cantidad"].ToString()),
-                                    PrecioVenta = decimal.Parse(row["PrecioVenta"].ToString()),
-                                    Total = decimal.Parse(row["Total"].ToString()),
-                                    Estatus = row["Estatus"].ToString(),
-                                    Usuario = row["UsuarioActualiza"].ToString()
-                                });
-                            }
-                        }
-                        return lista;
-                        
-                    }
-                    catch (Exception ex)
+                DataSet ds = dac.Fill("sp_GetDetalleTicket", parametros);
+                if (ds.Tables[0].Rows.Count > 0)
+                {
+                    foreach (DataRow row in ds.Tables[0].Rows)
                     {
-                        throw ex;
+                        lista.Add(new GetDetalleTicketModel
+                        {
+                            Id = int.Parse(row["Id"].ToString()),
+                            IdTicket = int.Parse(row["IdTicket"].ToString()),
+                            Codigo = row["Codigo"].ToString(),
+                            Articulo = row["Descripcion_Articulo"].ToString(),
+                            Cantidad = decimal.Parse(row["Cantidad"].ToString()),
+                            PrecioVenta = decimal.Parse(row["PrecioVenta"].ToString()),
+                            Total = decimal.Parse(row["Total"].ToString()),
+                            Estatus = row["Estatus"].ToString(),
+                            Usuario = row["UsuarioActualiza"].ToString()
+                        });
                     }
-                    
-                    
                 }
+                return lista;
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+
+        }
 
         public int InsertDetalleTicket(InsertDetalleTicketModel detalleticket)
         {
@@ -68,7 +68,7 @@ namespace marcatel_api.Services
                 parametros.Add(new SqlParameter { ParameterName = "@pCodigo", SqlDbType = SqlDbType.VarChar, Value = detalleticket.Codigo });
                 parametros.Add(new SqlParameter { ParameterName = "@pCantidad", SqlDbType = SqlDbType.Decimal, Value = detalleticket.Cantidad });
                 parametros.Add(new SqlParameter { ParameterName = "@pPrecioVenta", SqlDbType = SqlDbType.Decimal, Value = detalleticket.PrecioVenta });
-                parametros.Add(new SqlParameter { ParameterName = "@pUsuarioActualiza",SqlDbType= SqlDbType.Int,Value= detalleticket.Usuario});
+                parametros.Add(new SqlParameter { ParameterName = "@pUsuarioActualiza", SqlDbType = SqlDbType.Int, Value = detalleticket.Usuario });
 
                 DataSet ds = dac.Fill("sp_InsertDetalleTicket", parametros);
                 if (ds.Tables[0].Rows.Count > 0)
@@ -103,7 +103,7 @@ namespace marcatel_api.Services
             try
             {
                 parametros.Add(new SqlParameter { ParameterName = "@pId", SqlDbType = SqlDbType.Int, Value = detalleticket.Id });
-                parametros.Add(new SqlParameter { ParameterName = "@pIdTicket", SqlDbType = SqlDbType.Int, Value = detalleticket.IdTicket});
+                parametros.Add(new SqlParameter { ParameterName = "@pIdTicket", SqlDbType = SqlDbType.Int, Value = detalleticket.IdTicket });
                 parametros.Add(new SqlParameter { ParameterName = "@pCodigo", SqlDbType = SqlDbType.VarChar, Value = detalleticket.Codigo });
                 parametros.Add(new SqlParameter { ParameterName = "@pCantidad", SqlDbType = SqlDbType.Decimal, Value = detalleticket.Cantidad });
                 parametros.Add(new SqlParameter { ParameterName = "@pPrecioventa", SqlDbType = SqlDbType.Decimal, Value = detalleticket.PrecioVenta });
