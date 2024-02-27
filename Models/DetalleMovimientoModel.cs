@@ -5,6 +5,8 @@ namespace marcatel_api.Models
     {
         public int Id { get; set; }
         public string NombreMovimiento { get; set; }
+
+        public string Codigo {get; set;}
         public decimal Cantidad { get; set; }
         public decimal Costo { get; set; }
         public DateTime FechaActualiza {get;set;}
