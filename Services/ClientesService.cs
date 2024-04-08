@@ -10,14 +10,14 @@ namespace marcatel_api.Services
 {
     public class ClientesService
     {
-        private  string connection;
+        private string connection;
         public ClientesService(IMarcatelDatabaseSetting settings)
         {
-             connection = settings.ConnectionString;
+            connection = settings.ConnectionString;
         }
 
 
-    public List<GetClientesModel> GetClientes()
+        public List<GetClientesModel> GetClientes()
         {
             ArrayList parametros = new ArrayList();
             ConexionDataAccess dac = new ConexionDataAccess(connection);
@@ -36,19 +36,24 @@ namespace marcatel_api.Services
                             Direccion = row["Direccion"].ToString(),
                             Usuario = row["UsuarioActualiza"].ToString(),
                             FechaRegistro = DateTime.Parse(row["FechaRegistro"].ToString()),
-                            FechaActualiza = DateTime.Parse(row["FechaActualiza"].ToString())
+                            FechaActualiza = DateTime.Parse(row["FechaActualiza"].ToString()),
+                            Telefono = row["Telefono"].ToString(),
+                            RFC = row["RFC"].ToString(),
+                            CURP = row["CURP"].ToString(),
+                            Email = row["EMail"].ToString(),
+                            Coordenadas = row["Coordenadas"].ToString()
                         });
                     }
                 }
                 return lista;
-                
+
             }
             catch (Exception ex)
             {
                 throw ex;
             }
-            
-            
+
+
         }
 
 
@@ -60,9 +65,14 @@ namespace marcatel_api.Services
 
             try
             {
-                parametros.Add(new SqlParameter{ParameterName = "@pNombre",SqlDbType= SqlDbType.VarChar,Value= cliente.Nombre});
-                parametros.Add(new SqlParameter{ParameterName = "@pDireccion",SqlDbType= SqlDbType.VarChar,Value= cliente.Direccion});
-                parametros.Add(new SqlParameter{ParameterName = "@pUsuarioActualiza",SqlDbType= SqlDbType.Int,Value= cliente.Usuario});
+                parametros.Add(new SqlParameter { ParameterName = "@pNombre", SqlDbType = SqlDbType.VarChar, Value = cliente.Nombre });
+                parametros.Add(new SqlParameter { ParameterName = "@pDireccion", SqlDbType = SqlDbType.VarChar, Value = cliente.Direccion });
+                parametros.Add(new SqlParameter { ParameterName = "@pUsuarioActualiza", SqlDbType = SqlDbType.Int, Value = cliente.Usuario });
+                parametros.Add(new SqlParameter { ParameterName = "@pTelefono", SqlDbType = SqlDbType.VarChar, Value = cliente.Telefono });
+                parametros.Add(new SqlParameter { ParameterName = "@pRFC", SqlDbType = SqlDbType.VarChar, Value = cliente.RFC });
+                parametros.Add(new SqlParameter { ParameterName = "@pCURP", SqlDbType = SqlDbType.VarChar, Value = cliente.CURP });
+                parametros.Add(new SqlParameter { ParameterName = "@pEmail", SqlDbType = SqlDbType.VarChar, Value = cliente.Email });
+                parametros.Add(new SqlParameter { ParameterName = "@pCoordenadas", SqlDbType = SqlDbType.VarChar, Value = cliente.Coordenadas });
                 DataSet ds = dac.Fill("sp_InsertClientes", parametros);
                 if (ds.Tables[0].Rows.Count > 0)
                 {
@@ -73,6 +83,11 @@ namespace marcatel_api.Services
                             Nombre = row["Nombre"].ToString(),
                             Direccion = row["Direccion"].ToString(),
                             Usuario = row["UsuarioActualiza"].ToString(),
+                            Telefono = row["Telefono"].ToString(),
+                            RFC = row["RFC"].ToString(),
+                            CURP = row["CURP"].ToString(),
+                            Email = row["EMail"].ToString(),
+                            Coordenadas = row["Coordenadas"].ToString()
                         });
                     }
                 }
@@ -93,10 +108,15 @@ namespace marcatel_api.Services
 
             try
             {
-                parametros.Add(new SqlParameter{ParameterName = "@pId",SqlDbType= SqlDbType.VarChar,Value= cliente.Id});
-                parametros.Add(new SqlParameter{ParameterName = "@pNombre",SqlDbType= SqlDbType.VarChar,Value= cliente.Nombre});
-                parametros.Add(new SqlParameter{ParameterName = "@pDireccion",SqlDbType= SqlDbType.VarChar,Value= cliente.Direccion});
-                parametros.Add(new SqlParameter{ParameterName = "@pUsuarioActualiza",SqlDbType= SqlDbType.Int,Value= cliente.Usuario});
+                parametros.Add(new SqlParameter { ParameterName = "@pId", SqlDbType = SqlDbType.VarChar, Value = cliente.Id });
+                parametros.Add(new SqlParameter { ParameterName = "@pNombre", SqlDbType = SqlDbType.VarChar, Value = cliente.Nombre });
+                parametros.Add(new SqlParameter { ParameterName = "@pDireccion", SqlDbType = SqlDbType.VarChar, Value = cliente.Direccion });
+                parametros.Add(new SqlParameter { ParameterName = "@pUsuarioActualiza", SqlDbType = SqlDbType.Int, Value = cliente.Usuario });
+                parametros.Add(new SqlParameter { ParameterName = "@pTelefono", SqlDbType = SqlDbType.VarChar, Value = cliente.Telefono });
+                parametros.Add(new SqlParameter { ParameterName = "@pRFC", SqlDbType = SqlDbType.VarChar, Value = cliente.RFC });
+                parametros.Add(new SqlParameter { ParameterName = "@pCURP", SqlDbType = SqlDbType.VarChar, Value = cliente.CURP });
+                parametros.Add(new SqlParameter { ParameterName = "@pEmail", SqlDbType = SqlDbType.VarChar, Value = cliente.Email });
+                parametros.Add(new SqlParameter { ParameterName = "@pCoordenadas", SqlDbType = SqlDbType.VarChar, Value = cliente.Coordenadas });
                 DataSet ds = dac.Fill("sp_UpdateClientes", parametros);
                 if (ds.Tables[0].Rows.Count > 0)
                 {
@@ -108,7 +128,12 @@ namespace marcatel_api.Services
                             Nombre = row["Nombre"].ToString(),
                             Direccion = row["Direccion"].ToString(),
                             Usuario = row["UsuarioActualiza"].ToString(),
-                            FechaActualiza = DateTime.Parse(row["FechaActualiza"].ToString())
+                            FechaActualiza = DateTime.Parse(row["FechaActualiza"].ToString()),
+                            Telefono = row["Telefono"].ToString(),
+                            RFC = row["RFC"].ToString(),
+                            CURP = row["CURP"].ToString(),
+                            Email = row["EMail"].ToString(),
+                            Coordenadas = row["Coordenadas"].ToString()
                         });
                     }
                 }
@@ -130,11 +155,11 @@ namespace marcatel_api.Services
 
             try
             {
-                parametros.Add(new SqlParameter{ParameterName = "@pId",SqlDbType = SqlDbType.Int, Value = cliente.Id});
-                DataSet ds =dac.Fill("sp_DeleteClientes",parametros);
-                if(ds.Tables[0].Rows.Count>0)
+                parametros.Add(new SqlParameter { ParameterName = "@pId", SqlDbType = SqlDbType.Int, Value = cliente.Id });
+                DataSet ds = dac.Fill("sp_DeleteClientes", parametros);
+                if (ds.Tables[0].Rows.Count > 0)
                 {
-                    foreach(DataRow row in ds.Tables[0].Rows)
+                    foreach (DataRow row in ds.Tables[0].Rows)
                     {
                         lista.Add(new GetClientesModel
                         {
@@ -142,16 +167,16 @@ namespace marcatel_api.Services
                         });
                     }
                 }
-            return 1;
+                return 1;
             }
             catch (Exception ex)
             {
                 Console.Write(ex.Message);
                 return 0;
             }
-                
+
         }
 
-        
+
     }
 }
