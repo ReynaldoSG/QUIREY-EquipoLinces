@@ -7,6 +7,8 @@ namespace marcatel_api.Models
         public string Nombre { get; set; }
         public string Contrasena { get; set; }
         public string Rol { get; set; }
+
+        public int IdPersona{get; set;}
         public string Usuario { get; set; }
         public DateTime FechaAct { get; set; }
         public DateTime FechaReg { get; set; }
@@ -23,6 +25,7 @@ namespace marcatel_api.Models
         public string Nombre { get; set; }
         public string Contrasena { get; set; }
         public int Rol { get; set; }
+        public int IdPersona {get; set;}
         public int Usuario { get; set; }
     }
     public class UpdateUsuariosModel
@@ -31,6 +34,8 @@ namespace marcatel_api.Models
         public string Nombre { get; set; }
         public string Contrasena { get; set; }
         public int Rol { get; set; }
+
+        public int IdPersona{get; set;}
         public int Usuario { get; set; }
     }
     public class DeleteUsuariosModel
