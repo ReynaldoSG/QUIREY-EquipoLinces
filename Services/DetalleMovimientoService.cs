@@ -15,14 +15,14 @@ namespace marcatel_api.Services
         {
              connection = settings.ConnectionString;
         }
-                public List<GetDetalleMovimientoModel> GetDetalleMovimiento(GetDetalleMovimientoSearchModel dm)
+                public List<GetDetalleMovimientoModel> GetDetalleMovimiento(int id_Movimientos)
                 {
                     ArrayList parametros = new ArrayList();
                     ConexionDataAccess dac = new ConexionDataAccess(connection);
                     var lista = new List<GetDetalleMovimientoModel>();
                     try
                     {
-                        parametros.Add(new SqlParameter { ParameterName = "@pId", SqlDbType = SqlDbType.Int, Value = dm.Id });
+                        parametros.Add(new SqlParameter { ParameterName = "@pId", SqlDbType = SqlDbType.Int, Value = id_Movimientos });
                         DataSet ds = dac.Fill("sp_GetDetalleMov", parametros);
                         if (ds.Tables[0].Rows.Count > 0)
                         {
@@ -30,7 +30,7 @@ namespace marcatel_api.Services
                             {
                                 lista.Add(new GetDetalleMovimientoModel
                                 {
-                                    Id = int.Parse(row["Id"].ToString()),
+                                Id = int.Parse(row["Id"].ToString()),
                                 NombreMovimiento = row["NombreMovimiento"].ToString(),
                                 Codigo = row["Codigo"].ToString(),
                                 Cantidad = decimal.Parse(row["Cantidad"].ToString()),
@@ -74,7 +74,7 @@ namespace marcatel_api.Services
                         lista.Add(new InsertDetalleMovimientoModel
                         {
                             IdMovimiento = int.Parse(row["Id"].ToString()),
-                            Codigo = row["NombreMovimiento"].ToString(),
+                            Codigo = row["Codigo"].ToString(),
                             Cantidad = decimal.Parse(row["Cantidad"].ToString()),
                             Costo = decimal.Parse(row["Costo"].ToString()),
                             UsuarioActualiza = int.Parse(row["UsuarioActualiza"].ToString())
@@ -112,7 +112,6 @@ namespace marcatel_api.Services
                         lista.Add(new GetDetalleMovimientoModel
                         {
                             Id = int.Parse(row["Id"].ToString()),
-                            NombreMovimiento = row["NombreMovimiento"].ToString(),
                             Codigo = row["Codigo"].ToString(),
                             Cantidad = decimal.Parse(row["Cantidad"].ToString()),
                             Costo = decimal.Parse(row["Costo"].ToString()),
