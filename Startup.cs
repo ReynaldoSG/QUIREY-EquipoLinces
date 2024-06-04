@@ -74,7 +74,7 @@ namespace marcatel_api
             services.AddSingleton<ExistenciasService>();
             services.AddSingleton<UMService>();
             services.AddSingleton<RutasService>();
-            services.AddSingleton<ModuloService>();            
+            services.AddSingleton<ModuloService>();
             services.AddSingleton<CatModuloService>();
             services.AddSingleton<EmpleadosService>();
             services.AddSingleton<PuestosService>();
@@ -82,6 +82,8 @@ namespace marcatel_api
             services.AddSingleton<DetallePerfilService>();
             services.AddSingleton<LoginQuireyService>();
             services.AddSingleton<RolesService>();
+            services.AddSingleton<AutorizarMovService>();
+
             services.AddCors();
 
 
