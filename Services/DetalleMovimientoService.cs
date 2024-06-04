@@ -31,7 +31,7 @@ namespace marcatel_api.Services
                                 lista.Add(new GetDetalleMovimientoModel
                                 {
                                 Id = int.Parse(row["Id"].ToString()),
-                                NombreMovimiento = row["NombreMovimiento"].ToString(),
+                                
                                 Codigo = row["Codigo"].ToString(),
                                 Cantidad = decimal.Parse(row["Cantidad"].ToString()),
                                 Costo = decimal.Parse(row["Costo"].ToString()),
