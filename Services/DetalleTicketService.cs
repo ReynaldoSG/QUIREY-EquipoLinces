@@ -103,7 +103,6 @@ namespace marcatel_api.Services
             try
             {
                 parametros.Add(new SqlParameter { ParameterName = "@pId", SqlDbType = SqlDbType.Int, Value = detalleticket.Id });
-                parametros.Add(new SqlParameter { ParameterName = "@pIdTicket", SqlDbType = SqlDbType.Int, Value = detalleticket.IdTicket });
                 parametros.Add(new SqlParameter { ParameterName = "@pCodigo", SqlDbType = SqlDbType.VarChar, Value = detalleticket.Codigo });
                 parametros.Add(new SqlParameter { ParameterName = "@pCantidad", SqlDbType = SqlDbType.Decimal, Value = detalleticket.Cantidad });
                 parametros.Add(new SqlParameter { ParameterName = "@pPrecioventa", SqlDbType = SqlDbType.Decimal, Value = detalleticket.PrecioVenta });
@@ -164,5 +163,27 @@ namespace marcatel_api.Services
                 return 0;
             }
         }
+
+        public int AutorizarTickets(AutorizarTicketModel autorizarticket)
+        {
+            ArrayList parametros = new ArrayList();
+            ConexionDataAccess dac = new ConexionDataAccess(connection);
+
+            try
+            {
+                parametros.Add(new SqlParameter { ParameterName = "@pId", SqlDbType = SqlDbType.Int, Value = autorizarticket.Id });
+                parametros.Add(new SqlParameter { ParameterName = "@pEstatus", SqlDbType = SqlDbType.VarChar, Value = autorizarticket.Estatus });
+
+                DataSet ds = dac.Fill("sp_AutorizarMov", parametros);
+
+                return 1;
+            }
+            catch (Exception ex)
+            {
+                Console.Write(ex.Message);
+                return 0;
+            }
+        }
+
     }
 }

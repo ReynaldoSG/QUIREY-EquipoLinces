@@ -10,52 +10,53 @@ namespace marcatel_api.Services
 {
     public class DetalleMovimientoService
     {
-        private  string connection;
+        private string connection;
         public DetalleMovimientoService(IMarcatelDatabaseSetting settings)
         {
-             connection = settings.ConnectionString;
+            connection = settings.ConnectionString;
         }
-                public List<GetDetalleMovimientoModel> GetDetalleMovimiento(GetDetalleMovimientoSearchModel dm)
+        public List<GetDetalleMovimientoModel> GetDetalleMovimiento(GetDetalleMovimientoSearchModel dm)
+        {
+            ArrayList parametros = new ArrayList();
+            ConexionDataAccess dac = new ConexionDataAccess(connection);
+            var lista = new List<GetDetalleMovimientoModel>();
+            try
+            {
+                parametros.Add(new SqlParameter { ParameterName = "@pId", SqlDbType = SqlDbType.Int, Value = dm.Id });
+                DataSet ds = dac.Fill("sp_GetDetalleMov", parametros);
+                if (ds.Tables[0].Rows.Count > 0)
                 {
-                    ArrayList parametros = new ArrayList();
-                    ConexionDataAccess dac = new ConexionDataAccess(connection);
-                    var lista = new List<GetDetalleMovimientoModel>();
-                    try
+                    foreach (DataRow row in ds.Tables[0].Rows)
                     {
-                        parametros.Add(new SqlParameter { ParameterName = "@pId", SqlDbType = SqlDbType.Int, Value = dm.Id });
-                        DataSet ds = dac.Fill("sp_GetDetalleMov", parametros);
-                        if (ds.Tables[0].Rows.Count > 0)
+                        lista.Add(new GetDetalleMovimientoModel
                         {
-                            foreach (DataRow row in ds.Tables[0].Rows)
-                            {
-                                lista.Add(new GetDetalleMovimientoModel
-                                {
-                                    Id = int.Parse(row["Id"].ToString()),
-                                NombreMovimiento = row["NombreMovimiento"].ToString(),
-                                Cantidad = decimal.Parse(row["Cantidad"].ToString()),
-                                Costo = decimal.Parse(row["Costo"].ToString()),
-                                FechaActualiza = DateTime.Parse(row["FechaActualiza"].ToString()),
-                                Estatus = row["Estatus"].ToString(),
-                                UsuarioActualiza = row["UsuarioActualiza"].ToString()
-                                });
-                            }
-                        }
-                        return lista;
-                        
+                            Id = int.Parse(row["Id"].ToString()),
+                            IdMovimiento = int.Parse(row["IdMovimiento"].ToString()),
+                            Codigo = row["Codigo"].ToString(),
+                            Cantidad = decimal.Parse(row["Cantidad"].ToString()),
+                            Costo = decimal.Parse(row["Costo"].ToString()),
+                            FechaActualiza = DateTime.Parse(row["FechaActualiza"].ToString()),
+                            Estatus = row["Estatus"].ToString(),
+                            UsuarioActualiza = row["UsuarioActualiza"].ToString()
+                        });
                     }
-                    catch (Exception ex)
-                    {
-                        throw ex;
-                    }
-                    
-                    
                 }
+                return lista;
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+
+        }
 
         public int InsertDetalleMovimiento(InsertDetalleMovimientoModel detalleMovimiento)
         {
             ArrayList parametros = new ArrayList();
             ConexionDataAccess dac = new ConexionDataAccess(connection);
-            var lista = new List<InsertDetalleMovimientoModel>();
+            var lista = new List<GetDetalleMovimientoModel>();
 
             try
             {
@@ -63,20 +64,16 @@ namespace marcatel_api.Services
                 parametros.Add(new SqlParameter { ParameterName = "@pCodigo", SqlDbType = SqlDbType.VarChar, Value = detalleMovimiento.Codigo });
                 parametros.Add(new SqlParameter { ParameterName = "@pCantidad", SqlDbType = SqlDbType.Int, Value = detalleMovimiento.Cantidad });
                 parametros.Add(new SqlParameter { ParameterName = "@pCosto", SqlDbType = SqlDbType.Decimal, Value = detalleMovimiento.Costo });
-                parametros.Add(new SqlParameter { ParameterName = "@pUsuarioActualiza",SqlDbType= SqlDbType.Int,Value= detalleMovimiento.UsuarioActualiza});
+                parametros.Add(new SqlParameter { ParameterName = "@pUsuarioActualiza", SqlDbType = SqlDbType.Int, Value = detalleMovimiento.UsuarioActualiza });
 
                 DataSet ds = dac.Fill("sp_InsertDetalleMov", parametros);
                 if (ds.Tables[0].Rows.Count > 0)
                 {
                     foreach (DataRow row in ds.Tables[0].Rows)
                     {
-                        lista.Add(new InsertDetalleMovimientoModel
+                        lista.Add(new GetDetalleMovimientoModel
                         {
-                            IdMovimiento = int.Parse(row["Id"].ToString()),
-                            Codigo = row["NombreMovimiento"].ToString(),
-                            Cantidad = decimal.Parse(row["Cantidad"].ToString()),
-                            Costo = decimal.Parse(row["Costo"].ToString()),
-                            UsuarioActualiza = int.Parse(row["UsuarioActualiza"].ToString())
+                            Id = int.Parse(row["Id"].ToString()),
                         });
                     }
                 }
@@ -98,7 +95,7 @@ namespace marcatel_api.Services
             try
             {
                 parametros.Add(new SqlParameter { ParameterName = "@pId", SqlDbType = SqlDbType.Int, Value = detalleMovimiento.Id });
-                parametros.Add(new SqlParameter { ParameterName = "@pIdMovimiento", SqlDbType = SqlDbType.Int, Value = detalleMovimiento.IdMovimiento});
+                parametros.Add(new SqlParameter { ParameterName = "@pIdMovimiento", SqlDbType = SqlDbType.Int, Value = detalleMovimiento.IdMovimiento });
                 parametros.Add(new SqlParameter { ParameterName = "@pCodigo", SqlDbType = SqlDbType.VarChar, Value = detalleMovimiento.Codigo });
                 parametros.Add(new SqlParameter { ParameterName = "@pCantidad", SqlDbType = SqlDbType.Int, Value = detalleMovimiento.Cantidad });
                 parametros.Add(new SqlParameter { ParameterName = "@pCosto", SqlDbType = SqlDbType.Decimal, Value = detalleMovimiento.Costo });
@@ -111,7 +108,8 @@ namespace marcatel_api.Services
                         lista.Add(new GetDetalleMovimientoModel
                         {
                             Id = int.Parse(row["Id"].ToString()),
-                            NombreMovimiento = row["NombreMovimiento"].ToString(),
+                            IdMovimiento = int.Parse(row["IdMovimiento"].ToString()),
+                            Codigo = row["Codigo"].ToString(),
                             Cantidad = decimal.Parse(row["Cantidad"].ToString()),
                             Costo = decimal.Parse(row["Costo"].ToString()),
                             FechaActualiza = DateTime.Parse(row["FechaActualiza"].ToString()),
