@@ -56,7 +56,7 @@ namespace marcatel_api.Controllers
 
 
         //[Authorize(AuthenticationSchemes = "Bearer")]
-        [HttpPut("Get")]
+        [HttpGet("Get")]
         public IActionResult GetTickets(GetTicketsFiltroModel ticket)
         {
             var tickets = _ticketsService.GetTickets(ticket);
