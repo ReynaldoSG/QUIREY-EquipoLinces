@@ -10,20 +10,20 @@ using marcatel_api.Helpers;
 
 namespace marcatel_api.Controllers
 {
-   
+
     [Route("api/[controller]")]
-    public class PuestosController: ControllerBase
+    public class PuestosController : ControllerBase
     {
         private readonly PuestosService _puestosService;
 
-    public PuestosController(PuestosService puestosservice) 
-    {
+        public PuestosController(PuestosService puestosservice)
+        {
             _puestosService = puestosservice;
-    }
+        }
 
-        
 
-        
+
+
 
         [HttpPost("Insert")]
         public JsonResult InsertPuesto([FromBody] InsertPuestoModel puesto)
@@ -32,7 +32,7 @@ namespace marcatel_api.Controllers
             try
             {
                 var CatClienteResponse = _puestosService.InsertPuestos(puesto);
-                
+
                 objectResponse.StatusCode = (int)HttpStatusCode.OK;
                 objectResponse.success = true;
                 objectResponse.message = "Registro insertado con exito";
@@ -55,15 +55,15 @@ namespace marcatel_api.Controllers
 
 
 
-        //[Authorize(AuthenticationSchemes = "Bearer")]
-        [HttpGet("Get")] 
+        [Authorize(AuthenticationSchemes = "Bearer")]
+        [HttpGet("Get")]
         public IActionResult GetPuesto()
         {
             var puesto = _puestosService.GetPuestos();
             return Ok(puesto);
         }
 
-        
+
         [HttpPut("Update")]
         public JsonResult UpdatePuesto([FromBody] UpdatePuestoModel puesto)
         {
@@ -71,7 +71,7 @@ namespace marcatel_api.Controllers
             try
             {
                 var CatClienteResponse = _puestosService.UpdatePuestos(puesto);
-                
+
                 objectResponse.StatusCode = (int)HttpStatusCode.OK;
                 objectResponse.success = true;
                 objectResponse.message = "Información actualizada con éxito";
@@ -99,7 +99,7 @@ namespace marcatel_api.Controllers
             try
             {
                 var CatClienteResponse = _puestosService.DeletePuesto(puesto);
-                
+
                 objectResponse.StatusCode = (int)HttpStatusCode.OK;
                 objectResponse.success = true;
                 objectResponse.message = "Información eliminada con éxito";
@@ -121,10 +121,10 @@ namespace marcatel_api.Controllers
         }
 
 
-        
 
-        
 
-        
+
+
+
     }
 }

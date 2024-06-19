@@ -10,20 +10,20 @@ using marcatel_api.Helpers;
 
 namespace marcatel_api.Controllers
 {
-   
+
     [Route("api/[controller]")]
-    public class TiposMovController: ControllerBase
+    public class TiposMovController : ControllerBase
     {
         private readonly TiposMovService _tiposmovService;
 
-    public TiposMovController(TiposMovService tiposmovservice) 
-    {
+        public TiposMovController(TiposMovService tiposmovservice)
+        {
             _tiposmovService = tiposmovservice;
-    }
+        }
 
-        
 
-        
+
+
 
         [HttpPost("Insert")]
         public JsonResult InsertTiposMov([FromBody] InsertTiposMovModel tipomov)
@@ -32,7 +32,7 @@ namespace marcatel_api.Controllers
             try
             {
                 var CatClienteResponse = _tiposmovService.InsertTiposMov(tipomov);
-                
+
                 objectResponse.StatusCode = (int)HttpStatusCode.OK;
                 objectResponse.success = true;
                 objectResponse.message = "Registro insertado con exito";
@@ -55,15 +55,15 @@ namespace marcatel_api.Controllers
 
 
 
-        //[Authorize(AuthenticationSchemes = "Bearer")]
-        [HttpGet("Get")] 
+        [Authorize(AuthenticationSchemes = "Bearer")]
+        [HttpGet("Get")]
         public IActionResult GetTiposMov()
         {
             var articulo = _tiposmovService.GetTiposMov();
             return Ok(articulo);
         }
 
-        
+
         [HttpPut("Update")]
         public JsonResult UpdateTiposMov([FromBody] UpdateTiposMovModel tiposmov)
         {
@@ -71,7 +71,7 @@ namespace marcatel_api.Controllers
             try
             {
                 var CatClienteResponse = _tiposmovService.UpdateTiposMov(tiposmov);
-                
+
                 objectResponse.StatusCode = (int)HttpStatusCode.OK;
                 objectResponse.success = true;
                 objectResponse.message = "Información actualizada con éxito";
@@ -99,7 +99,7 @@ namespace marcatel_api.Controllers
             try
             {
                 var CatClienteResponse = _tiposmovService.DeleteTiposMov(tiposmov);
-                
+
                 objectResponse.StatusCode = (int)HttpStatusCode.OK;
                 objectResponse.success = true;
                 objectResponse.message = "Información eliminada con éxito";
@@ -121,10 +121,10 @@ namespace marcatel_api.Controllers
         }
 
 
-        
 
-        
 
-        
+
+
+
     }
 }

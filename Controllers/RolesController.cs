@@ -10,18 +10,21 @@ using marcatel_api.Helpers;
 
 namespace marcatel_api.Controllers
 {
-   
+
     [Route("api/[controller]")]
-    public class RolesController: ControllerBase
+    public class RolesController : ControllerBase
     {
         private readonly RolesService _RolesService;
 
-    public RolesController(RolesService RolesService) 
-    {
+        public RolesController(RolesService RolesService)
+        {
             _RolesService = RolesService;
 
-    }
-        [HttpGet("Get")] 
+        }
+
+        [Authorize(AuthenticationSchemes = "Bearer")]
+
+        [HttpGet("Get")]
         public IActionResult GetRoles()
         {
             var articulo = _RolesService.GetRoles();

@@ -10,17 +10,17 @@ using marcatel_api.Helpers;
 
 namespace marcatel_api.Controllers
 {
-   
+
     [Route("api/[controller]")]
-    public class DetallePerfilController: ControllerBase
+    public class DetallePerfilController : ControllerBase
     {
         private readonly DetallePerfilService _DetallePerfilService;
 
-    public DetallePerfilController(DetallePerfilService DetallePerfilService) 
-    {
+        public DetallePerfilController(DetallePerfilService DetallePerfilService)
+        {
             _DetallePerfilService = DetallePerfilService;
 
-    }
+        }
         [HttpPost("Insert")]
         public JsonResult InsertDetallePerfils([FromBody] InsertDetallePerfilModel DetallePerfil)
         {
@@ -28,7 +28,7 @@ namespace marcatel_api.Controllers
             try
             {
                 var CatClienteResponse = _DetallePerfilService.InsertDetallePerfil(DetallePerfil);
-                
+
                 objectResponse.StatusCode = (int)HttpStatusCode.OK;
                 objectResponse.success = true;
                 objectResponse.message = "Registro insertado con exito";
@@ -51,8 +51,8 @@ namespace marcatel_api.Controllers
 
 
 
-        //[Authorize(AuthenticationSchemes = "Bearer")]
-        [HttpGet("Get")] 
+        [Authorize(AuthenticationSchemes = "Bearer")]
+        [HttpGet("Get")]
         public IActionResult GetDetallePerfil()
         {
             var articulo = _DetallePerfilService.GetDetallePerfil();
@@ -66,7 +66,7 @@ namespace marcatel_api.Controllers
             try
             {
                 var CatClienteResponse = _DetallePerfilService.UpdateDetallePerfil(DetallePerfil);
-                
+
                 objectResponse.StatusCode = (int)HttpStatusCode.OK;
                 objectResponse.success = true;
                 objectResponse.message = "Registro actualizado con exito";
@@ -94,7 +94,7 @@ namespace marcatel_api.Controllers
             try
             {
                 var CatClienteResponse = _DetallePerfilService.DeleteDetallePerfil(DetallePerfil);
-                
+
                 objectResponse.StatusCode = (int)HttpStatusCode.OK;
                 objectResponse.success = true;
                 objectResponse.message = "Registro eliminado con exito";
@@ -116,10 +116,10 @@ namespace marcatel_api.Controllers
         }
 
 
-        
 
-        
 
-        
+
+
+
     }
 }

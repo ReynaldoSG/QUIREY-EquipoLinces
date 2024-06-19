@@ -10,36 +10,36 @@ using marcatel_api.Helpers;
 
 namespace marcatel_api.Controllers
 {
-   
+
     [Route("api/[controller]")]
-    public class MovInventarioController: ControllerBase
+    public class MovInventarioController : ControllerBase
     {
         private readonly MovInventarioService _movInventarioService;
 
-    public MovInventarioController(MovInventarioService movinventarioservice) 
-    {
+        public MovInventarioController(MovInventarioService movinventarioservice)
+        {
             _movInventarioService = movinventarioservice;
-    }
+        }
 
 
 
 
-        //[Authorize(AuthenticationSchemes = "Bearer")]
-        [HttpGet("Get")] 
+        [Authorize(AuthenticationSchemes = "Bearer")]
+        [HttpGet("Get")]
         public IActionResult GetMovInventario()
         {
             var MovInventario = _movInventarioService.GetMovInventario();
             return Ok(MovInventario);
         }
-         
-         [HttpPost("Insert")]
+
+        [HttpPost("Insert")]
         public JsonResult InsertMovInventario([FromBody] InsertMovimientoModels MovInv)
         {
             var objectResponse = Helper.GetStructResponse();
             try
             {
                 var CatClienteResponse = _movInventarioService.InsertMovInventario(MovInv);
-                
+
                 objectResponse.StatusCode = (int)HttpStatusCode.OK;
                 objectResponse.success = true;
                 objectResponse.message = "Registro insertado con exito";
@@ -59,14 +59,14 @@ namespace marcatel_api.Controllers
             return new JsonResult(objectResponse);
 
         }
-         [HttpPut("Update")]
+        [HttpPut("Update")]
         public JsonResult UpdateMovInventario([FromBody] UpdateMovimientoInvModel MovimientoInv)
         {
             var objectResponse = Helper.GetStructResponse();
             try
             {
                 var CatClienteResponse = _movInventarioService.UpdateMovIntentario(MovimientoInv);
-                
+
                 objectResponse.StatusCode = (int)HttpStatusCode.OK;
                 objectResponse.success = true;
                 objectResponse.message = "Registro modificado con éxito";
@@ -87,7 +87,7 @@ namespace marcatel_api.Controllers
 
         }
 
-        
+
         [HttpPost("Delete")]
         public JsonResult DeleteMovInventario([FromBody] DeleteMovimientoInvModel MovimientoInv)
         {
@@ -95,7 +95,7 @@ namespace marcatel_api.Controllers
             try
             {
                 var CatClienteResponse = _movInventarioService.DeleteMovInventario(MovimientoInv);
-                
+
                 objectResponse.StatusCode = (int)HttpStatusCode.OK;
                 objectResponse.success = true;
                 objectResponse.message = "Información eliminada con éxito";
@@ -120,10 +120,10 @@ namespace marcatel_api.Controllers
 
 
 
-        
 
-        
 
-        
+
+
+
     }
 }
