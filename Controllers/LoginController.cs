@@ -10,22 +10,23 @@ using marcatel_api.Helpers;
 
 namespace marcatel_api.Controllers
 {
-   
+
     [Route("api")]
-    public class LoginController: ControllerBase
+    public class LoginController : ControllerBase
     {
         private readonly LoginService _loginService;
         private readonly ILogger<LoginController> _logger;
-  
+
         private readonly IJwtAuthenticationService _authService;
 
 
         Encrypt enc = new Encrypt();
 
-        public LoginController(LoginService loginservice, ILogger<LoginController> logger, IJwtAuthenticationService authService) {
+        public LoginController(LoginService loginservice, ILogger<LoginController> logger, IJwtAuthenticationService authService)
+        {
             _loginService = loginservice;
             _logger = logger;
-       
+
             _authService = authService;
         }
 
@@ -37,33 +38,33 @@ namespace marcatel_api.Controllers
             result.Response = new ResponseBody();
             result.Response.data = new DataResponseLogin();
             result.Response.data.Usuario = new UsuarioModel();
-          
-                string cryptedPass = enc.GetSHA256(user.Userpassword);
-           
-            var loginResponse = _loginService.Login(user.Username, user.Userpassword);
 
-         
-           
-                if (loginResponse.Id != 0)
-                {
-                    result.StatusCode = (int)HttpStatusCode.OK;
-                    result.Error = false;
-                    result.Success = true;
-                    result.Message = "Bienvenido";
-                    result.Response.data.Usuario = loginResponse;
-                    result.Response.data.Status = true;
-                    result.Response.data.Mensaje = "Bienvenido";
-                    var token = _authService.Authenticate(user.Username, cryptedPass);
-                    result.Response.data.Token = token;
-                }
-                else
-                {
-                    result.Error = true;
-                    result.Success = false;
-                    result.Message = "Usuario o contraseña incorrecto,";
+            string cryptedPass = enc.GetSHA256(user.Userpassword);
 
-                }
-            
+            var loginResponse = _loginService.Login(user.Username, cryptedPass);
+
+
+
+            if (loginResponse.Id != 0)
+            {
+                result.StatusCode = (int)HttpStatusCode.OK;
+                result.Error = false;
+                result.Success = true;
+                result.Message = "Bienvenido";
+                result.Response.data.Usuario = loginResponse;
+                result.Response.data.Status = true;
+                result.Response.data.Mensaje = "Bienvenido";
+                var token = _authService.Authenticate(user.Username, cryptedPass);
+                result.Response.data.Token = token;
+            }
+            else
+            {
+                result.Error = true;
+                result.Success = false;
+                result.Message = "Usuario o contraseña incorrecto,";
+
+            }
+
             return new JsonResult(result);
 
         }
@@ -78,23 +79,23 @@ namespace marcatel_api.Controllers
             result.Response = new ResponseBody();
             result.Response.data = new DataResponseLogin();
             result.Response.data.Usuario = new UsuarioModel();
-          
-                string cryptedPass = enc.GetSHA256(user.Userpassword);
-           
-           // var loginResponse = _loginService.Login(user.Username, user.Userpassword);
 
-                var objectResponse = Helper.GetStructResponse();
-                objectResponse.StatusCode = (int)HttpStatusCode.OK;
-                objectResponse.success = true;
-                objectResponse.message = "Información obtenida con exito";
-                objectResponse.response = new
-                {
-                    data = ePwd
-                };
+            string cryptedPass = enc.GetSHA256(user.Userpassword);
+
+            // var loginResponse = _loginService.Login(user.Username, user.Userpassword);
+
+            var objectResponse = Helper.GetStructResponse();
+            objectResponse.StatusCode = (int)HttpStatusCode.OK;
+            objectResponse.success = true;
+            objectResponse.message = "Información obtenida con exito";
+            objectResponse.response = new
+            {
+                data = ePwd
+            };
 
 
-                
-            
+
+
             return new JsonResult(objectResponse);
 
         }

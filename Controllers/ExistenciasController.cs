@@ -10,20 +10,20 @@ using marcatel_api.Helpers;
 
 namespace marcatel_api.Controllers
 {
-   
+
     [Route("api/[controller]")]
-    public class ExistenciasController: ControllerBase
+    public class ExistenciasController : ControllerBase
     {
         private readonly ExistenciasService _existenciasService;
 
-    public ExistenciasController(ExistenciasService existenciasservice) 
-    {
+        public ExistenciasController(ExistenciasService existenciasservice)
+        {
             _existenciasService = existenciasservice;
-    }
+        }
 
-        
 
-        
+
+
 
         [HttpPost("Insert")]
         public JsonResult InsertExistencias([FromBody] InsertExistenciasModel existencia)
@@ -32,7 +32,7 @@ namespace marcatel_api.Controllers
             try
             {
                 var CatClienteResponse = _existenciasService.InsertExistencias(existencia);
-                
+
                 objectResponse.StatusCode = (int)HttpStatusCode.OK;
                 objectResponse.success = true;
                 objectResponse.message = "Registro insertado con exito";
@@ -55,7 +55,7 @@ namespace marcatel_api.Controllers
 
 
 
-        //[Authorize(AuthenticationSchemes = "Bearer")]
+        [Authorize(AuthenticationSchemes = "Bearer")]
         [HttpPost("Get")]
         public IActionResult GetExistencias(GetExistenciasFiltroModel existencia)
         {
@@ -68,7 +68,7 @@ namespace marcatel_api.Controllers
         //     try
         //     {
         //         var CatClienteResponse = _ticketsService.GetTickets(ticket);
-                
+
         //         objectResponse.StatusCode = (int)HttpStatusCode.OK;
         //         objectResponse.success = true;
         //         objectResponse.message = "Registros encontrados con exito";
@@ -96,7 +96,7 @@ namespace marcatel_api.Controllers
             try
             {
                 var CatClienteResponse = _existenciasService.UpdateExistencias(existencia);
-                
+
                 objectResponse.StatusCode = (int)HttpStatusCode.OK;
                 objectResponse.success = true;
                 objectResponse.message = "Registro modificado con éxito";
@@ -124,7 +124,7 @@ namespace marcatel_api.Controllers
             try
             {
                 var CatClienteResponse = _existenciasService.DeleteExistencias(existencia);
-                
+
                 objectResponse.StatusCode = (int)HttpStatusCode.OK;
                 objectResponse.success = true;
                 objectResponse.message = "Información eliminada con éxito";
@@ -145,13 +145,13 @@ namespace marcatel_api.Controllers
 
         }
 
-        
 
 
-        
 
-        
 
-        
+
+
+
+
     }
 }
