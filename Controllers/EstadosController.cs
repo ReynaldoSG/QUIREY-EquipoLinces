@@ -10,17 +10,17 @@ using marcatel_api.Helpers;
 
 namespace marcatel_api.Controllers
 {
-
+   
     [Route("api/[controller]")]
-    public class EstadosController : ControllerBase
+    public class EstadosController: ControllerBase
     {
         private readonly EstadosService _EstadosService;
 
-        public EstadosController(EstadosService EstadosService)
-        {
+    public EstadosController(EstadosService EstadosService) 
+    {
             _EstadosService = EstadosService;
 
-        }
+    }
         [HttpPost("Insert")]
         public JsonResult InsertEstados([FromBody] InsertEstadosModel Estados)
         {
@@ -28,7 +28,7 @@ namespace marcatel_api.Controllers
             try
             {
                 var CatClienteResponse = _EstadosService.InsertEstados(Estados);
-
+                
                 objectResponse.StatusCode = (int)HttpStatusCode.OK;
                 objectResponse.success = true;
                 objectResponse.message = "Registro insertado con exito";
@@ -51,8 +51,8 @@ namespace marcatel_api.Controllers
 
 
 
-        [Authorize(AuthenticationSchemes = "Bearer")]
-        [HttpGet("Get")]
+        //[Authorize(AuthenticationSchemes = "Bearer")]
+        [HttpGet("Get")] 
         public IActionResult GetEstados()
         {
             var articulo = _EstadosService.GetEstados();
@@ -66,7 +66,7 @@ namespace marcatel_api.Controllers
             try
             {
                 var CatClienteResponse = _EstadosService.UpdateEstados(Estados);
-
+                
                 objectResponse.StatusCode = (int)HttpStatusCode.OK;
                 objectResponse.success = true;
                 objectResponse.message = "Registro actualizado con exito";
@@ -85,6 +85,6 @@ namespace marcatel_api.Controllers
 
             return new JsonResult(objectResponse);
 
-        }
+        }    
     }
 }

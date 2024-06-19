@@ -10,20 +10,20 @@ using marcatel_api.Helpers;
 
 namespace marcatel_api.Controllers
 {
-
+   
     [Route("api/[controller]")]
-    public class EmpleadosController : ControllerBase
+    public class EmpleadosController: ControllerBase
     {
         private readonly EmpleadosService _empleadosService;
 
-        public EmpleadosController(EmpleadosService empleadosservice)
-        {
+    public EmpleadosController(EmpleadosService empleadosservice) 
+    {
             _empleadosService = empleadosservice;
-        }
+    }
 
+        
 
-
-
+        
 
         [HttpPost("Insert")]
         public JsonResult InsertEmpleado([FromBody] InsertEmpleadosModel empleado)
@@ -32,7 +32,7 @@ namespace marcatel_api.Controllers
             try
             {
                 var CatClienteResponse = _empleadosService.InsertEmpleado(empleado);
-
+                
                 objectResponse.StatusCode = (int)HttpStatusCode.OK;
                 objectResponse.success = true;
                 objectResponse.message = "Registro insertado con exito";
@@ -55,15 +55,15 @@ namespace marcatel_api.Controllers
 
 
 
-        [Authorize(AuthenticationSchemes = "Bearer")]
-        [HttpGet("Get")]
+        //[Authorize(AuthenticationSchemes = "Bearer")]
+        [HttpGet("Get")] 
         public IActionResult GetEmpleados()
         {
             var empleado = _empleadosService.GetEmpleados();
             return Ok(empleado);
         }
 
-
+        
         [HttpPut("Update")]
         public JsonResult UpdateEmpleado([FromBody] UpdateEmpleadosModel empleadosModel)
         {
@@ -71,7 +71,7 @@ namespace marcatel_api.Controllers
             try
             {
                 var CatClienteResponse = _empleadosService.UpdateEmpleados(empleadosModel);
-
+                
                 objectResponse.StatusCode = (int)HttpStatusCode.OK;
                 objectResponse.success = true;
                 objectResponse.message = "Información actualizada con éxito";
@@ -99,7 +99,7 @@ namespace marcatel_api.Controllers
             try
             {
                 var CatClienteResponse = _empleadosService.DeleteEmpleados(empleadosModel);
-
+                
                 objectResponse.StatusCode = (int)HttpStatusCode.OK;
                 objectResponse.success = true;
                 objectResponse.message = "Información eliminada con éxito";
@@ -121,9 +121,9 @@ namespace marcatel_api.Controllers
         }
 
 
+        
 
+        
 
-
-
+    }   
     }
-}

@@ -10,20 +10,20 @@ using marcatel_api.Helpers;
 
 namespace marcatel_api.Controllers
 {
-
+   
     [Route("api/[controller]")]
-    public class PersonasController : ControllerBase
+    public class PersonasController: ControllerBase
     {
         private readonly PersonasService _PersonasService;
 
-        public PersonasController(PersonasService personasService)
-        {
+    public PersonasController(PersonasService personasService) 
+    {
             _PersonasService = personasService;
-        }
+    }
 
+        
 
-
-
+        
 
         [HttpPost("Insert")]
         public JsonResult InsertPersonas([FromBody] InsertPersonasModel personas)
@@ -32,7 +32,7 @@ namespace marcatel_api.Controllers
             try
             {
                 var CatClienteResponse = _PersonasService.InsertPersonas(personas);
-
+                
                 objectResponse.StatusCode = (int)HttpStatusCode.OK;
                 objectResponse.success = true;
                 objectResponse.message = "Registro insertado con exito";
@@ -55,15 +55,15 @@ namespace marcatel_api.Controllers
 
 
 
-        [Authorize(AuthenticationSchemes = "Bearer")]
-        [HttpGet("Get")]
+        //[Authorize(AuthenticationSchemes = "Bearer")]
+        [HttpGet("Get")] 
         public IActionResult GetPersonas()
         {
             var personas = _PersonasService.GetPersonas();
             return Ok(personas);
         }
 
-
+        
         [HttpPut("Update")]
         public JsonResult UpdatePersonas([FromBody] UpdatePersonasModel personas)
         {
@@ -71,7 +71,7 @@ namespace marcatel_api.Controllers
             try
             {
                 var CatClienteResponse = _PersonasService.UpdatePersonas(personas);
-
+                
                 objectResponse.StatusCode = (int)HttpStatusCode.OK;
                 objectResponse.success = true;
                 objectResponse.message = "Información actualizada con éxito";
@@ -99,7 +99,7 @@ namespace marcatel_api.Controllers
             try
             {
                 var CatClienteResponse = _PersonasService.DeletePersonas(personas);
-
+                
                 objectResponse.StatusCode = (int)HttpStatusCode.OK;
                 objectResponse.success = true;
                 objectResponse.message = "Información eliminada con éxito";
@@ -121,10 +121,10 @@ namespace marcatel_api.Controllers
         }
 
 
+        
 
+        
 
-
-
-
+        
     }
 }

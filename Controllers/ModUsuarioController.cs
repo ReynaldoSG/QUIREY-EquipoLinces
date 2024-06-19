@@ -9,10 +9,10 @@ using System.Net;
 using marcatel_api.Helpers;
 
 namespace marcatel_api.Controllers
-{
+{   
     [Route("api/[controller]")]
     [ApiController]
-    public class ModUserController : ControllerBase
+    public class ModUserController: ControllerBase
     {
         private readonly ModUsuarioService _modUserService;
 
@@ -27,9 +27,8 @@ namespace marcatel_api.Controllers
             try
             {
                 _modUserService.InsertModUser(modUser);
-
-                return Ok(new
-                {
+                
+                return Ok(new {
                     StatusCode = (int)HttpStatusCode.OK,
                     success = true,
                     message = "Registro insertado con éxito"
@@ -38,24 +37,20 @@ namespace marcatel_api.Controllers
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
-                return StatusCode((int)HttpStatusCode.InternalServerError, new
-                {
+                return StatusCode((int)HttpStatusCode.InternalServerError, new {
                     success = false,
                     message = "Error al insertar el registro"
                 });
             }
         }
 
-        [Authorize(AuthenticationSchemes = "Bearer")]
-
-        [HttpGet("Get")]
+        [HttpGet("Get")] 
         public IActionResult GetModUser()
         {
             try
             {
                 var modUsers = _modUserService.GetModUser();
-                return Ok(new
-                {
+                return Ok(new {
                     StatusCode = (int)HttpStatusCode.OK,
                     success = true,
                     message = "Registros obtenidos correctamente",
@@ -65,8 +60,7 @@ namespace marcatel_api.Controllers
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
-                return StatusCode((int)HttpStatusCode.InternalServerError, new
-                {
+                return StatusCode((int)HttpStatusCode.InternalServerError, new {
                     success = false,
                     message = "Error al obtener los registros"
                 });
@@ -79,9 +73,8 @@ namespace marcatel_api.Controllers
             try
             {
                 _modUserService.UpdateModUser(modUser);
-
-                return Ok(new
-                {
+                
+                return Ok(new {
                     StatusCode = (int)HttpStatusCode.OK,
                     success = true,
                     message = "Registro actualizado con éxito"
@@ -90,8 +83,7 @@ namespace marcatel_api.Controllers
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
-                return StatusCode((int)HttpStatusCode.InternalServerError, new
-                {
+                return StatusCode((int)HttpStatusCode.InternalServerError, new {
                     success = false,
                     message = "Error al actualizar el registro"
                 });
@@ -104,9 +96,8 @@ namespace marcatel_api.Controllers
             try
             {
                 _modUserService.DeleteModUser(modUser);
-
-                return Ok(new
-                {
+                
+                return Ok(new {
                     StatusCode = (int)HttpStatusCode.OK,
                     success = true,
                     message = "Registro eliminado con éxito"
@@ -115,8 +106,7 @@ namespace marcatel_api.Controllers
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
-                return StatusCode((int)HttpStatusCode.InternalServerError, new
-                {
+                return StatusCode((int)HttpStatusCode.InternalServerError, new {
                     success = false,
                     message = "Error al eliminar el registro"
                 });

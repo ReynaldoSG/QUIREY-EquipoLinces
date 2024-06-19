@@ -10,17 +10,17 @@ using marcatel_api.Helpers;
 
 namespace marcatel_api.Controllers
 {
-
+   
     [Route("api/[controller]")]
-    public class DetalleMovimientoController : ControllerBase
+    public class DetalleMovimientoController: ControllerBase
     {
         private readonly DetalleMovimientoService _DetalleMovimientoService;
 
-        public DetalleMovimientoController(DetalleMovimientoService detalleMovimientoService)
-        {
+    public DetalleMovimientoController(DetalleMovimientoService detalleMovimientoService) 
+    {
             _DetalleMovimientoService = detalleMovimientoService;
 
-        }
+    }
         [HttpPost("Insert")]
         public JsonResult InsertDetalleMovimientos([FromBody] InsertDetalleMovimientoModel detalleMovimiento)
         {
@@ -28,7 +28,7 @@ namespace marcatel_api.Controllers
             try
             {
                 var CatClienteResponse = _DetalleMovimientoService.InsertDetalleMovimiento(detalleMovimiento);
-
+                
                 objectResponse.StatusCode = (int)HttpStatusCode.OK;
                 objectResponse.success = true;
                 objectResponse.message = "Registro insertado con exito";
@@ -51,8 +51,8 @@ namespace marcatel_api.Controllers
 
 
 
-        [Authorize(AuthenticationSchemes = "Bearer")]
-        [HttpGet("Get")]
+        //[Authorize(AuthenticationSchemes = "Bearer")]
+        [HttpGet("Get")] 
         public IActionResult GetDetalleMovimiento([FromQuery] int id_Movimientos)
         {
             var articulo = _DetalleMovimientoService.GetDetalleMovimiento(id_Movimientos);
@@ -66,7 +66,7 @@ namespace marcatel_api.Controllers
             try
             {
                 var CatClienteResponse = _DetalleMovimientoService.UpdateDetalleMovimiento(detalleMovimiento);
-
+                
                 objectResponse.StatusCode = (int)HttpStatusCode.OK;
                 objectResponse.success = true;
                 objectResponse.message = "Registro actualizado con exito";
@@ -94,7 +94,7 @@ namespace marcatel_api.Controllers
             try
             {
                 var CatClienteResponse = _DetalleMovimientoService.DeleteDetalleMovimiento(detalleMovimiento);
-
+                
                 objectResponse.StatusCode = (int)HttpStatusCode.OK;
                 objectResponse.success = true;
                 objectResponse.message = "Registro eliminado con exito";
@@ -116,10 +116,10 @@ namespace marcatel_api.Controllers
         }
 
 
+        
 
+        
 
-
-
-
+        
     }
 }

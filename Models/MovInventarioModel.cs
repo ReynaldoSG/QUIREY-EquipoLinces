@@ -19,15 +19,6 @@ namespace marcatel_api.Models
         public DateTime FechaActualiza { get; set; }
     }
 
-
-        public class GetMovInvFiltroModel
-    {
-        public string IdAlmacen { get; set; }
-        public DateTime FechaInicio {get;set;}
-        public DateTime FechaFin {get;set;}
-    }
-
-
     public class InsertMovimientoModels
     {
         public int IdTipoMov { get; set; }
