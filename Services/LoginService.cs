@@ -9,10 +9,10 @@ namespace marcatel_api.Services
 {
     public class LoginService
     {
-        private string connection;
+        private  string connection;
         public LoginService(IMarcatelDatabaseSetting settings)
         {
-            connection = settings.ConnectionString;
+             connection = settings.ConnectionString;
         }
 
         public UsuarioModel Login(string user, string pass)
@@ -34,8 +34,8 @@ namespace marcatel_api.Services
                         usuario.IdSucursal = int.Parse(row["IdSucursal"].ToString());
                         usuario.NombreSucursal = row["NombreSucursal"].ToString();
                         usuario.Id = int.Parse(row["Id"].ToString());
-                        usuario.IdPerfil = int.Parse(row["Rol"].ToString());
-
+                        usuario.IdPerfil = int.Parse(row["id_perfil"].ToString());
+                    
                     }
                 }
                 return usuario;
@@ -46,6 +46,6 @@ namespace marcatel_api.Services
             }
         }
 
-
+        
     }
 }

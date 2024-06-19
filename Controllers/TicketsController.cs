@@ -10,20 +10,20 @@ using marcatel_api.Helpers;
 
 namespace marcatel_api.Controllers
 {
-
+   
     [Route("api/[controller]")]
-    public class TicketsController : ControllerBase
+    public class TicketsController: ControllerBase
     {
         private readonly TicketsService _ticketsService;
 
-        public TicketsController(TicketsService ticketsservice)
-        {
+    public TicketsController(TicketsService ticketsservice) 
+    {
             _ticketsService = ticketsservice;
-        }
+    }
 
+        
 
-
-
+        
 
         [HttpPost("Insert")]
         public JsonResult InsertTicket([FromBody] InsertTicketsModel ticket)
@@ -32,7 +32,7 @@ namespace marcatel_api.Controllers
             try
             {
                 var CatClienteResponse = _ticketsService.InsertTickets(ticket);
-
+                
                 objectResponse.StatusCode = (int)HttpStatusCode.OK;
                 objectResponse.success = true;
                 objectResponse.message = "Registro insertado con exito";
@@ -55,8 +55,8 @@ namespace marcatel_api.Controllers
 
 
 
-        [Authorize(AuthenticationSchemes = "Bearer")]
-        [HttpPut("Get")]
+        //[Authorize(AuthenticationSchemes = "Bearer")]
+        [HttpGet("Get")]
         public IActionResult GetTickets(GetTicketsFiltroModel ticket)
         {
             var tickets = _ticketsService.GetTickets(ticket);
@@ -68,7 +68,7 @@ namespace marcatel_api.Controllers
         //     try
         //     {
         //         var CatClienteResponse = _ticketsService.GetTickets(ticket);
-
+                
         //         objectResponse.StatusCode = (int)HttpStatusCode.OK;
         //         objectResponse.success = true;
         //         objectResponse.message = "Registros encontrados con exito";
@@ -96,7 +96,7 @@ namespace marcatel_api.Controllers
             try
             {
                 var CatClienteResponse = _ticketsService.UpdateTickets(ticket);
-
+                
                 objectResponse.StatusCode = (int)HttpStatusCode.OK;
                 objectResponse.success = true;
                 objectResponse.message = "Registro modificado con éxito";
@@ -124,7 +124,7 @@ namespace marcatel_api.Controllers
             try
             {
                 var CatClienteResponse = _ticketsService.DeleteTickets(tickets);
-
+                
                 objectResponse.StatusCode = (int)HttpStatusCode.OK;
                 objectResponse.success = true;
                 objectResponse.message = "Información eliminada con éxito";
@@ -145,13 +145,13 @@ namespace marcatel_api.Controllers
 
         }
 
+        
 
 
+        
 
+        
 
-
-
-
-
+        
     }
 }

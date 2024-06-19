@@ -10,20 +10,20 @@ using marcatel_api.Helpers;
 
 namespace marcatel_api.Controllers
 {
-
+   
     [Route("api/[controller]")]
-    public class AlmacenesController : ControllerBase
+    public class AlmacenesController: ControllerBase
     {
         private readonly AlmacenesService _almacenesService;
 
-        public AlmacenesController(AlmacenesService almacenesservice)
-        {
+    public AlmacenesController(AlmacenesService almacenesservice)
+    {
             _almacenesService = almacenesservice;
-        }
+    }
 
+        
 
-
-
+        
 
         [HttpPost("Insert")]
         public JsonResult InsertAlmacen([FromBody] InsertAlmacenesModel almacen)
@@ -32,7 +32,7 @@ namespace marcatel_api.Controllers
             try
             {
                 var CatClienteResponse = _almacenesService.InsertAlmacenes(almacen);
-
+                
                 objectResponse.StatusCode = (int)HttpStatusCode.OK;
                 objectResponse.success = true;
                 objectResponse.message = "Registro insertado con exito";
@@ -55,15 +55,15 @@ namespace marcatel_api.Controllers
 
 
 
-        [Authorize(AuthenticationSchemes = "Bearer")]
-
-        [HttpGet("Get")]
+        //[Authorize(AuthenticationSchemes = "Bearer")]
+        
+        [HttpGet("Get")] 
         public IActionResult GetAlmacenes()
         {
             var almacen = _almacenesService.GetAlmacenes();
             return Ok(almacen);
         }
-
+        
 
         [HttpPut("Update")]
         public JsonResult UpdateAlmacen([FromBody] UpdateAlmacenesModel almacen)
@@ -72,7 +72,7 @@ namespace marcatel_api.Controllers
             try
             {
                 var CatClienteResponse = _almacenesService.UpdateAlmacenes(almacen);
-
+                
                 objectResponse.StatusCode = (int)HttpStatusCode.OK;
                 objectResponse.success = true;
                 objectResponse.message = "Registro actualizado con exito";
@@ -100,7 +100,7 @@ namespace marcatel_api.Controllers
             try
             {
                 var CatClienteResponse = _almacenesService.DeleteAlmacenes(almacen);
-
+                
                 objectResponse.StatusCode = (int)HttpStatusCode.OK;
                 objectResponse.success = true;
                 objectResponse.message = "Registro eliminado con exito";
@@ -122,10 +122,10 @@ namespace marcatel_api.Controllers
         }
 
 
+        
 
+        
 
-
-
-
+        
     }
 }

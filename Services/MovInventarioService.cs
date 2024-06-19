@@ -17,7 +17,7 @@ namespace marcatel_api.Services
         }
 
 
-        public List<GetMovInventarioModels> GetMovInventario()
+        public List<GetMovInventarioModels> GetMovInventario(GetMovInvFiltroModel MovInv)
         {
             ArrayList parametros = new ArrayList();
             ConexionDataAccess dac = new ConexionDataAccess(connection);

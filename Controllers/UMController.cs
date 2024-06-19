@@ -10,20 +10,20 @@ using marcatel_api.Helpers;
 
 namespace marcatel_api.Controllers
 {
-
+   
     [Route("api/[controller]")]
-    public class UMController : ControllerBase
+    public class UMController: ControllerBase
     {
         private readonly UMService _umService;
 
-        public UMController(UMService umservice)
-        {
+    public UMController(UMService umservice)
+    {
             _umService = umservice;
-        }
+    }
 
+        
 
-
-
+        
 
         [HttpPost("Insert")]
         public JsonResult InsertUM([FromBody] InsertUMModel um)
@@ -32,7 +32,7 @@ namespace marcatel_api.Controllers
             try
             {
                 var CatClienteResponse = _umService.InsertUM(um);
-
+                
                 objectResponse.StatusCode = (int)HttpStatusCode.OK;
                 objectResponse.success = true;
                 objectResponse.message = "Registro insertado con exito";
@@ -55,15 +55,15 @@ namespace marcatel_api.Controllers
 
 
 
-        [Authorize(AuthenticationSchemes = "Bearer")]
-
-        [HttpGet("Get")]
+        //[Authorize(AuthenticationSchemes = "Bearer")]
+        
+        [HttpGet("Get")] 
         public IActionResult GetUM()
         {
             var um = _umService.GetUM();
             return Ok(um);
         }
-
+        
 
         [HttpPut("Update")]
         public JsonResult UpdateUM([FromBody] UpdateUMModel um)
@@ -72,7 +72,7 @@ namespace marcatel_api.Controllers
             try
             {
                 var CatClienteResponse = _umService.UpdateUM(um);
-
+                
                 objectResponse.StatusCode = (int)HttpStatusCode.OK;
                 objectResponse.success = true;
                 objectResponse.message = "Registro actualizado con exito";
@@ -100,7 +100,7 @@ namespace marcatel_api.Controllers
             try
             {
                 var CatClienteResponse = _umService.DeleteUM(um);
-
+                
                 objectResponse.StatusCode = (int)HttpStatusCode.OK;
                 objectResponse.success = true;
                 objectResponse.message = "Registro eliminado con exito";
@@ -122,10 +122,10 @@ namespace marcatel_api.Controllers
         }
 
 
+        
 
+        
 
-
-
-
+        
     }
 }

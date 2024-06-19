@@ -16,8 +16,6 @@ namespace marcatel_api.Controllers
     {
         private readonly UsuariosService _UsuarioService;
 
-        Encrypt enc = new Encrypt();
-
         public UsuariosController(UsuariosService usuariosService)
         {
             _UsuarioService = usuariosService;
@@ -33,8 +31,6 @@ namespace marcatel_api.Controllers
             var objectResponse = Helper.GetStructResponse();
             try
             {
-                usuarios.Contrasena = enc.GetSHA256(usuarios.Contrasena);
-
                 var CatClienteResponse = _UsuarioService.InsertUsuarios(usuarios);
 
                 objectResponse.StatusCode = (int)HttpStatusCode.OK;
@@ -59,7 +55,7 @@ namespace marcatel_api.Controllers
 
 
 
-        [Authorize(AuthenticationSchemes = "Bearer")]
+        //[Authorize(AuthenticationSchemes = "Bearer")]
         [HttpGet("Get")]
         public IActionResult GetUsuario()
         {

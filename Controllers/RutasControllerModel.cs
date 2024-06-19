@@ -10,20 +10,20 @@ using marcatel_api.Helpers;
 
 namespace marcatel_api.Controllers
 {
-
+   
     [Route("api/[controller]")]
-    public class RutasController : ControllerBase
+    public class RutasController: ControllerBase
     {
         private readonly RutasService _rutasService;
 
-        public RutasController(RutasService rutasservice)
-        {
+    public RutasController(RutasService rutasservice) 
+    {
             _rutasService = rutasservice;
-        }
+    }
 
+        
 
-
-
+        
 
         [HttpPost("Insert")]
         public JsonResult InsertRutas([FromBody] InsertRutasModel rutas)
@@ -32,7 +32,7 @@ namespace marcatel_api.Controllers
             try
             {
                 var CatClienteResponse = _rutasService.InsertRutas(rutas);
-
+                
                 objectResponse.StatusCode = (int)HttpStatusCode.OK;
                 objectResponse.success = true;
                 objectResponse.message = "Registro insertado con exito";
@@ -55,15 +55,15 @@ namespace marcatel_api.Controllers
 
 
 
-        [Authorize(AuthenticationSchemes = "Bearer")]
-        [HttpGet("Get")]
+        //[Authorize(AuthenticationSchemes = "Bearer")]
+        [HttpGet("Get")] 
         public IActionResult GetRutas()
         {
             var rutas = _rutasService.GetRutas();
             return Ok(rutas);
         }
 
-
+        
         [HttpPut("Update")]
         public JsonResult UpdateRutas([FromBody] UpdateRutasModel rutas)
         {
@@ -71,7 +71,7 @@ namespace marcatel_api.Controllers
             try
             {
                 var CatClienteResponse = _rutasService.UpdateRutas(rutas);
-
+                
                 objectResponse.StatusCode = (int)HttpStatusCode.OK;
                 objectResponse.success = true;
                 objectResponse.message = "Registro insertado con exito";
@@ -100,7 +100,7 @@ namespace marcatel_api.Controllers
             try
             {
                 var CatClienteResponse = _rutasService.DeleteRutas(rutas);
-
+                
                 objectResponse.StatusCode = (int)HttpStatusCode.OK;
                 objectResponse.success = true;
                 objectResponse.message = "Información eliminada con éxito";
@@ -122,10 +122,10 @@ namespace marcatel_api.Controllers
         }
 
 
+        
 
+        
 
-
-
-
+        
     }
 }
