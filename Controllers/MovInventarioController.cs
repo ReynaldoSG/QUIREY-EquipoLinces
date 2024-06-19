@@ -26,7 +26,7 @@ namespace marcatel_api.Controllers
 
         //[Authorize(AuthenticationSchemes = "Bearer")]
         
-        [Authorize(AuthenticationSchemes = "Bearer")]
+
         [HttpGet("Get")]
         public IActionResult GetMovInventario(GetMovInvFiltroModel movimiento){
             var MovInventario = _movInventarioService.GetMovInventario(movimiento);

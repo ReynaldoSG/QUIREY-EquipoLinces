@@ -26,8 +26,6 @@ namespace marcatel_api.Services
             try
             {
                 parametros.Add(new SqlParameter { ParameterName = "@pIdSucursal", SqlDbType = SqlDbType.Int, Value = ticket.IdSucursal });
-                parametros.Add(new SqlParameter { ParameterName = "@FechaInicio", SqlDbType = SqlDbType.Date, Value = ticket.FechaInicio });
-                parametros.Add(new SqlParameter { ParameterName = "@FechaFin", SqlDbType = SqlDbType.Date, Value = ticket.FechaFin });
                 DataSet ds = dac.Fill("sp_GetTickets", parametros);
                 if (ds.Tables[0].Rows.Count > 0)
                 {
