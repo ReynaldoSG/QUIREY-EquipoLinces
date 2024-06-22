@@ -15,6 +15,8 @@ namespace marcatel_api.Models
     public class GetTicketsFiltroModel
     {
         public string IdSucursal { get; set; }
+        public DateTime FechaInicio {get;set;}
+        public DateTime FechaFin {get;set;}
     }
 
     public class InsertTicketsModel

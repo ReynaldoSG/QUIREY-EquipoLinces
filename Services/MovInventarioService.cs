@@ -17,13 +17,16 @@ namespace marcatel_api.Services
         }
 
 
-        public List<GetMovInventarioModels> GetMovInventario(GetMovInvFiltroModel MovInv)
+         public List<GetMovInventarioModels> GetMovInventario(GetMovInvFiltroModel inventario)
         {
             ArrayList parametros = new ArrayList();
             ConexionDataAccess dac = new ConexionDataAccess(connection);
             var lista = new List<GetMovInventarioModels>();
             try
             {
+                parametros.Add(new SqlParameter { ParameterName = "@IdAlmacen", SqlDbType = SqlDbType.Int, Value = inventario.IdAlmacen });
+                parametros.Add(new SqlParameter { ParameterName = "@FechaInicio", SqlDbType = SqlDbType.Date, Value = inventario.FechaInicio });
+                parametros.Add(new SqlParameter { ParameterName = "@FechaFin", SqlDbType = SqlDbType.Date, Value = inventario.FechaFin });
                 DataSet ds = dac.Fill("sp_GetMovimientosInv", parametros);
                 if (ds.Tables[0].Rows.Count > 0)
                 {
