@@ -10,85 +10,79 @@ namespace marcatel_api.Services
 {
     public class DetalleMovimientoService
     {
-        private  string connection;
+        private string connection;
         public DetalleMovimientoService(IMarcatelDatabaseSetting settings)
         {
-             connection = settings.ConnectionString;
+            connection = settings.ConnectionString;
         }
-                public List<GetDetalleMovimientoModel> GetDetalleMovimiento(int id_Movimientos)
-                {
-                    ArrayList parametros = new ArrayList();
-                    ConexionDataAccess dac = new ConexionDataAccess(connection);
-                    var lista = new List<GetDetalleMovimientoModel>();
-                    try
-                    {
-                        parametros.Add(new SqlParameter { ParameterName = "@pId", SqlDbType = SqlDbType.Int, Value = id_Movimientos });
-                        DataSet ds = dac.Fill("sp_GetDetalleMov", parametros);
-                        if (ds.Tables[0].Rows.Count > 0)
-                        {
-                            foreach (DataRow row in ds.Tables[0].Rows)
-                            {
-                                lista.Add(new GetDetalleMovimientoModel
-                                {
-                                Id = int.Parse(row["Id"].ToString()),
-                                
-                                Codigo = row["Codigo"].ToString(),
-                                Cantidad = decimal.Parse(row["Cantidad"].ToString()),
-                                Costo = decimal.Parse(row["Costo"].ToString()),
-                                FechaActualiza = DateTime.Parse(row["FechaActualiza"].ToString()),
-                                Estatus = row["Estatus"].ToString(),
-                                UsuarioActualiza = row["UsuarioActualiza"].ToString()
-                                });
-                            }
-                        }
-                        return lista;
-                        
-                    }
-                    catch (Exception ex)
-                    {
-                        throw ex;
-                    }
-                    
-                    
-                }
-
-        public int InsertDetalleMovimiento(InsertDetalleMovimientoModel detalleMovimiento)
+        public List<GetDetalleMovimientoModel> GetDetalleMovimiento(int id_Movimientos)
         {
             ArrayList parametros = new ArrayList();
             ConexionDataAccess dac = new ConexionDataAccess(connection);
-            var lista = new List<InsertDetalleMovimientoModel>();
+            var lista = new List<GetDetalleMovimientoModel>();
+            try
+            {
+                parametros.Add(new SqlParameter { ParameterName = "@pId", SqlDbType = SqlDbType.Int, Value = id_Movimientos });
+                DataSet ds = dac.Fill("sp_GetDetalleMov", parametros);
+                if (ds.Tables[0].Rows.Count > 0)
+                {
+                    foreach (DataRow row in ds.Tables[0].Rows)
+                    {
+                        lista.Add(new GetDetalleMovimientoModel
+                        {
+                            Id = int.Parse(row["Id"].ToString()),
+
+                            Codigo = row["Codigo"].ToString(),
+                            Cantidad = decimal.Parse(row["Cantidad"].ToString()),
+                            Costo = decimal.Parse(row["Costo"].ToString()),
+                            FechaActualiza = DateTime.Parse(row["FechaActualiza"].ToString()),
+                            Estatus = row["Estatus"].ToString(),
+                            UsuarioActualiza = row["UsuarioActualiza"].ToString()
+                        });
+                    }
+                }
+                return lista;
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+
+        }
+
+        public string InsertDetalleMovimiento(InsertDetalleMovimientoModel detalleMovimiento)
+        {
+            ArrayList parametros = new ArrayList();
+            ConexionDataAccess dac = new ConexionDataAccess(connection);
 
             try
             {
                 parametros.Add(new SqlParameter { ParameterName = "@pIdMovimiento", SqlDbType = SqlDbType.Int, Value = detalleMovimiento.IdMovimiento });
                 parametros.Add(new SqlParameter { ParameterName = "@pCodigo", SqlDbType = SqlDbType.VarChar, Value = detalleMovimiento.Codigo });
-                parametros.Add(new SqlParameter { ParameterName = "@pCantidad", SqlDbType = SqlDbType.Int, Value = detalleMovimiento.Cantidad });
+                parametros.Add(new SqlParameter { ParameterName = "@pCantidad", SqlDbType = SqlDbType.Decimal, Value = detalleMovimiento.Cantidad });
                 parametros.Add(new SqlParameter { ParameterName = "@pCosto", SqlDbType = SqlDbType.Decimal, Value = detalleMovimiento.Costo });
-                parametros.Add(new SqlParameter { ParameterName = "@pUsuarioActualiza",SqlDbType= SqlDbType.Int,Value= detalleMovimiento.UsuarioActualiza});
+                parametros.Add(new SqlParameter { ParameterName = "@pUsuarioActualiza", SqlDbType = SqlDbType.Int, Value = detalleMovimiento.UsuarioActualiza });
 
                 DataSet ds = dac.Fill("sp_InsertDetalleMov", parametros);
+
                 if (ds.Tables[0].Rows.Count > 0)
                 {
-                    foreach (DataRow row in ds.Tables[0].Rows)
-                    {
-                        lista.Add(new InsertDetalleMovimientoModel
-                        {
-                            IdMovimiento = int.Parse(row["Id"].ToString()),
-                            Codigo = row["Codigo"].ToString(),
-                            Cantidad = decimal.Parse(row["Cantidad"].ToString()),
-                            Costo = decimal.Parse(row["Costo"].ToString()),
-                            UsuarioActualiza = int.Parse(row["UsuarioActualiza"].ToString())
-                        });
-                    }
+                    return ds.Tables[0].Rows[0]["Mensaje"].ToString();
                 }
-                return 1;
+                else
+                {
+                    return "No se recibió ningún mensaje desde la base de datos";
+                }
             }
             catch (Exception ex)
             {
                 Console.Write(ex.Message);
-                return 0;
+                return "Error: " + ex.Message; // Manejar errores de manera adecuada en producción
             }
         }
+
 
         public int UpdateDetalleMovimiento(UpdateDetalleMovimientoModel detalleMovimiento)
         {
@@ -99,7 +93,7 @@ namespace marcatel_api.Services
             try
             {
                 parametros.Add(new SqlParameter { ParameterName = "@pId", SqlDbType = SqlDbType.Int, Value = detalleMovimiento.Id });
-                parametros.Add(new SqlParameter { ParameterName = "@pIdMovimiento", SqlDbType = SqlDbType.Int, Value = detalleMovimiento.IdMovimiento});
+                parametros.Add(new SqlParameter { ParameterName = "@pIdMovimiento", SqlDbType = SqlDbType.Int, Value = detalleMovimiento.IdMovimiento });
                 parametros.Add(new SqlParameter { ParameterName = "@pCodigo", SqlDbType = SqlDbType.VarChar, Value = detalleMovimiento.Codigo });
                 parametros.Add(new SqlParameter { ParameterName = "@pCantidad", SqlDbType = SqlDbType.Int, Value = detalleMovimiento.Cantidad });
                 parametros.Add(new SqlParameter { ParameterName = "@pCosto", SqlDbType = SqlDbType.Decimal, Value = detalleMovimiento.Costo });

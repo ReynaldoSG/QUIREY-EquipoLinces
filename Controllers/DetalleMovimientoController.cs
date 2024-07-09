@@ -27,15 +27,18 @@ namespace marcatel_api.Controllers
             var objectResponse = Helper.GetStructResponse();
             try
             {
-                var CatClienteResponse = _DetalleMovimientoService.InsertDetalleMovimiento(detalleMovimiento);
+                // Llamada al servicio para ejecutar el procedimiento almacenado
+                var response = _DetalleMovimientoService.InsertDetalleMovimiento(detalleMovimiento);
 
+                // Aquí puedes manejar el resultado como lo necesites
                 objectResponse.StatusCode = (int)HttpStatusCode.OK;
                 objectResponse.success = true;
-                objectResponse.message = "Registro insertado con exito";
+                objectResponse.message = "Registro insertado con éxito";
 
+                // Puedes enviar el mensaje de respuesta al front-end si es necesario
                 objectResponse.response = new
                 {
-                    data = CatClienteResponse
+                    data = response // Aquí puedes incluir más información si es necesario
                 };
             }
             catch (System.Exception ex)
@@ -44,10 +47,9 @@ namespace marcatel_api.Controllers
                 throw;
             }
 
-
             return new JsonResult(objectResponse);
-
         }
+
 
 
 
