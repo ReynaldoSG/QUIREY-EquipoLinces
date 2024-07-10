@@ -5,7 +5,6 @@ using System.Data.SqlClient;
 using marcatel_api.DataContext;
 using marcatel_api.Models;
 using System.Collections;
-using System.Globalization;
 
 namespace marcatel_api.Services
 {
@@ -160,14 +159,8 @@ namespace marcatel_api.Services
                     {
 
                         parametros.Add(new SqlParameter { ParameterName = "@pVendedor", SqlDbType = SqlDbType.Int, Value = corte.vendedor });
-                        parametros.Add(new SqlParameter { ParameterName = "@pFechaInicio", SqlDbType = SqlDbType.DateTime, Value = corte.FechaInicio });
-                        parametros.Add(new SqlParameter { ParameterName = "@pFechaFin", SqlDbType = SqlDbType.DateTime, Value = corte.FechaFin });
-
-                        
-                        corte.FechaInicio = DateTime.ParseExact(corte.FechaInicio.ToString("yyyy-MM-dd"), "yyyy-MM-dd", CultureInfo.InvariantCulture);
-                        corte.FechaFin = DateTime.ParseExact(corte.FechaFin.ToString("yyyy-MM-dd"), "yyyy-MM-dd", CultureInfo.InvariantCulture);
-
-
+                        parametros.Add(new SqlParameter { ParameterName = "@pFechaInicio", SqlDbType = SqlDbType.Date, Value = corte.FechaInicio });
+                        parametros.Add(new SqlParameter { ParameterName = "@pFechaFin", SqlDbType = SqlDbType.Date, Value = corte.FechaFin });
                         DataSet ds = dac.Fill("sp_GetCorte", parametros);
                         if (ds.Tables[0].Rows.Count > 0)
                         {
@@ -178,7 +171,7 @@ namespace marcatel_api.Services
                                     Id = int.Parse(row["Id"].ToString()),
                                     Vendedor = row["Vendedor"].ToString(),
                                     Total = int.Parse(row["Total"].ToString()),
-                                    FechaVenta = DateTime.Parse(row["FechaVenta"].ToString()),
+                                    FechaVenta = DateTime.Parse(row["FechaVenta"].ToString())
                                    
                                 });
                             }

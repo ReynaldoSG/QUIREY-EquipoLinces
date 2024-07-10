@@ -145,7 +145,7 @@ namespace marcatel_api.Controllers
 
         }
 
-        [HttpPost("GetCorte")]
+        [HttpGet("GetCorte")]
         public IActionResult GetCorte(GetCorteFiltroModel corte)
         {
             var cortes = _ticketsService.GetCorte(corte);
