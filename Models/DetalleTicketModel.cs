@@ -12,6 +12,8 @@ namespace marcatel_api.Models
         public decimal Total { get; set; }
         public string Usuario { get; set; }
         public string Estatus { get; set; }
+        public string Mensaje { get; set; }
+
     }
 
     public class GetDetalleTicketSearchModel

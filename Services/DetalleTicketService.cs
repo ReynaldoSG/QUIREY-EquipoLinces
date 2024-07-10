@@ -56,7 +56,7 @@ namespace marcatel_api.Services
 
         }
 
-        public int InsertDetalleTicket(InsertDetalleTicketModel detalleticket)
+        public string InsertDetalleTicket(InsertDetalleTicketModel detalleticket)
         {
             ArrayList parametros = new ArrayList();
             ConexionDataAccess dac = new ConexionDataAccess(connection);
@@ -71,26 +71,20 @@ namespace marcatel_api.Services
                 parametros.Add(new SqlParameter { ParameterName = "@pUsuarioActualiza", SqlDbType = SqlDbType.Int, Value = detalleticket.Usuario });
 
                 DataSet ds = dac.Fill("sp_InsertDetalleTicket", parametros);
+
                 if (ds.Tables[0].Rows.Count > 0)
                 {
-                    foreach (DataRow row in ds.Tables[0].Rows)
-                    {
-                        lista.Add(new GetDetalleTicketModel
-                        {
-                            IdTicket = int.Parse(row["IdTicket"].ToString()),
-                            Codigo = row["Codigo"].ToString(),
-                            Cantidad = decimal.Parse(row["Cantidad"].ToString()),
-                            PrecioVenta = decimal.Parse(row["PrecioVenta"].ToString()),
-                            Usuario = row["UsuarioActualiza"].ToString()
-                        });
-                    }
+                    return ds.Tables[0].Rows[0]["Mensaje"].ToString();
                 }
-                return 1;
+                else
+                {
+                    return "No se recibió ningún mensaje desde la base de datos";
+                }
             }
             catch (Exception ex)
             {
                 Console.Write(ex.Message);
-                return 0;
+                return "Error: " + ex.Message;
             }
         }
 
