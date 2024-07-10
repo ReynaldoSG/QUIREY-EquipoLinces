@@ -73,11 +73,8 @@ namespace marcatel_api.Services
                     {
                         lista.Add(new InsertDetalleMovimientoModel
                         {
-                            IdMovimiento = int.Parse(row["Id"].ToString()),
-                            Codigo = row["Codigo"].ToString(),
-                            Cantidad = decimal.Parse(row["Cantidad"].ToString()),
-                            Costo = decimal.Parse(row["Costo"].ToString()),
-                            UsuarioActualiza = int.Parse(row["UsuarioActualiza"].ToString())
+                            IdMovimiento = int.Parse(row["Id"].ToString())
+                            
                         });
                     }
                 }

@@ -5,6 +5,7 @@ using System.Data.SqlClient;
 using marcatel_api.DataContext;
 using marcatel_api.Models;
 using System.Collections;
+using System.Globalization;
 
 namespace marcatel_api.Services
 {
@@ -147,6 +148,49 @@ namespace marcatel_api.Services
                 return 0;
             }
         }
+
+           public List<GetCorteModel> GetCorte(GetCorteFiltroModel corte)
+                {
+                    ArrayList parametros = new ArrayList();
+                    ConexionDataAccess dac = new ConexionDataAccess(connection);
+                    var lista = new List<GetCorteModel>();
+                    try
+                    {
+
+                        parametros.Add(new SqlParameter { ParameterName = "@pVendedor", SqlDbType = SqlDbType.Int, Value = corte.vendedor });
+                        parametros.Add(new SqlParameter { ParameterName = "@pFechaInicio", SqlDbType = SqlDbType.DateTime, Value = corte.FechaInicio });
+                        parametros.Add(new SqlParameter { ParameterName = "@pFechaFin", SqlDbType = SqlDbType.DateTime, Value = corte.FechaFin });
+
+                        
+                        corte.FechaInicio = DateTime.ParseExact(corte.FechaInicio.ToString("yyyy-MM-dd"), "yyyy-MM-dd", CultureInfo.InvariantCulture);
+                        corte.FechaFin = DateTime.ParseExact(corte.FechaFin.ToString("yyyy-MM-dd"), "yyyy-MM-dd", CultureInfo.InvariantCulture);
+
+
+                        DataSet ds = dac.Fill("sp_GetCorte", parametros);
+                        if (ds.Tables[0].Rows.Count > 0)
+                        {
+                            foreach (DataRow row in ds.Tables[0].Rows)
+                            {
+                                lista.Add(new GetCorteModel
+                                {
+                                    Id = int.Parse(row["Id"].ToString()),
+                                    Vendedor = row["Vendedor"].ToString(),
+                                    Total = int.Parse(row["Total"].ToString()),
+                                    FechaVenta = DateTime.Parse(row["FechaVenta"].ToString()),
+                                   
+                                });
+                            }
+                        }
+                        return lista;
+                        
+                    }
+                    catch (Exception ex)
+                    {
+                        throw ex;
+                    }
+                    
+                    
+                }
         
     }
 }
