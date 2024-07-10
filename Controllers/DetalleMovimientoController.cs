@@ -7,6 +7,8 @@ using marcatel_api.Models;
 using Microsoft.Extensions.Logging;
 using System.Net;
 using marcatel_api.Helpers;
+using Microsoft.AspNetCore.JsonPatch.Internal;
+using System.Collections.Generic;
 
 namespace marcatel_api.Controllers
 {

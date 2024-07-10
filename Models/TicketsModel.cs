@@ -9,12 +9,16 @@ namespace marcatel_api.Models
         public string Vendedor { get; set; }
         public string Usuario{get;set;}
         public DateTime Fecha {get;set;}
+        public DateTime FechaInicio {get;set;}
+        public DateTime FechaFin {get;set;}
         public string Estatus {get;set;}
     }
 
     public class GetTicketsFiltroModel
     {
         public string IdSucursal { get; set; }
+        public DateTime FechaInicio {get;set;}
+        public DateTime FechaFin {get;set;}
     }
 
     public class InsertTicketsModel

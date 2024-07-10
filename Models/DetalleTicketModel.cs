@@ -10,6 +10,7 @@ namespace marcatel_api.Models
         public decimal Cantidad { get; set; }
         public decimal PrecioVenta { get; set; }
         public decimal Total { get; set; }
+        public decimal TotalTicket { get; set; }
         public string Usuario { get; set; }
         public string Estatus { get; set; }
         public string Mensaje { get; set; }
