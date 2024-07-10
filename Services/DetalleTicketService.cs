@@ -40,6 +40,7 @@ namespace marcatel_api.Services
                             Cantidad = decimal.Parse(row["Cantidad"].ToString()),
                             PrecioVenta = decimal.Parse(row["PrecioVenta"].ToString()),
                             Total = decimal.Parse(row["Total"].ToString()),
+                            TotalTicket = decimal.Parse(row["TotalTicket"].ToString()),
                             Estatus = row["Estatus"].ToString(),
                             Usuario = row["UsuarioActualiza"].ToString()
                         });
