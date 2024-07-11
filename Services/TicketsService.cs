@@ -10,10 +10,10 @@ namespace marcatel_api.Services
 {
     public class TicketsService
     {
-        private  string connection;
+        private string connection;
         public TicketsService(IMarcatelDatabaseSetting settings)
         {
-             connection = settings.ConnectionString;
+            connection = settings.ConnectionString;
         }
 
 
@@ -64,7 +64,7 @@ namespace marcatel_api.Services
                 parametros.Add(new SqlParameter { ParameterName = "@pIdSucursal", SqlDbType = SqlDbType.VarChar, Value = ticket.IdSucursal });
                 parametros.Add(new SqlParameter { ParameterName = "@pIdCliente", SqlDbType = SqlDbType.VarChar, Value = ticket.IdCliente });
                 parametros.Add(new SqlParameter { ParameterName = "@pIdVendedor", SqlDbType = SqlDbType.Int, Value = ticket.IdVendedor });
-                parametros.Add(new SqlParameter {ParameterName = "@pUsuarioActualiza",SqlDbType= SqlDbType.Int,Value= ticket.Usuario});
+                parametros.Add(new SqlParameter { ParameterName = "@pUsuarioActualiza", SqlDbType = SqlDbType.Int, Value = ticket.Usuario });
                 DataSet ds = dac.Fill("sp_InsertTickets", parametros);
                 if (ds.Tables[0].Rows.Count > 0)
                 {
@@ -150,42 +150,42 @@ namespace marcatel_api.Services
             }
         }
 
-           public List<GetCorteModel> GetCorte(GetCorteFiltroModel corte)
-                {
-                    ArrayList parametros = new ArrayList();
-                    ConexionDataAccess dac = new ConexionDataAccess(connection);
-                    var lista = new List<GetCorteModel>();
-                    try
-                    {
+        public List<GetCorteModel> GetCorte(GetCorteFiltroModel corte)
+        {
+            ArrayList parametros = new ArrayList();
+            ConexionDataAccess dac = new ConexionDataAccess(connection);
+            var lista = new List<GetCorteModel>();
+            try
+            {
 
-                        parametros.Add(new SqlParameter { ParameterName = "@pVendedor", SqlDbType = SqlDbType.Int, Value = corte.vendedor });
-                        parametros.Add(new SqlParameter { ParameterName = "@pFechaInicio", SqlDbType = SqlDbType.Date, Value = corte.FechaInicio });
-                        parametros.Add(new SqlParameter { ParameterName = "@pFechaFin", SqlDbType = SqlDbType.Date, Value = corte.FechaFin });
-                        DataSet ds = dac.Fill("sp_GetCorte", parametros);
-                        if (ds.Tables[0].Rows.Count > 0)
-                        {
-                            foreach (DataRow row in ds.Tables[0].Rows)
-                            {
-                                lista.Add(new GetCorteModel
-                                {
-                                    Id = int.Parse(row["Id"].ToString()),
-                                    Vendedor = row["Vendedor"].ToString(),
-                                    Total = int.Parse(row["Total"].ToString()),
-                                    FechaVenta = DateTime.Parse(row["FechaVenta"].ToString())
-                                   
-                                });
-                            }
-                        }
-                        return lista;
-                        
-                    }
-                    catch (Exception ex)
+                parametros.Add(new SqlParameter { ParameterName = "@pVendedor", SqlDbType = SqlDbType.Int, Value = corte.vendedor });
+                parametros.Add(new SqlParameter { ParameterName = "@pFechaInicio", SqlDbType = SqlDbType.Date, Value = corte.FechaInicio });
+                parametros.Add(new SqlParameter { ParameterName = "@pFechaFin", SqlDbType = SqlDbType.Date, Value = corte.FechaFin });
+                DataSet ds = dac.Fill("sp_GetCorte", parametros);
+                if (ds.Tables[0].Rows.Count > 0)
+                {
+                    foreach (DataRow row in ds.Tables[0].Rows)
                     {
-                        throw ex;
+                        lista.Add(new GetCorteModel
+                        {
+                            Id = int.Parse(row["Id"].ToString()),
+                            Vendedor = row["Vendedor"].ToString(),
+                            Total = row["Total"].ToString(),
+                            FechaVenta = DateTime.Parse(row["FechaVenta"].ToString())
+
+                        });
                     }
-                    
-                    
                 }
-        
+                return lista;
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+
+        }
+
     }
 }
