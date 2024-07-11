@@ -46,8 +46,8 @@ namespace marcatel_api.Controllers
             return new JsonResult(objectResponse);
         }
 
-        [Authorize(AuthenticationSchemes = "Bearer")]
-        [HttpGet("Get")]
+/*         [Authorize(AuthenticationSchemes = "Bearer")]
+ */        [HttpGet("Get")]
         public IActionResult GetTickets([FromQuery] GetTicketsFiltroModel ticket)
         {
             var tickets = _ticketsService.GetTickets(ticket);
