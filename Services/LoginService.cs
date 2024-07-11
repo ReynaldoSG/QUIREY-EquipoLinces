@@ -34,7 +34,10 @@ namespace marcatel_api.Services
                         usuario.IdSucursal = int.Parse(row["IdSucursal"].ToString());
                         usuario.NombreSucursal = row["NombreSucursal"].ToString();
                         usuario.Id = int.Parse(row["Id"].ToString());
-                        usuario.IdPerfil = int.Parse(row["Rol"].ToString());
+                        usuario.IdPerfil = int.Parse(row["Id"].ToString());
+                        usuario.Rol = row["Rol"].ToString();
+                        usuario.IdRol = int.Parse(row["IdRol"].ToString());
+
 
                     }
                 }

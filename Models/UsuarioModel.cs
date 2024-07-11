@@ -9,6 +9,9 @@ namespace marcatel_api.Models
         public string NombreSucursal { get; set; }
         public int IdPerfil { get; set; }
         public decimal PctDescuento {get; set;}
+        public string Rol { get; set; }
+        public int IdRol {get;set;}
+
     }
 }
 
