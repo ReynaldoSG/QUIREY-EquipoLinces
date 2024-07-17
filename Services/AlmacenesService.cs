@@ -26,6 +26,7 @@ namespace marcatel_api.Services
             {
                 parametros.Add(new SqlParameter { ParameterName = "@pNombre", SqlDbType = SqlDbType.VarChar, Value = almacen.Nombre });
                 parametros.Add(new SqlParameter { ParameterName = "@pDireccion", SqlDbType = SqlDbType.VarChar, Value = almacen.Direccion });
+                parametros.Add(new SqlParameter { ParameterName = "@pEncargado", SqlDbType = SqlDbType.Int, Value = almacen.Encargado });
                 parametros.Add(new SqlParameter { ParameterName = "@pUsuarioActualiza", SqlDbType = SqlDbType.Int, Value = almacen.Usuario });
                 parametros.Add(new SqlParameter { ParameterName = "@pEncargado", SqlDbType = SqlDbType.Int, Value = almacen.Encargado });
                 DataSet ds = dac.Fill("sp_InsertAlmacenes", parametros);
@@ -37,8 +38,8 @@ namespace marcatel_api.Services
                         {
                             Nombre = row["Nombre"].ToString(),
                             Direccion = row["Direccion"].ToString(),
-                            Usuario = row["UsuarioActualiza"].ToString(),
-                            Encargado = int.Parse(row["Encargado"].ToString()),
+                            Encargado = row["Encargado"].ToString(),
+                            Usuario = row["UsuarioActualiza"].ToString()
                         });
                     }
                 }
@@ -68,6 +69,7 @@ namespace marcatel_api.Services
                             Id = int.Parse(row["Id"].ToString()),
                             Nombre = row["Nombre"].ToString(),
                             Direccion = row["Direccion"].ToString(),
+                            Encargado = row["Encargado"].ToString(),
                             Usuario = row["UsuarioActualiza"].ToString(),
                             FechaReg = DateTime.Parse(row["FechaRegistro"].ToString()),
                             FechaAct = DateTime.Parse(row["FechaActualiza"].ToString()),
@@ -97,6 +99,7 @@ namespace marcatel_api.Services
                 parametros.Add(new SqlParameter { ParameterName = "@pId", SqlDbType = SqlDbType.Int, Value = almacen.Id });
                 parametros.Add(new SqlParameter { ParameterName = "@pNombre", SqlDbType = SqlDbType.VarChar, Value = almacen.Nombre });
                 parametros.Add(new SqlParameter { ParameterName = "@pDireccion", SqlDbType = SqlDbType.VarChar, Value = almacen.Direccion });
+                parametros.Add(new SqlParameter { ParameterName = "@pEncargado", SqlDbType = SqlDbType.Int, Value = almacen.Encargado });
                 parametros.Add(new SqlParameter { ParameterName = "@pUsuarioActualiza", SqlDbType = SqlDbType.Int, Value = almacen.Usuario });
                 parametros.Add(new SqlParameter { ParameterName = "@pEncargado", SqlDbType = SqlDbType.Int, Value = almacen.Encargado });
                 DataSet ds = dac.Fill("sp_UpdateAlmacenes", parametros);
@@ -109,8 +112,8 @@ namespace marcatel_api.Services
                             Id = int.Parse(row["Id"].ToString()),
                             Nombre = row["Nombre"].ToString(),
                             Direccion = row["Direccion"].ToString(),
-                            Usuario = row["UsuarioActualiza"].ToString(),
-                            Encargado = int.Parse(row["Encargado"].ToString()),
+                            Encargado = row["Encargado"].ToString(),
+                            Usuario = row["UsuarioActualiza"].ToString()
                         });
                     }
                 }
@@ -142,6 +145,7 @@ namespace marcatel_api.Services
                             Id = int.Parse(row["Id"].ToString()),
                             Nombre = row["Nombre"].ToString(),
                             Direccion = row["Direccion"].ToString(),
+                            Encargado = row["Encargado"].ToString(),
                             Usuario = row["UsuarioActualiza"].ToString()
                         });
                     }

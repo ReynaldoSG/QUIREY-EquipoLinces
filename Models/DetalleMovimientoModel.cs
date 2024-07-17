@@ -11,8 +11,8 @@ namespace marcatel_api.Models
         public DateTime FechaActualiza { get; set; }
         public string UsuarioActualiza { get; set; }
         public string Estatus { get; set; }
+        public string Mensaje { get; set; }
 
-        public string Mensaje {get; set;}
     }
 
     public class GetDetalleMovimientoSearchModel
@@ -28,7 +28,6 @@ namespace marcatel_api.Models
         public decimal Costo { get; set; }
         public int UsuarioActualiza { get; set; }
 
-        public string Mensaje {get; set;}
     }
 
     public class UpdateDetalleMovimientoModel
