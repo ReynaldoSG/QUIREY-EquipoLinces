@@ -32,11 +32,12 @@ namespace marcatel_api.Services
 
         public List<GetCatPerfil> GetCatPerfil(int perfil)
         {
+            ArrayList parametros = new ArrayList();
             List<GetCatPerfil> usuario = new List<GetCatPerfil>();
             ConexionDataAccess dac = new ConexionDataAccess(connection);
             try
             {
-                ArrayList parametros = new ArrayList();
+                
                 parametros.Add(new SqlParameter { ParameterName = "@pPerfil", SqlDbType = SqlDbType.VarChar, Value = perfil });
                 DataSet ds = dac.Fill("sp_GetCategoriaConPerfil", parametros);
                 if (ds.Tables[0].Rows.Count > 0)

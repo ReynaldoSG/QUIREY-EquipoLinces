@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections;
 using System.Data;
 using System.Data.SqlClient;
 using marcatel_api.DataContext;
 using marcatel_api.Models;
+
 
 namespace marcatel_api.Services
 {
@@ -17,13 +19,17 @@ namespace marcatel_api.Services
 
         public UsuarioModel Login(string user, string pass)
         {
+            ArrayList parametros = new ArrayList();
             UsuarioModel usuario = new UsuarioModel();
             ConexionDataAccess dac = new ConexionDataAccess(connection);
+           
             try
             {
-                ArrayList parametros = new ArrayList();
+                
+                
                 parametros.Add(new SqlParameter { ParameterName = "@pUsuario", SqlDbType = SqlDbType.VarChar, Value = user });
                 parametros.Add(new SqlParameter { ParameterName = "@pPass", SqlDbType = SqlDbType.VarChar, Value = pass });
+
                 DataSet ds = dac.Fill("sp_login_pv", parametros);
                 if (ds.Tables[0].Rows.Count > 0)
                 {
