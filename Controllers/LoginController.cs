@@ -59,6 +59,7 @@ namespace marcatel_api.Controllers
             }
             else
             {
+                result.StatusCode = (int)HttpStatusCode.BadRequest;
                 result.Error = true;
                 result.Success = false;
                 result.Message = "Usuario o contraseña incorrecto,";
