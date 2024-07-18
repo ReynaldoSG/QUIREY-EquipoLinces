@@ -10,45 +10,45 @@ namespace marcatel_api.Services
 {
     public class RutasService
     {
-        private  string connection;
+        private string connection;
         public RutasService(IMarcatelDatabaseSetting settings)
         {
-             connection = settings.ConnectionString;
+            connection = settings.ConnectionString;
         }
-                public List<GetRutasModel> GetRutas()
+        public List<GetRutasModel> GetRutas()
+        {
+            ArrayList parametros = new ArrayList();
+            ConexionDataAccess dac = new ConexionDataAccess(connection);
+            var lista = new List<GetRutasModel>();
+            try
+            {
+                DataSet ds = dac.Fill("sp_GetRutas", parametros);
+                if (ds.Tables[0].Rows.Count > 0)
                 {
-                    ArrayList parametros = new ArrayList();
-                    ConexionDataAccess dac = new ConexionDataAccess(connection);
-                    var lista = new List<GetRutasModel>();
-                    try
+                    foreach (DataRow row in ds.Tables[0].Rows)
                     {
-                        DataSet ds = dac.Fill("sp_GetRutas", parametros);
-                        if (ds.Tables[0].Rows.Count > 0)
+                        lista.Add(new GetRutasModel
                         {
-                            foreach (DataRow row in ds.Tables[0].Rows)
-                            {
-                                lista.Add(new GetRutasModel
-                                {
-                                    Id = int.Parse(row["Id"].ToString()),
-                                    Nombre = row["Nombre"].ToString(),
-                                    FechaActualiza = DateTime.Parse(row["FechaActualiza"].ToString()),
-                                    FechaRegristro = DateTime.Parse(row["FechaRegistro"].ToString()),
-                                    Usuario = row["UsuarioActualiza"].ToString()
-                                });
-                            }
-                        }
-                        return lista;
-                        
+                            Id = int.Parse(row["Id"].ToString()),
+                            Nombre = row["Nombre"].ToString(),
+                            FechaActualiza = DateTime.Parse(row["FechaActualiza"].ToString()),
+                            FechaRegristro = DateTime.Parse(row["FechaRegistro"].ToString()),
+                            Usuario = row["UsuarioActualiza"].ToString()
+                        });
                     }
-                    catch (Exception ex)
-                    {
-                        throw ex;
-                    }
-                    
-                    
                 }
+                return lista;
 
-        public int InsertRutas(InsertRutasModel InsertRutas)
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+
+        }
+
+        public string InsertRutas(InsertRutasModel InsertRutas)
         {
             ArrayList parametros = new ArrayList();
             ConexionDataAccess dac = new ConexionDataAccess(connection);
@@ -61,24 +61,21 @@ namespace marcatel_api.Services
                 DataSet ds = dac.Fill("sp_InsertRutas", parametros);
                 if (ds.Tables[0].Rows.Count > 0)
                 {
-                    foreach (DataRow row in ds.Tables[0].Rows)
-                    {
-                        lista.Add(new GetRutasModel
-                        {
-                            Id = int.Parse(row["Id"].ToString()),
-                        });
-                    }
+                    return ds.Tables[0].Rows[0]["Mensaje"].ToString();
                 }
-                return 1;
+                else
+                {
+                    return "No se recibió ningún mensaje desde la base de datos";
+                }
             }
             catch (Exception ex)
             {
                 Console.Write(ex.Message);
-                return 0;
+                return "Error: " + ex.Message;
             }
         }
 
-        public int UpdateRutas(UpdateRutasModel UpdateRutas)
+        public string UpdateRutas(UpdateRutasModel UpdateRutas)
         {
             ArrayList parametros = new ArrayList();
             ConexionDataAccess dac = new ConexionDataAccess(connection);
@@ -92,25 +89,21 @@ namespace marcatel_api.Services
                 DataSet ds = dac.Fill("sp_UpdateRutas", parametros);
                 if (ds.Tables[0].Rows.Count > 0)
                 {
-                    foreach (DataRow row in ds.Tables[0].Rows)
-                    {
-                        lista.Add(new GetRutasModel
-                        {
-                            Id = int.Parse(row["Id"].ToString()),
-                        
-                        });
-                    }
+                    return ds.Tables[0].Rows[0]["Mensaje"].ToString();
                 }
-                return 1;
+                else
+                {
+                    return "No se recibió ningún mensaje desde la base de datos";
+                }
             }
             catch (Exception ex)
             {
                 Console.Write(ex.Message);
-                return 0;
+                return "Error: " + ex.Message;
             }
         }
 
-        public int DeleteRutas(DeleteRutasModel DeleteRutas)
+        public string DeleteRutas(DeleteRutasModel DeleteRutas)
         {
             ArrayList parametros = new ArrayList();
             ConexionDataAccess dac = new ConexionDataAccess(connection);
@@ -122,20 +115,17 @@ namespace marcatel_api.Services
                 DataSet ds = dac.Fill("sp_DeleteRutas", parametros);
                 if (ds.Tables[0].Rows.Count > 0)
                 {
-                    foreach (DataRow row in ds.Tables[0].Rows)
-                    {
-                        lista.Add(new GetRutasModel
-                        {
-                            Id = int.Parse(row["Id"].ToString())
-                        });
-                    }
+                    return ds.Tables[0].Rows[0]["Mensaje"].ToString();
                 }
-                return 1;
+                else
+                {
+                    return "No se recibió ningún mensaje desde la base de datos";
+                }
             }
             catch (Exception ex)
             {
                 Console.Write(ex.Message);
-                return 0;
+                return "Error: " + ex.Message;
             }
         }
     }

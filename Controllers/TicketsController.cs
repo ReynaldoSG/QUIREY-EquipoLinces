@@ -7,7 +7,8 @@ using marcatel_api.Models;
 using Microsoft.Extensions.Logging;
 using System.Net;
 using marcatel_api.Helpers;
-
+using System.Collections.Generic;
+using System.Linq;
 namespace marcatel_api.Controllers
 {
 
@@ -33,14 +34,41 @@ namespace marcatel_api.Controllers
             {
                 var CatClienteResponse = _ticketsService.InsertTickets(ticket);
 
-                objectResponse.StatusCode = (int)HttpStatusCode.OK;
-                objectResponse.success = true;
-                objectResponse.message = "Registro insertado con exito";
+                List<GetTicketsModel> GetTicket = new List<GetTicketsModel>();
 
-                objectResponse.response = new
+                GetTicketsModel Lista1 = GetTicket[0];
+                int Id = Lista1.Id;
+
+                GetTicketsModel Lista2 = GetTicket[9];
+                string Msg = Lista2.Mensaje;
+
+                string msgDefault = "Registro insertado con éxito.";
+
+
+                if (msgDefault == Msg)
                 {
-                    data = CatClienteResponse
-                };
+                    objectResponse.StatusCode = (int)HttpStatusCode.OK;
+                    objectResponse.success = true;
+                    objectResponse.message = "Éxito.";
+
+                    objectResponse.response = new
+                    {
+                        data = Id,
+                        Msg
+                    };
+                }
+                else
+                {
+                    objectResponse.StatusCode = (int)HttpStatusCode.BadRequest;
+                    objectResponse.success = true;
+                    objectResponse.message = "Error.";
+
+                    objectResponse.response = new
+                    {
+                        data = Id,
+                        Msg
+                    };
+                }
             }
             catch (System.Exception ex)
             {
@@ -53,8 +81,9 @@ namespace marcatel_api.Controllers
 
         }
 
-/*         [Authorize(AuthenticationSchemes = "Bearer")]
- */        [HttpGet("Get")]
+        /*         [Authorize(AuthenticationSchemes = "Bearer")]
+         */
+        [HttpGet("Get")]
         public IActionResult GetTickets([FromQuery] GetTicketsFiltroModel ticket)
         {
             var tickets = _ticketsService.GetTickets(ticket);
@@ -94,15 +123,30 @@ namespace marcatel_api.Controllers
             try
             {
                 var CatClienteResponse = _ticketsService.UpdateTickets(ticket);
+                string msgDefault = "Registro actualizado con éxito.";
 
-                objectResponse.StatusCode = (int)HttpStatusCode.OK;
-                objectResponse.success = true;
-                objectResponse.message = "Registro modificado con éxito";
-
-                objectResponse.response = new
+                if (msgDefault == CatClienteResponse)
                 {
-                    data = CatClienteResponse
-                };
+                    objectResponse.StatusCode = (int)HttpStatusCode.OK;
+                    objectResponse.success = true;
+                    objectResponse.message = "Éxito.";
+
+                    objectResponse.response = new
+                    {
+                        data = CatClienteResponse
+                    };
+                }
+                else
+                {
+                    objectResponse.StatusCode = (int)HttpStatusCode.BadRequest;
+                    objectResponse.success = true;
+                    objectResponse.message = "Error.";
+
+                    objectResponse.response = new
+                    {
+                        data = CatClienteResponse
+                    };
+                }
             }
             catch (System.Exception ex)
             {
@@ -122,15 +166,30 @@ namespace marcatel_api.Controllers
             try
             {
                 var CatClienteResponse = _ticketsService.DeleteTickets(tickets);
+                string msgDefault = "Registro eliminado con éxito.";
 
-                objectResponse.StatusCode = (int)HttpStatusCode.OK;
-                objectResponse.success = true;
-                objectResponse.message = "Información eliminada con éxito";
-
-                objectResponse.response = new
+                if (msgDefault == CatClienteResponse)
                 {
-                    data = CatClienteResponse
-                };
+                    objectResponse.StatusCode = (int)HttpStatusCode.OK;
+                    objectResponse.success = true;
+                    objectResponse.message = "Éxito.";
+
+                    objectResponse.response = new
+                    {
+                        data = CatClienteResponse
+                    };
+                }
+                else
+                {
+                    objectResponse.StatusCode = (int)HttpStatusCode.BadRequest;
+                    objectResponse.success = true;
+                    objectResponse.message = "Error.";
+
+                    objectResponse.response = new
+                    {
+                        data = CatClienteResponse
+                    };
+                }
             }
             catch (System.Exception ex)
             {
