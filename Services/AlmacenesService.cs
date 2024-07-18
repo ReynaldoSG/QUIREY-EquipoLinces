@@ -16,7 +16,7 @@ namespace marcatel_api.Services
             connection = settings.ConnectionString;
         }
 
-        public int InsertAlmacenes(InsertAlmacenesModel almacen)
+        public string InsertAlmacenes(InsertAlmacenesModel almacen)
         {
             ArrayList parametros = new ArrayList();
             ConexionDataAccess dac = new ConexionDataAccess(connection);
@@ -30,25 +30,21 @@ namespace marcatel_api.Services
                 parametros.Add(new SqlParameter { ParameterName = "@pUsuarioActualiza", SqlDbType = SqlDbType.Int, Value = almacen.Usuario });
                 parametros.Add(new SqlParameter { ParameterName = "@pEncargado", SqlDbType = SqlDbType.Int, Value = almacen.Encargado });
                 DataSet ds = dac.Fill("sp_InsertAlmacenes", parametros);
-                if (ds.Tables[0].Rows.Count > 0)
+
+               if (ds.Tables[0].Rows.Count > 0)
                 {
-                    foreach (DataRow row in ds.Tables[0].Rows)
-                    {
-                        lista.Add(new GetAlmacenesModel
-                        {
-                            Nombre = row["Nombre"].ToString(),
-                            Direccion = row["Direccion"].ToString(),
-                            Encargado = row["Encargado"].ToString(),
-                            Usuario = row["UsuarioActualiza"].ToString()
-                        });
-                    }
+                    return ds.Tables[0].Rows[0]["Mensaje"].ToString();
                 }
-                return 1;
+                else
+                {
+                    return "No se recibió ningún mensaje desde la base de datos";
+                }
+            
             }
             catch (Exception ex)
             {
                 Console.Write(ex.Message);
-                return 0;
+                return "Error" + ex.Message;
             }
         }
 
@@ -73,7 +69,7 @@ namespace marcatel_api.Services
                             Usuario = row["UsuarioActualiza"].ToString(),
                             FechaReg = DateTime.Parse(row["FechaRegistro"].ToString()),
                             FechaAct = DateTime.Parse(row["FechaActualiza"].ToString()),
-                            Encargado = int.Parse(row["Encargado"].ToString()),
+                            
                         });
                     }
                 }

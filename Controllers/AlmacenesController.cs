@@ -92,6 +92,9 @@ namespace marcatel_api.Controllers
             {
                 var CatClienteResponse = _almacenesService.UpdateAlmacenes(almacen);
 
+
+                if(almacen.Nombre != "" && almacen.Direccion != "")
+                {
                 objectResponse.StatusCode = (int)HttpStatusCode.OK;
                 objectResponse.success = true;
                 objectResponse.message = "Registro actualizado con exito";
@@ -100,6 +103,20 @@ namespace marcatel_api.Controllers
                 {
                     data = CatClienteResponse
                 };
+                }
+                else
+                {
+                    objectResponse.StatusCode = (int)HttpStatusCode.BadRequest;
+                    objectResponse.success = false;
+                    objectResponse.message = "Rellena todos los campos";
+
+                    objectResponse.response = new
+                    {
+                        data = CatClienteResponse
+                    };
+                }
+
+                
             }
             catch (System.Exception ex)
             {

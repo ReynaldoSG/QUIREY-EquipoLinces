@@ -33,14 +33,29 @@ namespace marcatel_api.Controllers
             {
                 var CatClienteResponse = _clientesService.InsertClientes(cliente);
 
-                objectResponse.StatusCode = (int)HttpStatusCode.OK;
-                objectResponse.success = true;
-                objectResponse.message = "Registro insertado con exito";
-
-                objectResponse.response = new
+                if(cliente.Nombre != "" && cliente.Direccion != "" && cliente.CURP != "" && cliente.Email != "" && cliente.RFC != "" && cliente.Telefono !="" && cliente.Usuario != "" && cliente.Coordenadas != "")
                 {
-                    data = CatClienteResponse
-                };
+                    objectResponse.StatusCode = (int)HttpStatusCode.OK;
+                    objectResponse.success = true;
+                    objectResponse.message = "Registro insertado con exito";
+
+                    objectResponse.response = new
+                    {
+                        data = CatClienteResponse
+                    };
+                }
+                else
+                {
+                    objectResponse.StatusCode = (int)HttpStatusCode.BadRequest;
+                    objectResponse.success = false;
+                    objectResponse.message = "Rellena todos los campos";
+
+                    objectResponse.response = new
+                    {
+                        data = CatClienteResponse
+                    };
+                }
+               
             }
             catch (System.Exception ex)
             {
