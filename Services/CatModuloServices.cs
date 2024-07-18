@@ -51,7 +51,7 @@ namespace marcatel_api.Services
         }
 
 
-        public int InsertCatModulo(InsertCatModuloModel catModulo)
+        public string InsertCatModulo(InsertCatModuloModel catModulo)
         {
             ArrayList parametros = new ArrayList();
             ConexionDataAccess dac = new ConexionDataAccess(connection);
@@ -65,26 +65,21 @@ namespace marcatel_api.Services
                 DataSet ds = dac.Fill("sp_InsertCategoriaModulo", parametros);
                 if (ds.Tables[0].Rows.Count > 0)
                 {
-                    foreach (DataRow row in ds.Tables[0].Rows)
-                    {
-                        lista.Add(new GetCatModuloModel
-                        {
-                            Nombre = row["nombre"].ToString(),
-                            Descripcion = row["direccion"].ToString(),
-                            Usuario = row["usuarioActualiza"].ToString(),
-                        });
-                    }
+                    return ds.Tables[0].Rows[0]["Mensaje"].ToString();
                 }
-                return 1;
+                else
+                {
+                    return "No se recibió ningún mensaje desde la base de datos";
+                }
             }
             catch (Exception ex)
             {
                 Console.Write(ex.Message);
-                return 0;
+                return "Error: " + ex.Message;
             }
         }
 
-        public int UpdateCatModulo(UpdateCatModuloModel catModulo)
+        public string UpdateCatModulo(UpdateCatModuloModel catModulo)
         {
             ArrayList parametros = new ArrayList();
             ConexionDataAccess dac = new ConexionDataAccess(connection);
@@ -99,27 +94,21 @@ namespace marcatel_api.Services
                 DataSet ds = dac.Fill("sp_UpdateCategoriaModulo", parametros);
                 if (ds.Tables[0].Rows.Count > 0)
                 {
-                    foreach (DataRow row in ds.Tables[0].Rows)
-                    {
-                        lista.Add(new GetCatModuloModel
-                        {
-                            Id = int.Parse(row["id"].ToString()),
-                            Nombre = row["nombre"].ToString(),
-                            Descripcion = row["direccion"].ToString(),
-                            FechaActualiza = DateTime.Parse(row["fechaActualiza"].ToString())
-                        });
-                    }
+                    return ds.Tables[0].Rows[0]["Mensaje"].ToString();
                 }
-                return 1;
+                else
+                {
+                    return "No se recibió ningún mensaje desde la base de datos";
+                }
             }
             catch (Exception ex)
             {
                 Console.Write(ex.Message);
-                return 0;
+                return "Error: " + ex.Message;
             }
         }
 
-        public int DeleteCatModulo(DeleteCatModuloModel catModulo)
+        public string DeleteCatModulo(DeleteCatModuloModel catModulo)
         {
 
             ArrayList parametros = new ArrayList();
@@ -132,20 +121,17 @@ namespace marcatel_api.Services
                 DataSet ds = dac.Fill("sp_DeleteCategoriaModulo", parametros);
                 if (ds.Tables[0].Rows.Count > 0)
                 {
-                    foreach (DataRow row in ds.Tables[0].Rows)
-                    {
-                        lista.Add(new GetCatModuloModel
-                        {
-                            Id = int.Parse(row["id"].ToString()),
-                        });
-                    }
+                    return ds.Tables[0].Rows[0]["Mensaje"].ToString();
                 }
-                return 1;
+                else
+                {
+                    return "No se recibió ningún mensaje desde la base de datos";
+                }
             }
             catch (Exception ex)
             {
                 Console.Write(ex.Message);
-                return 0;
+                return "Error: " + ex.Message;
             }
 
         }
