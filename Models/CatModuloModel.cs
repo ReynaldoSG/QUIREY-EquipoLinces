@@ -9,6 +9,7 @@ namespace marcatel_api.Models
         public DateTime FechaRegistro { get; set; }
         public DateTime FechaActualiza { get; set; }
         public string Usuario { get; set; }
+        public string Mensaje { get; set; }
 
     }
 

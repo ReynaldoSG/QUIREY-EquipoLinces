@@ -53,7 +53,7 @@ namespace marcatel_api.Services
             }
         }
 
-        public int InsertTickets(InsertTicketsModel ticket)
+        public List<GetTicketsModel> InsertTickets(InsertTicketsModel ticket)
         {
             ArrayList parametros = new ArrayList();
             ConexionDataAccess dac = new ConexionDataAccess(connection);
@@ -72,20 +72,22 @@ namespace marcatel_api.Services
                     {
                         lista.Add(new GetTicketsModel
                         {
-                            Id = int.Parse(row["Id"].ToString())
+                            Id = int.Parse(row["Id"].ToString()),
+                            Mensaje = row["Mensaje"].ToString()
                         });
                     }
+
                 }
-                return lista[0].Id;
+
+                return lista;
             }
             catch (Exception ex)
             {
-                Console.Write(ex.Message);
-                return 0;
+                throw ex;
             }
         }
 
-        public int UpdateTickets(UpdateTicketsModel ticket)
+        public string UpdateTickets(UpdateTicketsModel ticket)
         {
             ArrayList parametros = new ArrayList();
             ConexionDataAccess dac = new ConexionDataAccess(connection);
@@ -98,26 +100,21 @@ namespace marcatel_api.Services
                 DataSet ds = dac.Fill("sp_UpdateTickets", parametros);
                 if (ds.Tables[0].Rows.Count > 0)
                 {
-                    foreach (DataRow row in ds.Tables[0].Rows)
-                    {
-                        lista.Add(new GetTicketsModel
-                        {
-                            Id = int.Parse(row["Id"].ToString()),
-                            Estatus = row["Estatus"].ToString()
-
-                        });
-                    }
+                    return ds.Tables[0].Rows[0]["Mensaje"].ToString();
                 }
-                return 1;
+                else
+                {
+                    return "No se recibió ningún mensaje desde la base de datos";
+                }
             }
             catch (Exception ex)
             {
                 Console.Write(ex.Message);
-                return 0;
+                return "Error: " + ex.Message;
             }
         }
 
-        public int DeleteTickets(DeleteTicketsModel ticket)
+        public string DeleteTickets(DeleteTicketsModel ticket)
         {
             ArrayList parametros = new ArrayList();
             ConexionDataAccess dac = new ConexionDataAccess(connection);
@@ -129,24 +126,17 @@ namespace marcatel_api.Services
                 DataSet ds = dac.Fill("sp_DeleteTickets", parametros);
                 if (ds.Tables[0].Rows.Count > 0)
                 {
-                    foreach (DataRow row in ds.Tables[0].Rows)
-                    {
-                        lista.Add(new GetTicketsModel
-                        {
-                            Sucursal = row["IdSucursal"].ToString(),
-                            Cliente = row["IdCliente"].ToString(),
-                            Vendedor = row["IdVendedor"].ToString(),
-                            Usuario = row["UsuarioActualiza"].ToString()
-
-                        });
-                    }
+                    return ds.Tables[0].Rows[0]["Mensaje"].ToString();
                 }
-                return 1;
+                else
+                {
+                    return "No se recibió ningún mensaje desde la base de datos";
+                }
             }
             catch (Exception ex)
             {
                 Console.Write(ex.Message);
-                return 0;
+                return "Error: " + ex.Message;
             }
         }
 
