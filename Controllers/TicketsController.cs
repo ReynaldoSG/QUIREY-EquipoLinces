@@ -7,9 +7,11 @@ using marcatel_api.Models;
 using Microsoft.Extensions.Logging;
 using System.Net;
 using marcatel_api.Helpers;
-
+using System.Collections.Generic;
+using System.Linq;
 namespace marcatel_api.Controllers
 {
+
     [Route("api/[controller]")]
     public class TicketsController : ControllerBase
     {
@@ -20,22 +22,58 @@ namespace marcatel_api.Controllers
             _ticketsService = ticketsservice;
         }
 
+
+
+
+
         [HttpPost("Insert")]
         public JsonResult InsertTicket([FromBody] InsertTicketsModel ticket)
         {
             var objectResponse = Helper.GetStructResponse();
             try
             {
-                var CatClienteResponse = _ticketsService.InsertTickets(ticket);
+                var ticketModels = _ticketsService.InsertTickets(ticket);
 
-                objectResponse.StatusCode = (int)HttpStatusCode.OK;
-                objectResponse.success = true;
-                objectResponse.message = "Registro insertado con exito";
-
-                objectResponse.response = new
+                if (ticketModels.Count > 0)
                 {
-                    data = CatClienteResponse
-                };
+                    var Id = ticketModels[0].Id;
+                    var Msg = ticketModels[0].Mensaje;
+
+                    string msgDefault = "Registro insertado con éxito.";
+
+                    if (msgDefault == Msg)
+                    {
+                        objectResponse.StatusCode = (int)HttpStatusCode.OK;
+                        objectResponse.success = true;
+                        objectResponse.message = "Éxito.";
+
+                        objectResponse.response = new
+                        {
+                            data = Id,
+                            Msg
+                        };
+                    }
+                    else
+                    {
+                        objectResponse.StatusCode = (int)HttpStatusCode.BadRequest;
+                        objectResponse.success = true;
+                        objectResponse.message = "Error.";
+
+                        objectResponse.response = new
+                        {
+                            data = Id,
+                            Msg
+                        };
+                    }
+                }
+                else
+                {
+                    objectResponse.StatusCode = (int)HttpStatusCode.BadRequest;
+                    objectResponse.success = true;
+                    objectResponse.message = "Error: No se devolvió ningún resultado.";
+
+                    objectResponse.response = null;
+                }
             }
             catch (System.Exception ex)
             {
@@ -46,13 +84,41 @@ namespace marcatel_api.Controllers
             return new JsonResult(objectResponse);
         }
 
-/*         [Authorize(AuthenticationSchemes = "Bearer")]
- */        [HttpGet("Get")]
+
+        /*         [Authorize(AuthenticationSchemes = "Bearer")]
+         */
+        [HttpGet("Get")]
         public IActionResult GetTickets([FromQuery] GetTicketsFiltroModel ticket)
         {
             var tickets = _ticketsService.GetTickets(ticket);
             return Ok(tickets);
         }
+        // public JsonResult GetTicket([FromBody] GetTicketsFiltroModel ticket)
+        // {
+        //     var objectResponse = Helper.GetStructResponse();
+        //     try
+        //     {
+        //         var CatClienteResponse = _ticketsService.GetTickets(ticket);
+
+        //         objectResponse.StatusCode = (int)HttpStatusCode.OK;
+        //         objectResponse.success = true;
+        //         objectResponse.message = "Registros encontrados con exito";
+
+        //         objectResponse.response = new
+        //         {
+        //             data = CatClienteResponse
+        //         };
+        //     }
+        //     catch (System.Exception ex)
+        //     {
+        //         Console.Write(ex.Message);
+        //         throw;
+        //     }
+
+
+        //     return new JsonResult(objectResponse);
+
+        // }
 
         [HttpPut("Update")]
         public JsonResult UpdateTickets([FromBody] UpdateTicketsModel ticket)
@@ -61,15 +127,30 @@ namespace marcatel_api.Controllers
             try
             {
                 var CatClienteResponse = _ticketsService.UpdateTickets(ticket);
+                string msgDefault = "Registro actualizado con éxito.";
 
-                objectResponse.StatusCode = (int)HttpStatusCode.OK;
-                objectResponse.success = true;
-                objectResponse.message = "Registro modificado con éxito";
-
-                objectResponse.response = new
+                if (msgDefault == CatClienteResponse)
                 {
-                    data = CatClienteResponse
-                };
+                    objectResponse.StatusCode = (int)HttpStatusCode.OK;
+                    objectResponse.success = true;
+                    objectResponse.message = "Éxito.";
+
+                    objectResponse.response = new
+                    {
+                        data = CatClienteResponse
+                    };
+                }
+                else
+                {
+                    objectResponse.StatusCode = (int)HttpStatusCode.BadRequest;
+                    objectResponse.success = true;
+                    objectResponse.message = "Error.";
+
+                    objectResponse.response = new
+                    {
+                        data = CatClienteResponse
+                    };
+                }
             }
             catch (System.Exception ex)
             {
@@ -77,7 +158,9 @@ namespace marcatel_api.Controllers
                 throw;
             }
 
+
             return new JsonResult(objectResponse);
+
         }
 
         [HttpPut("Delete")]
@@ -87,15 +170,30 @@ namespace marcatel_api.Controllers
             try
             {
                 var CatClienteResponse = _ticketsService.DeleteTickets(tickets);
+                string msgDefault = "Registro eliminado con éxito.";
 
-                objectResponse.StatusCode = (int)HttpStatusCode.OK;
-                objectResponse.success = true;
-                objectResponse.message = "Información eliminada con éxito";
-
-                objectResponse.response = new
+                if (msgDefault == CatClienteResponse)
                 {
-                    data = CatClienteResponse
-                };
+                    objectResponse.StatusCode = (int)HttpStatusCode.OK;
+                    objectResponse.success = true;
+                    objectResponse.message = "Éxito.";
+
+                    objectResponse.response = new
+                    {
+                        data = CatClienteResponse
+                    };
+                }
+                else
+                {
+                    objectResponse.StatusCode = (int)HttpStatusCode.BadRequest;
+                    objectResponse.success = true;
+                    objectResponse.message = "Error.";
+
+                    objectResponse.response = new
+                    {
+                        data = CatClienteResponse
+                    };
+                }
             }
             catch (System.Exception ex)
             {
@@ -103,7 +201,25 @@ namespace marcatel_api.Controllers
                 throw;
             }
 
+
             return new JsonResult(objectResponse);
+
         }
+
+        [HttpGet("GetCorte")]
+        public IActionResult GetCorte(GetCorteFiltroModel corte)
+        {
+            var cortes = _ticketsService.GetCorte(corte);
+            return Ok(cortes);
+        }
+
+
+
+
+
+
+
+
+
     }
 }

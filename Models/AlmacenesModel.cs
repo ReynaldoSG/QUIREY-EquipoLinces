@@ -7,9 +7,10 @@ namespace marcatel_api.Models
         public string Nombre { get; set; }
         public string Direccion { get; set; }
         public string Usuario { get; set; }
+        public string Encargado { get; set; }
+
         public DateTime FechaReg { get; set; }
         public DateTime FechaAct { get; set; }
-        public int Encargado { get; set; }
 
     }
 
@@ -17,8 +18,8 @@ namespace marcatel_api.Models
     {
         public string Nombre { get; set; }
         public string Direccion { get; set; }
-        public int Usuario { get; set; }
         public int Encargado { get; set; }
+        public int Usuario { get; set; }
 
     }
 
@@ -27,8 +28,8 @@ namespace marcatel_api.Models
         public int Id { get; set; }
         public string Nombre { get; set; }
         public string Direccion { get; set; }
+        public string Encargado { get; set; }
         public int Usuario { get; set; }
-        public int Encargado { get; set; }
     }
 
     public class DeleteAlmacenesModel

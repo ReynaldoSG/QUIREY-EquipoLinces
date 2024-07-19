@@ -7,7 +7,9 @@ namespace marcatel_api.Models
         public string Nombre { get; set; }
         public string Usuario { get; set; }
         public DateTime FechaRegristro { get; set; }
-        public DateTime FechaActualiza {get; set;}
+        public DateTime FechaActualiza { get; set; }
+        public string Mensaje { get; set; }
+
     }
 
     public class InsertRutasModel

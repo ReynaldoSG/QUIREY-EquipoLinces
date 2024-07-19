@@ -10,10 +10,10 @@ namespace marcatel_api.Services
 {
     public class TicketsService
     {
-        private  string connection;
+        private string connection;
         public TicketsService(IMarcatelDatabaseSetting settings)
         {
-             connection = settings.ConnectionString;
+            connection = settings.ConnectionString;
         }
 
 
@@ -53,7 +53,7 @@ namespace marcatel_api.Services
             }
         }
 
-        public int InsertTickets(InsertTicketsModel ticket)
+        public List<GetTicketsModel> InsertTickets(InsertTicketsModel ticket)
         {
             ArrayList parametros = new ArrayList();
             ConexionDataAccess dac = new ConexionDataAccess(connection);
@@ -64,7 +64,7 @@ namespace marcatel_api.Services
                 parametros.Add(new SqlParameter { ParameterName = "@pIdSucursal", SqlDbType = SqlDbType.VarChar, Value = ticket.IdSucursal });
                 parametros.Add(new SqlParameter { ParameterName = "@pIdCliente", SqlDbType = SqlDbType.VarChar, Value = ticket.IdCliente });
                 parametros.Add(new SqlParameter { ParameterName = "@pIdVendedor", SqlDbType = SqlDbType.Int, Value = ticket.IdVendedor });
-                parametros.Add(new SqlParameter {ParameterName = "@pUsuarioActualiza",SqlDbType= SqlDbType.Int,Value= ticket.Usuario});
+                parametros.Add(new SqlParameter { ParameterName = "@pUsuarioActualiza", SqlDbType = SqlDbType.Int, Value = ticket.Usuario });
                 DataSet ds = dac.Fill("sp_InsertTickets", parametros);
                 if (ds.Tables[0].Rows.Count > 0)
                 {
@@ -72,20 +72,22 @@ namespace marcatel_api.Services
                     {
                         lista.Add(new GetTicketsModel
                         {
-                            Id = int.Parse(row["Id"].ToString())
+                            Id = int.Parse(row["Id"].ToString()),
+                            Mensaje = row["Mensaje"].ToString()
                         });
                     }
+
                 }
-                return lista[0].Id;
+
+                return lista;
             }
             catch (Exception ex)
             {
-                Console.Write(ex.Message);
-                return 0;
+                throw ex;
             }
         }
 
-        public int UpdateTickets(UpdateTicketsModel ticket)
+        public string UpdateTickets(UpdateTicketsModel ticket)
         {
             ArrayList parametros = new ArrayList();
             ConexionDataAccess dac = new ConexionDataAccess(connection);
@@ -98,26 +100,21 @@ namespace marcatel_api.Services
                 DataSet ds = dac.Fill("sp_UpdateTickets", parametros);
                 if (ds.Tables[0].Rows.Count > 0)
                 {
-                    foreach (DataRow row in ds.Tables[0].Rows)
-                    {
-                        lista.Add(new GetTicketsModel
-                        {
-                            Id = int.Parse(row["Id"].ToString()),
-                            Estatus = row["Estatus"].ToString()
-
-                        });
-                    }
+                    return ds.Tables[0].Rows[0]["Mensaje"].ToString();
                 }
-                return 1;
+                else
+                {
+                    return "No se recibió ningún mensaje desde la base de datos";
+                }
             }
             catch (Exception ex)
             {
                 Console.Write(ex.Message);
-                return 0;
+                return "Error: " + ex.Message;
             }
         }
 
-        public int DeleteTickets(DeleteTicketsModel ticket)
+        public string DeleteTickets(DeleteTicketsModel ticket)
         {
             ArrayList parametros = new ArrayList();
             ConexionDataAccess dac = new ConexionDataAccess(connection);
@@ -129,26 +126,56 @@ namespace marcatel_api.Services
                 DataSet ds = dac.Fill("sp_DeleteTickets", parametros);
                 if (ds.Tables[0].Rows.Count > 0)
                 {
-                    foreach (DataRow row in ds.Tables[0].Rows)
-                    {
-                        lista.Add(new GetTicketsModel
-                        {
-                            Sucursal = row["IdSucursal"].ToString(),
-                            Cliente = row["IdCliente"].ToString(),
-                            Vendedor = row["IdVendedor"].ToString(),
-                            Usuario = row["UsuarioActualiza"].ToString()
-
-                        });
-                    }
+                    return ds.Tables[0].Rows[0]["Mensaje"].ToString();
                 }
-                return 1;
+                else
+                {
+                    return "No se recibió ningún mensaje desde la base de datos";
+                }
             }
             catch (Exception ex)
             {
                 Console.Write(ex.Message);
-                return 0;
+                return "Error: " + ex.Message;
             }
         }
-        
+
+        public List<GetCorteModel> GetCorte(GetCorteFiltroModel corte)
+        {
+            ArrayList parametros = new ArrayList();
+            ConexionDataAccess dac = new ConexionDataAccess(connection);
+            var lista = new List<GetCorteModel>();
+            try
+            {
+
+                parametros.Add(new SqlParameter { ParameterName = "@pVendedor", SqlDbType = SqlDbType.Int, Value = corte.vendedor });
+                parametros.Add(new SqlParameter { ParameterName = "@pFechaInicio", SqlDbType = SqlDbType.Date, Value = corte.FechaInicio });
+                parametros.Add(new SqlParameter { ParameterName = "@pFechaFin", SqlDbType = SqlDbType.Date, Value = corte.FechaFin });
+                DataSet ds = dac.Fill("sp_GetCorte", parametros);
+                if (ds.Tables[0].Rows.Count > 0)
+                {
+                    foreach (DataRow row in ds.Tables[0].Rows)
+                    {
+                        lista.Add(new GetCorteModel
+                        {
+                            Id = int.Parse(row["Id"].ToString()),
+                            Vendedor = row["Vendedor"].ToString(),
+                            Total = row["Total"].ToString(),
+                            FechaVenta = DateTime.Parse(row["FechaVenta"].ToString())
+
+                        });
+                    }
+                }
+                return lista;
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+
+        }
+
     }
 }
