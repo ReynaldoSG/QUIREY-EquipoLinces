@@ -1,23 +1,17 @@
-# Stage 1
-FROM mcr.microsoft.com/dotnet/sdk:5.0.302 AS build-env
-WORKDIR /src
-COPY  marcatel-api.csproj .
-RUN dotnet restore
-COPY . .
-RUN dotnet publish -c Release -o /app
-
-# Stage 2
-
-
-FROM mcr.microsoft.com/dotnet/aspnet:5.0.8 
+# Utiliza la imagen de base oficial de Microsoft para .NET 6.0 SDK para compilar la aplicación
+FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build-env
 WORKDIR /app
-COPY --from=build-env /app .
 
-# ENTRYPOINT ["dotnet", "marcatel-api.dll"]
-# Use the following instead for Heroku
-RUN sed -i 's/DEFAULT@SECLEVEL=2/DEFAULT@SECLEVEL=1/g' /etc/ssl/openssl.cnf
-RUN sed -i 's/MinProtocol = TLSv1.2/MinProtocol = TLSv1/g' /etc/ssl/openssl.cnf
-RUN sed -i 's/DEFAULT@SECLEVEL=2/DEFAULT@SECLEVEL=1/g' /usr/lib/ssl/openssl.cnf
-RUN sed -i 's/MinProtocol = TLSv1.2/MinProtocol = TLSv1/g' /usr/lib/ssl/openssl.cnf
+# Copia csproj y restaura las dependencias
+COPY *.csproj ./
+RUN dotnet restore
 
-CMD ASPNETCORE_URLS=http://*:$PORT dotnet marcatel-api.dll
+# Copia los archivos del proyecto y construye la aplicación
+COPY . ./
+RUN dotnet publish -c Release -o out
+
+# Genera la imagen final
+FROM mcr.microsoft.com/dotnet/aspnet:6.0
+WORKDIR /app
+COPY --from=build-env /app/out .
+ENTRYPOINT ["dotnet", "mapeosAPI.dll"]

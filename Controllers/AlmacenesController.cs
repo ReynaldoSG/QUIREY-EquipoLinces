@@ -33,14 +33,33 @@ namespace marcatel_api.Controllers
             {
                 var CatClienteResponse = _almacenesService.InsertAlmacenes(almacen);
 
-                objectResponse.StatusCode = (int)HttpStatusCode.OK;
-                objectResponse.success = true;
-                objectResponse.message = "Registro insertado con exito";
-
-                objectResponse.response = new
+                if (almacen.Nombre != "" && almacen.Direccion != "" && almacen.Encargado != 0)
                 {
-                    data = CatClienteResponse
-                };
+
+
+                    objectResponse.StatusCode = (int)HttpStatusCode.OK;
+                    objectResponse.success = true;
+                    objectResponse.message = "Registro insertado con exito";
+
+                    objectResponse.response = new
+                    {
+                        data = CatClienteResponse
+                    };
+                }
+                else
+                {
+
+                    objectResponse.StatusCode = (int)HttpStatusCode.BadRequest;
+                    objectResponse.success = false;
+                    objectResponse.message = "Rellena todos los campos";
+
+                    objectResponse.response = new
+                    {
+                        data = CatClienteResponse
+                    };
+                }
+
+
             }
             catch (System.Exception ex)
             {
@@ -55,7 +74,7 @@ namespace marcatel_api.Controllers
 
 
 
-        [Authorize(AuthenticationSchemes = "Bearer")]
+        //[Authorize(AuthenticationSchemes = "Bearer")]
 
         [HttpGet("Get")]
         public IActionResult GetAlmacenes()

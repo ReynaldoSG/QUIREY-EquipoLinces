@@ -16,7 +16,7 @@ namespace marcatel_api.Services
             connection = settings.ConnectionString;
         }
 
-        public int InsertUsuarios(InsertUsuariosModel usuarios)
+        public string InsertUsuarios(InsertUsuariosModel usuarios)
         {
             ArrayList parametros = new ArrayList();
             ConexionDataAccess dac = new ConexionDataAccess(connection);
@@ -33,24 +33,17 @@ namespace marcatel_api.Services
                 DataSet ds = dac.Fill("sp_InsertUsuario", parametros);
                 if (ds.Tables[0].Rows.Count > 0)
                 {
-                    foreach (DataRow row in ds.Tables[0].Rows)
-                    {
-                        lista.Add(new InsertUsuariosModel
-                        {
-                            Nombre = row["Nombre"].ToString(),
-                            Contrasena = row["Contrasena"].ToString(),
-                            Rol = int.Parse(row["Rol"].ToString()),
-                            IdPersona = int.Parse(row["Empleado"].ToString()),
-                            Usuario = int.Parse(row["UsuarioActualiza"].ToString())
-                        });
-                    }
+                    return ds.Tables[0].Rows[0]["Mensaje"].ToString();
                 }
-                return 1;
+                else
+                {
+                    return "No se recibió ningún mensaje desde la base de datos";
+                }
             }
             catch (Exception ex)
             {
                 Console.Write(ex.Message);
-                return 0;
+                return "Error: " + ex.Message;
             }
         }
 
@@ -91,7 +84,7 @@ namespace marcatel_api.Services
 
         }
 
-        public int UpdateUsuarios(UpdateUsuariosModel usuarios)
+        public string UpdateUsuarios(UpdateUsuariosModel usuarios)
         {
             ArrayList parametros = new ArrayList();
             ConexionDataAccess dac = new ConexionDataAccess(connection);
@@ -108,29 +101,21 @@ namespace marcatel_api.Services
                 DataSet ds = dac.Fill("sp_UpdateUsuarios", parametros);
                 if (ds.Tables[0].Rows.Count > 0)
                 {
-                    foreach (DataRow row in ds.Tables[0].Rows)
-                    {
-                        lista.Add(new UpdateUsuariosModel
-                        {
-                            Id = int.Parse(row["Id"].ToString()),
-                            Nombre = row["Nombre"].ToString(),
-                            Contrasena = row["Contrasena"].ToString(),
-                            Rol = int.Parse(row["Rol"].ToString()),
-                            IdPersona = int.Parse(row["Empleado"].ToString()),
-                            Usuario = int.Parse(row["UsuarioActualiza"].ToString())
-                        });
-                    }
+                    return ds.Tables[0].Rows[0]["Mensaje"].ToString();
                 }
-                return 1;
+                else
+                {
+                    return "No se recibió ningún mensaje desde la base de datos";
+                }
             }
             catch (Exception ex)
             {
                 Console.Write(ex.Message);
-                return 0;
+                return "Error: " + ex.Message;
             }
         }
 
-        public int DeleteUsuarios(DeleteUsuariosModel usuarios)
+        public string DeleteUsuarios(DeleteUsuariosModel usuarios)
         {
             ArrayList parametros = new ArrayList();
             ConexionDataAccess dac = new ConexionDataAccess(connection);
@@ -142,20 +127,17 @@ namespace marcatel_api.Services
                 DataSet ds = dac.Fill("sp_DeleteUsuarios", parametros);
                 if (ds.Tables[0].Rows.Count > 0)
                 {
-                    foreach (DataRow row in ds.Tables[0].Rows)
-                    {
-                        lista.Add(new DeleteUsuariosModel
-                        {
-                            Id = int.Parse(row["Id"].ToString())
-                        });
-                    }
+                    return ds.Tables[0].Rows[0]["Mensaje"].ToString();
                 }
-                return 1;
+                else
+                {
+                    return "No se recibió ningún mensaje desde la base de datos";
+                }
             }
             catch (Exception ex)
             {
                 Console.Write(ex.Message);
-                return 0;
+                return "Error: " + ex.Message;
             }
         }
 
