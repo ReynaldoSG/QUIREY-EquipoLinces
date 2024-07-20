@@ -20,7 +20,7 @@ namespace marcatel_api.Services
         {
             ArrayList parametros = new ArrayList();
             ConexionDataAccess dac = new ConexionDataAccess(connection);
-            var lista = new List<InsertPersonasModel>();
+          
 
             try
             {
@@ -90,7 +90,7 @@ namespace marcatel_api.Services
         {
             ArrayList parametros = new ArrayList();
             ConexionDataAccess dac = new ConexionDataAccess(connection);
-            var lista = new List<UpdatePersonasModel>();
+            
 
             try
             {
@@ -122,7 +122,7 @@ namespace marcatel_api.Services
         {
             ArrayList parametros = new ArrayList();
             ConexionDataAccess dac = new ConexionDataAccess(connection);
-            var lista = new List<DeletePersonasModel>();
+            
 
             try
             {

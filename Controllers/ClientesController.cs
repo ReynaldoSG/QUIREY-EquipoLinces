@@ -33,11 +33,13 @@ namespace marcatel_api.Controllers
             {
                 var CatClienteResponse = _clientesService.InsertClientes(cliente);
 
-                if(cliente.Nombre != "" && cliente.Direccion != "" && cliente.CURP != "" && cliente.Email != "" && cliente.RFC != "" && cliente.Telefono !="" && cliente.Usuario != "" && cliente.Coordenadas != "")
+                string msgDefault = "Registro insertado con éxito.";
+
+                if (msgDefault == CatClienteResponse)
                 {
                     objectResponse.StatusCode = (int)HttpStatusCode.OK;
                     objectResponse.success = true;
-                    objectResponse.message = "Registro insertado con exito";
+                    objectResponse.message = "Éxito.";
 
                     objectResponse.response = new
                     {
@@ -47,8 +49,8 @@ namespace marcatel_api.Controllers
                 else
                 {
                     objectResponse.StatusCode = (int)HttpStatusCode.BadRequest;
-                    objectResponse.success = false;
-                    objectResponse.message = "Rellena todos los campos";
+                    objectResponse.success = true;
+                    objectResponse.message = "Error.";
 
                     objectResponse.response = new
                     {
@@ -86,15 +88,30 @@ namespace marcatel_api.Controllers
             try
             {
                 var CatClienteResponse = _clientesService.UpdateClientes(cliente);
+                string msgDefault = "Registro actualizado con éxito.";
 
-                objectResponse.StatusCode = (int)HttpStatusCode.OK;
-                objectResponse.success = true;
-                objectResponse.message = "Información actualizada con éxito";
-
-                objectResponse.response = new
+                if (msgDefault == CatClienteResponse)
                 {
-                    data = CatClienteResponse
-                };
+                    objectResponse.StatusCode = (int)HttpStatusCode.OK;
+                    objectResponse.success = true;
+                    objectResponse.message = "Éxito.";
+
+                    objectResponse.response = new
+                    {
+                        data = CatClienteResponse
+                    };
+                }
+                else
+                {
+                    objectResponse.StatusCode = (int)HttpStatusCode.BadRequest;
+                    objectResponse.success = true;
+                    objectResponse.message = "Error.";
+
+                    objectResponse.response = new
+                    {
+                        data = CatClienteResponse
+                    };
+                }
             }
             catch (System.Exception ex)
             {
@@ -115,14 +132,30 @@ namespace marcatel_api.Controllers
             {
                 var CatClienteResponse = _clientesService.DeleteClientes(cliente);
 
-                objectResponse.StatusCode = (int)HttpStatusCode.OK;
-                objectResponse.success = true;
-                objectResponse.message = "Información eliminada con éxito";
+                string msgDefault = "Registro eliminado con éxito.";
 
-                objectResponse.response = new
+                if (msgDefault == CatClienteResponse)
                 {
-                    data = CatClienteResponse
-                };
+                    objectResponse.StatusCode = (int)HttpStatusCode.OK;
+                    objectResponse.success = true;
+                    objectResponse.message = "Éxito.";
+
+                    objectResponse.response = new
+                    {
+                        data = CatClienteResponse
+                    };
+                }
+                else
+                {
+                    objectResponse.StatusCode = (int)HttpStatusCode.BadRequest;
+                    objectResponse.success = true;
+                    objectResponse.message = "Error.";
+
+                    objectResponse.response = new
+                    {
+                        data = CatClienteResponse
+                    };
+                }
             }
             catch (System.Exception ex)
             {

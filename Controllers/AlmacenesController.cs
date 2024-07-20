@@ -32,14 +32,15 @@ namespace marcatel_api.Controllers
             try
             {
                 var CatClienteResponse = _almacenesService.InsertAlmacenes(almacen);
+                string msgDefault = "Registro insertado con éxito.";
 
-                if (almacen.Nombre != "" && almacen.Direccion != "" && almacen.Encargado != 0)
+                if (msgDefault == CatClienteResponse)
                 {
 
 
                     objectResponse.StatusCode = (int)HttpStatusCode.OK;
                     objectResponse.success = true;
-                    objectResponse.message = "Registro insertado con exito";
+                    objectResponse.message = "Éxito";
 
                     objectResponse.response = new
                     {
@@ -50,8 +51,8 @@ namespace marcatel_api.Controllers
                 {
 
                     objectResponse.StatusCode = (int)HttpStatusCode.BadRequest;
-                    objectResponse.success = false;
-                    objectResponse.message = "Rellena todos los campos";
+                    objectResponse.success = true;
+                    objectResponse.message = "Error";
 
                     objectResponse.response = new
                     {
@@ -92,23 +93,24 @@ namespace marcatel_api.Controllers
             {
                 var CatClienteResponse = _almacenesService.UpdateAlmacenes(almacen);
 
+                string msgDefault = "Registro actualizado con éxito.";
 
-                if(almacen.Nombre != "" && almacen.Direccion != "")
+                if (msgDefault == CatClienteResponse)
                 {
-                objectResponse.StatusCode = (int)HttpStatusCode.OK;
-                objectResponse.success = true;
-                objectResponse.message = "Registro actualizado con exito";
+                    objectResponse.StatusCode = (int)HttpStatusCode.OK;
+                    objectResponse.success = true;
+                    objectResponse.message = "Éxito.";
 
-                objectResponse.response = new
-                {
-                    data = CatClienteResponse
-                };
+                    objectResponse.response = new
+                    {
+                        data = CatClienteResponse
+                    };
                 }
                 else
                 {
                     objectResponse.StatusCode = (int)HttpStatusCode.BadRequest;
-                    objectResponse.success = false;
-                    objectResponse.message = "Rellena todos los campos";
+                    objectResponse.success = true;
+                    objectResponse.message = "Error.";
 
                     objectResponse.response = new
                     {
@@ -136,15 +138,30 @@ namespace marcatel_api.Controllers
             try
             {
                 var CatClienteResponse = _almacenesService.DeleteAlmacenes(almacen);
+                string msgDefault = "Registro eliminado con éxito.";
 
-                objectResponse.StatusCode = (int)HttpStatusCode.OK;
-                objectResponse.success = true;
-                objectResponse.message = "Registro eliminado con exito";
-
-                objectResponse.response = new
+                if (msgDefault == CatClienteResponse)
                 {
-                    data = CatClienteResponse
-                };
+                    objectResponse.StatusCode = (int)HttpStatusCode.OK;
+                    objectResponse.success = true;
+                    objectResponse.message = "Éxito.";
+
+                    objectResponse.response = new
+                    {
+                        data = CatClienteResponse
+                    };
+                }
+                else
+                {
+                    objectResponse.StatusCode = (int)HttpStatusCode.BadRequest;
+                    objectResponse.success = true;
+                    objectResponse.message = "Error.";
+
+                    objectResponse.response = new
+                    {
+                        data = CatClienteResponse
+                    };
+                }
             }
             catch (System.Exception ex)
             {

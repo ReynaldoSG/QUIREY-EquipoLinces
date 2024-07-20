@@ -11,6 +11,8 @@ namespace marcatel_api.Models
     public DateTime FechaRegistro {get;set;}
     public DateTime FechaActualiza {get;set;}
 
+    public string Mensaje {get; set;}
+
 }
 
 public class GetExistenciasFiltroModel

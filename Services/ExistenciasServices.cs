@@ -51,7 +51,7 @@ namespace marcatel_api.Services
                     
                 }
 
-        public int InsertExistencias(InsertExistenciasModel existencia)
+        public string InsertExistencias(InsertExistenciasModel existencia)
         {
             ArrayList parametros = new ArrayList();
             ConexionDataAccess dac = new ConexionDataAccess(connection);
@@ -65,29 +65,23 @@ namespace marcatel_api.Services
                 parametros.Add(new SqlParameter { ParameterName = "@pUsuario", SqlDbType = SqlDbType.Int, Value = existencia.Usuario });
 
                 DataSet ds = dac.Fill("sp_InsertExistencias", parametros);
-                if (ds.Tables[0].Rows.Count > 0)
+                 if (ds.Tables[0].Rows.Count > 0)
                 {
-                    foreach (DataRow row in ds.Tables[0].Rows)
-                    {
-                        lista.Add(new GetExistenciasModel
-                        {
-                            Codigo = row["Codigo"].ToString(),
-                            Almacen = row["Almacen"].ToString(),
-                            Cantidad = int.Parse(row["Cantidad"].ToString()),
-                            Usuario = row["UsuarioActualiza"].ToString()
-                        });
-                    }
+                    return ds.Tables[0].Rows[0]["Mensaje"].ToString();
                 }
-                return 1;
+                else
+                {
+                    return "No se recibió ningún mensaje desde la base de datos";
+                }
             }
             catch (Exception ex)
             {
                 Console.Write(ex.Message);
-                return 0;
+                return "Error: " + ex.Message;
             }
         }
 
-        public int UpdateExistencias(UpdateExistenciasModel existencia)
+        public string UpdateExistencias(UpdateExistenciasModel existencia)
         {
             ArrayList parametros = new ArrayList();
             ConexionDataAccess dac = new ConexionDataAccess(connection);
@@ -101,30 +95,23 @@ namespace marcatel_api.Services
                 parametros.Add(new SqlParameter { ParameterName = "@pCantidad", SqlDbType = SqlDbType.Int, Value = existencia.Cantidad });
                 parametros.Add(new SqlParameter { ParameterName = "@pUsuario", SqlDbType = SqlDbType.Int, Value = existencia.Usuario });
                 DataSet ds = dac.Fill("sp_UpdateExistencias", parametros);
-                if (ds.Tables[0].Rows.Count > 0)
+                 if (ds.Tables[0].Rows.Count > 0)
                 {
-                    foreach (DataRow row in ds.Tables[0].Rows)
-                    {
-                        lista.Add(new GetExistenciasModel
-                        {
-                            Id = int.Parse(row["Id"].ToString()),
-                            Codigo = row["Codigo"].ToString(),
-                            Almacen = row["Almacen"].ToString(),
-                            Cantidad = int.Parse(row["Vendedor"].ToString()),
-                            Usuario = row["UsuarioActualiza"].ToString()
-                        });
-                    }
+                    return ds.Tables[0].Rows[0]["Mensaje"].ToString();
                 }
-                return 1;
+                else
+                {
+                    return "No se recibió ningún mensaje desde la base de datos";
+                }
             }
             catch (Exception ex)
             {
                 Console.Write(ex.Message);
-                return 0;
+                return "Error: " + ex.Message;
             }
         }
 
-        public int DeleteExistencias(DeleteExistenciasModel existencia)
+        public string DeleteExistencias(DeleteExistenciasModel existencia)
         {
             ArrayList parametros = new ArrayList();
             ConexionDataAccess dac = new ConexionDataAccess(connection);
@@ -134,22 +121,19 @@ namespace marcatel_api.Services
             {
                 parametros.Add(new SqlParameter { ParameterName = "@pId", SqlDbType = SqlDbType.Int, Value = existencia.Id });
                 DataSet ds = dac.Fill("sp_DeleteExistencias", parametros);
-                if (ds.Tables[0].Rows.Count > 0)
+                 if (ds.Tables[0].Rows.Count > 0)
                 {
-                    foreach (DataRow row in ds.Tables[0].Rows)
-                    {
-                        lista.Add(new GetExistenciasModel
-                        {
-                            Id = int.Parse(row["Id"].ToString())
-                        });
-                    }
+                    return ds.Tables[0].Rows[0]["Mensaje"].ToString();
                 }
-                return 1;
+                else
+                {
+                    return "No se recibió ningún mensaje desde la base de datos";
+                }
             }
             catch (Exception ex)
             {
                 Console.Write(ex.Message);
-                return 0;
+                return "Error: " + ex.Message;
             }
         }
     }
