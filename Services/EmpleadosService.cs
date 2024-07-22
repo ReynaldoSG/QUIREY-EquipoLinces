@@ -54,7 +54,7 @@ namespace marcatel_api.Services
                     
                     
                 }
-                public int InsertEmpleado(InsertEmpleadosModel empleadosModel)
+                public string InsertEmpleado(InsertEmpleadosModel empleadosModel)
             {
             ArrayList parametros = new ArrayList();
             ConexionDataAccess dac = new ConexionDataAccess(connection);
@@ -69,30 +69,22 @@ namespace marcatel_api.Services
               
 
                 DataSet ds = dac.Fill("sp_InsertEmpleado", parametros);
-                if (ds.Tables[0].Rows.Count > 0)
+                 if (ds.Tables[0].Rows.Count > 0)
                 {
-                    foreach (DataRow row in ds.Tables[0].Rows)
-                    {
-                         lista.Add(new GetEmpleadosModel
-                                {
-                                  Persona = row["Persona"].ToString(),
-                                  Sucursal = row["Sucursal"].ToString(),
-                                  Puesto = row["Puesto"].ToString(),
-                                  fechaRegistro = DateTime.Parse(row["fechaRegistro"].ToString()),
-                                  fechaActualiza = DateTime.Parse(row["fechaActualiza"].ToString()),
-                                  usuarioActualiza = row["UsuarioActualiza"].ToString()
-                                });
-                    }
+                    return ds.Tables[0].Rows[0]["Mensaje"].ToString();
                 }
-                return 1;
+                else
+                {
+                    return "No se recibió ningún mensaje desde la base de datos";
+                }
             }
             catch (Exception ex)
             {
                 Console.Write(ex.Message);
-                return 0;
+                return "Error: " + ex.Message;
             }
         }
-           public int UpdateEmpleados(UpdateEmpleadosModel empleadosModel)
+           public string UpdateEmpleados(UpdateEmpleadosModel empleadosModel)
         {
             ArrayList parametros = new ArrayList();
             ConexionDataAccess dac = new ConexionDataAccess(connection);
@@ -106,33 +98,23 @@ namespace marcatel_api.Services
                 parametros.Add(new SqlParameter { ParameterName = "@pIdPuesto", SqlDbType = SqlDbType.Int, Value = empleadosModel.IdPuesto });
                 parametros.Add(new SqlParameter { ParameterName = "@pUsuarioAct", SqlDbType = SqlDbType.Int, Value = empleadosModel.usuarioActualiza });
                 DataSet ds = dac.Fill("sp_UpdateEmpleados", parametros);
-                if (ds.Tables[0].Rows.Count > 0)
+                 if (ds.Tables[0].Rows.Count > 0)
                 {
-                    foreach (DataRow row in ds.Tables[0].Rows)
-                    {
-                        lista.Add(new GetEmpleadosModel
-                        {
-                          Id = int.Parse(row["Id"].ToString()), 
-                          Persona = row["Persona"].ToString(),
-                          Sucursal = row["Sucursal"].ToString(),
-                          Puesto = row["Puesto"].ToString(),
-                          fechaRegistro = DateTime.Parse(row["fechaRegistro"].ToString()),
-                          fechaActualiza = DateTime.Parse(row["fechaActualiza"].ToString()),
-                          usuarioActualiza = row["UsuarioActualiza"].ToString()
-
-                        });
-                    }
+                    return ds.Tables[0].Rows[0]["Mensaje"].ToString();
                 }
-                return 1;
+                else
+                {
+                    return "No se recibió ningún mensaje desde la base de datos";
+                }
             }
             catch (Exception ex)
             {
                 Console.Write(ex.Message);
-                return 0;
+                return "Error: " + ex.Message;
             }
         }
 
-        public int DeleteEmpleados(DeleteEmpleadosModel empleadosModel)
+        public string DeleteEmpleados(DeleteEmpleadosModel empleadosModel)
         {
             ArrayList parametros = new ArrayList();
             ConexionDataAccess dac = new ConexionDataAccess(connection);
@@ -142,22 +124,19 @@ namespace marcatel_api.Services
             {
                 parametros.Add(new SqlParameter { ParameterName = "@pId", SqlDbType = SqlDbType.Int, Value = empleadosModel.Id });
                 DataSet ds = dac.Fill("sp_DeleteEmpleados", parametros);
-                if (ds.Tables[0].Rows.Count > 0)
+                 if (ds.Tables[0].Rows.Count > 0)
                 {
-                    foreach (DataRow row in ds.Tables[0].Rows)
-                    {
-                        lista.Add(new GetEmpleadosModel
-                        {
-                            Id = int.Parse(row["Id"].ToString())
-                        });
-                    }
+                    return ds.Tables[0].Rows[0]["Mensaje"].ToString();
                 }
-                return 1;
+                else
+                {
+                    return "No se recibió ningún mensaje desde la base de datos";
+                }
             }
             catch (Exception ex)
             {
                 Console.Write(ex.Message);
-                return 0;
+                return "Error: " + ex.Message;
             }
         }
 
