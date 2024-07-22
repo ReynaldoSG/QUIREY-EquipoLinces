@@ -55,11 +55,11 @@ namespace marcatel_api.Services
         }
 
 
-        public int InsertArticulos(InsertArticulosModel articulo)
+        public string InsertArticulos(InsertArticulosModel articulo)
         {
             ArrayList parametros = new ArrayList();
             ConexionDataAccess dac = new ConexionDataAccess(connection);
-            var lista = new List<InsertArticulosModel>();
+            
 
             try
             {
@@ -72,29 +72,21 @@ namespace marcatel_api.Services
                 DataSet ds = dac.Fill("sp_InsertArticulos", parametros);
                 if (ds.Tables[0].Rows.Count > 0)
                 {
-                    foreach (DataRow row in ds.Tables[0].Rows)
-                    {
-                        lista.Add(new InsertArticulosModel
-                        {
-                            Codigo =row["Codigo"].ToString(),
-                            Descripcion = row["Descripcion"].ToString(),
-                            UM = int.Parse(row["UnidadMedida"].ToString()),
-                            Costo = row["Costo"].ToString(),
-                            Precio = row["Precio"].ToString(),
-                            Usuario = int.Parse(row["UsuarioActualiza"].ToString())
-                        });
-                    }
+                    return ds.Tables[0].Rows[0]["Mensaje"].ToString();
                 }
-                return 1;
+                else
+                {
+                    return "No se recibió ningún mensaje desde la base de datos";
+                }
             }
             catch (Exception ex)
             {
                 Console.Write(ex.Message);
-                return 0;
+                return "Error: " + ex.Message;
             }
         }
 
-        public int UpdateArticulos(UpdateArticulosModel articulo)
+        public string UpdateArticulos(UpdateArticulosModel articulo)
         {
             ArrayList parametros = new ArrayList();
             ConexionDataAccess dac = new ConexionDataAccess(connection);
@@ -112,56 +104,44 @@ namespace marcatel_api.Services
                 DataSet ds = dac.Fill("sp_UpdateArticulos", parametros);
                 if (ds.Tables[0].Rows.Count > 0)
                 {
-                    foreach (DataRow row in ds.Tables[0].Rows)
-                    {
-                        lista.Add(new UpdateArticulosModel
-                        {
-                            Id = int.Parse(row["Id"].ToString()),
-                            Codigo =row["Codigo"].ToString(),
-                            Descripcion = row["Descripcion"].ToString(),
-                            UM = int.Parse(row["UnidadMedida"].ToString()),
-                            Costo = row["Costo"].ToString(),
-                            Precio = row["Precio"].ToString(),
-                            Usuario = int.Parse(row["UsuarioActualiza"].ToString())
-                        });
-                    }
+                    return ds.Tables[0].Rows[0]["Mensaje"].ToString();
                 }
-                return 1;
+                else
+                {
+                    return "No se recibió ningún mensaje desde la base de datos";
+                }
             }
             catch (Exception ex)
             {
                 Console.Write(ex.Message);
-                return 0;
+                return "Error: " + ex.Message;
             }
         }
 
-        public int DeleteArticulos(DeleteArticulosModel Articulo)
+        public string DeleteArticulos(DeleteArticulosModel Articulo)
         {
 
             ArrayList parametros = new ArrayList();
             ConexionDataAccess dac = new ConexionDataAccess(connection);
-            var lista = new List<GetArticulosModel>();
+            
 
             try
             {
                 parametros.Add(new SqlParameter{ParameterName = "@pId",SqlDbType = SqlDbType.Int, Value = Articulo.Id});
                 DataSet ds =dac.Fill("sp_DeleteArticulos",parametros);
-                if(ds.Tables[0].Rows.Count>0)
+                if (ds.Tables[0].Rows.Count > 0)
                 {
-                    foreach(DataRow row in ds.Tables[0].Rows)
-                    {
-                        lista.Add(new GetArticulosModel
-                        {
-                            Id = int.Parse(row["Id"].ToString()),
-                        });
-                    }
+                    return ds.Tables[0].Rows[0]["Mensaje"].ToString();
                 }
-            return 1;
+                else
+                {
+                    return "No se recibió ningún mensaje desde la base de datos";
+                }
             }
             catch (Exception ex)
             {
                 Console.Write(ex.Message);
-                return 0;
+                return "Error: " + ex.Message;
             }
                 
         }

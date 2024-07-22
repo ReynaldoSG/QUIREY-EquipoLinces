@@ -57,11 +57,11 @@ namespace marcatel_api.Services
         }
 
 
-        public int InsertClientes(InsertClientesModel cliente)
+        public string InsertClientes(InsertClientesModel cliente)
         {
             ArrayList parametros = new ArrayList();
             ConexionDataAccess dac = new ConexionDataAccess(connection);
-            var lista = new List<GetClientesModel>();
+            
 
             try
             {
@@ -74,37 +74,27 @@ namespace marcatel_api.Services
                 parametros.Add(new SqlParameter { ParameterName = "@pEmail", SqlDbType = SqlDbType.VarChar, Value = cliente.Email });
                 parametros.Add(new SqlParameter { ParameterName = "@pCoordenadas", SqlDbType = SqlDbType.VarChar, Value = cliente.Coordenadas });
                 DataSet ds = dac.Fill("sp_InsertClientes", parametros);
-                if (ds.Tables[0].Rows.Count > 0)
+                 if (ds.Tables[0].Rows.Count > 0)
                 {
-                    foreach (DataRow row in ds.Tables[0].Rows)
-                    {
-                        lista.Add(new GetClientesModel
-                        {
-                            Nombre = row["Nombre"].ToString(),
-                            Direccion = row["Direccion"].ToString(),
-                            Usuario = row["UsuarioActualiza"].ToString(),
-                            Telefono = row["Telefono"].ToString(),
-                            RFC = row["RFC"].ToString(),
-                            CURP = row["CURP"].ToString(),
-                            Email = row["EMail"].ToString(),
-                            Coordenadas = row["Coordenadas"].ToString()
-                        });
-                    }
+                    return ds.Tables[0].Rows[0]["Mensaje"].ToString();
                 }
-                return 1;
+                else
+                {
+                    return "No se recibió ningún mensaje desde la base de datos";
+                }
             }
             catch (Exception ex)
             {
                 Console.Write(ex.Message);
-                return 0;
+                return "Error: " + ex.Message;
             }
         }
 
-        public int UpdateClientes(UpdateClientesModel cliente)
+        public string UpdateClientes(UpdateClientesModel cliente)
         {
             ArrayList parametros = new ArrayList();
             ConexionDataAccess dac = new ConexionDataAccess(connection);
-            var lista = new List<GetClientesModel>();
+            
 
             try
             {
@@ -120,59 +110,44 @@ namespace marcatel_api.Services
                 DataSet ds = dac.Fill("sp_UpdateClientes", parametros);
                 if (ds.Tables[0].Rows.Count > 0)
                 {
-                    foreach (DataRow row in ds.Tables[0].Rows)
-                    {
-                        lista.Add(new GetClientesModel
-                        {
-                            Id = int.Parse(row["Id"].ToString()),
-                            Nombre = row["Nombre"].ToString(),
-                            Direccion = row["Direccion"].ToString(),
-                            Usuario = row["UsuarioActualiza"].ToString(),
-                            FechaActualiza = DateTime.Parse(row["FechaActualiza"].ToString()),
-                            Telefono = row["Telefono"].ToString(),
-                            RFC = row["RFC"].ToString(),
-                            CURP = row["CURP"].ToString(),
-                            Email = row["EMail"].ToString(),
-                            Coordenadas = row["Coordenadas"].ToString()
-                        });
-                    }
+                    return ds.Tables[0].Rows[0]["Mensaje"].ToString();
                 }
-                return 1;
+                else
+                {
+                    return "No se recibió ningún mensaje desde la base de datos";
+                }
             }
             catch (Exception ex)
             {
                 Console.Write(ex.Message);
-                return 0;
+                return "Error: " + ex.Message;
             }
         }
 
-        public int DeleteClientes(DeleteClientesModel cliente)
+        public string DeleteClientes(DeleteClientesModel cliente)
         {
 
             ArrayList parametros = new ArrayList();
             ConexionDataAccess dac = new ConexionDataAccess(connection);
-            var lista = new List<GetClientesModel>();
+            
 
             try
             {
                 parametros.Add(new SqlParameter { ParameterName = "@pId", SqlDbType = SqlDbType.Int, Value = cliente.Id });
                 DataSet ds = dac.Fill("sp_DeleteClientes", parametros);
-                if (ds.Tables[0].Rows.Count > 0)
+                 if (ds.Tables[0].Rows.Count > 0)
                 {
-                    foreach (DataRow row in ds.Tables[0].Rows)
-                    {
-                        lista.Add(new GetClientesModel
-                        {
-                            Id = int.Parse(row["Id"].ToString()),
-                        });
-                    }
+                    return ds.Tables[0].Rows[0]["Mensaje"].ToString();
                 }
-                return 1;
+                else
+                {
+                    return "No se recibió ningún mensaje desde la base de datos";
+                }
             }
             catch (Exception ex)
             {
                 Console.Write(ex.Message);
-                return 0;
+                return "Error: " + ex.Message;
             }
 
         }

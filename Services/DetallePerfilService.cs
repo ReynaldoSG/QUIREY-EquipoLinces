@@ -51,7 +51,7 @@ namespace marcatel_api.Services
                     
                 }
 
-        public int InsertDetallePerfil(InsertDetallePerfilModel detallePerfil)
+        public string InsertDetallePerfil(InsertDetallePerfilModel detallePerfil)
         {
             ArrayList parametros = new ArrayList();
             ConexionDataAccess dac = new ConexionDataAccess(connection);
@@ -65,29 +65,23 @@ namespace marcatel_api.Services
                 parametros.Add(new SqlParameter { ParameterName = "@pusuarioActualiza", SqlDbType = SqlDbType.Decimal, Value = detallePerfil.UsuarioActualiza });
 
                 DataSet ds = dac.Fill("sp_InsertDetallePerfil", parametros);
-                if (ds.Tables[0].Rows.Count > 0)
+                 if (ds.Tables[0].Rows.Count > 0)
                 {
-                    foreach (DataRow row in ds.Tables[0].Rows)
-                    {
-                        lista.Add(new InsertDetallePerfilModel
-                        {
-                            idPerfil = int.Parse(row["idPerfil"].ToString()),
-                            idModulo = int.Parse(row["idModulo"].ToString()),
-                            acceso = int.Parse(row["acceso"].ToString()),
-                            UsuarioActualiza = int.Parse(row["usuarioActualiza"].ToString())
-                        });
-                    }
+                    return ds.Tables[0].Rows[0]["Mensaje"].ToString();
                 }
-                return 1;
+                else
+                {
+                    return "No se recibió ningún mensaje desde la base de datos";
+                }
             }
             catch (Exception ex)
             {
                 Console.Write(ex.Message);
-                return 0;
+                return "Error: " + ex.Message;
             }
         }
 
-        public int UpdateDetallePerfil(UpdateDetallePerfilModel detallePerfil)
+        public string UpdateDetallePerfil(UpdateDetallePerfilModel detallePerfil)
         {
             ArrayList parametros = new ArrayList();
             ConexionDataAccess dac = new ConexionDataAccess(connection);
@@ -102,33 +96,23 @@ namespace marcatel_api.Services
                 parametros.Add(new SqlParameter { ParameterName = "@pusuarioActualiza", SqlDbType = SqlDbType.Int, Value = detallePerfil.UsuarioActualiza });
                 parametros.Add(new SqlParameter { ParameterName = "@pestatus", SqlDbType = SqlDbType.Int, Value = detallePerfil.estatus });
                 DataSet ds = dac.Fill("sp_UpdateDetallePerfil", parametros);
-                if (ds.Tables[0].Rows.Count > 0)
+                 if (ds.Tables[0].Rows.Count > 0)
                 {
-                    foreach (DataRow row in ds.Tables[0].Rows)
-                    {
-                        lista.Add(new GetDetallePerfilModel
-                        {
-                            Id = int.Parse(row["Id"].ToString()),
-                            nombreModulo = row["Nombre Modulo"].ToString(),
-                            Rol = row["Rol"].ToString(),
-                            Acceso = row["acceso"].ToString(),
-                            fechaRegistro = DateTime.Parse(row["fechaRegistro"].ToString()),
-                            fechaActualiza = DateTime.Parse(row["fechaActualiza"].ToString()),
-                            Estatus = row["Estatus"].ToString(),
-                            UsuarioActualiza = row["UsuarioActualiza"].ToString()
-                        });
-                    }
+                    return ds.Tables[0].Rows[0]["Mensaje"].ToString();
                 }
-                return 1;
+                else
+                {
+                    return "No se recibió ningún mensaje desde la base de datos";
+                }
             }
             catch (Exception ex)
             {
                 Console.Write(ex.Message);
-                return 0;
+                return "Error: " + ex.Message;
             }
         }
 
-        public int DeleteDetallePerfil(DeleteDetallePerfilModel detallePerfil)
+        public string DeleteDetallePerfil(DeleteDetallePerfilModel detallePerfil)
         {
             ArrayList parametros = new ArrayList();
             ConexionDataAccess dac = new ConexionDataAccess(connection);
@@ -138,22 +122,19 @@ namespace marcatel_api.Services
             {
                 parametros.Add(new SqlParameter { ParameterName = "@pId", SqlDbType = SqlDbType.Int, Value = detallePerfil.Id });
                 DataSet ds = dac.Fill("sp_DeleteDetallePerfil", parametros);
-                if (ds.Tables[0].Rows.Count > 0)
+                 if (ds.Tables[0].Rows.Count > 0)
                 {
-                    foreach (DataRow row in ds.Tables[0].Rows)
-                    {
-                        lista.Add(new GetDetallePerfilModel
-                        {
-                            Id = int.Parse(row["Id"].ToString())
-                        });
-                    }
+                    return ds.Tables[0].Rows[0]["Mensaje"].ToString();
                 }
-                return 1;
+                else
+                {
+                    return "No se recibió ningún mensaje desde la base de datos";
+                }
             }
             catch (Exception ex)
             {
                 Console.Write(ex.Message);
-                return 0;
+                return "Error: " + ex.Message;
             }
         }
     }

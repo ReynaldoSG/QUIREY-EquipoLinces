@@ -34,7 +34,7 @@ namespace marcatel_api.Services
                         lista.Add(new GetEmpleadosModel
                         {
                             Id = int.Parse(row["Id"].ToString()),
-                            Persona = row["idPersona"].ToString(),
+                            Persona = row["Persona"].ToString(),
                             Sucursal = row["Sucursal"].ToString(),
                             Puesto = row["Puesto"].ToString(),
                             usuarioActualiza = row["usuarioActualiza"].ToString(),
@@ -54,112 +54,123 @@ namespace marcatel_api.Services
 
 
         }
-        public int InsertEmpleado(InsertEmpleadosModel empleadosModel)
+        public string InsertEmpleado(InsertEmpleadosModel empleadosModel)
         {
-            ArrayList parametros = new ArrayList();
-            ConexionDataAccess dac = new ConexionDataAccess(connection);
-            var lista = new List<GetEmpleadosModel>();
 
-            try
+
+            DataSet ds = dac.Fill("sp_GetEmpleado", parametros);
+            if (ds.Tables[0].Rows.Count > 0)
             {
-                parametros.Add(new SqlParameter { ParameterName = "@pIdPersona", SqlDbType = SqlDbType.Int, Value = empleadosModel.IdPersona });
-                parametros.Add(new SqlParameter { ParameterName = "@pIdSucursal", SqlDbType = SqlDbType.Int, Value = empleadosModel.IdSucursal });
-                parametros.Add(new SqlParameter { ParameterName = "@pIdPuesto", SqlDbType = SqlDbType.Int, Value = empleadosModel.IdPuesto });
-                parametros.Add(new SqlParameter { ParameterName = "@pUsuarioAct", SqlDbType = SqlDbType.Int, Value = empleadosModel.usuarioActualiza });
-
-
-                DataSet ds = dac.Fill("sp_InsertEmpleado", parametros);
-                if (ds.Tables[0].Rows.Count > 0)
+                foreach (DataRow row in ds.Tables[0].Rows)
                 {
-                    foreach (DataRow row in ds.Tables[0].Rows)
+                    lista.Add(new GetEmpleadosModel
                     {
-                        lista.Add(new GetEmpleadosModel
-                        {
-                            Persona = row["idPersona"].ToString(),
-                            Sucursal = row["Sucursal"].ToString(),
-                            Puesto = row["Puesto"].ToString(),
-                            fechaRegistro = DateTime.Parse(row["fechaRegistro"].ToString()),
-                            fechaActualiza = DateTime.Parse(row["fechaActualiza"].ToString()),
-                            usuarioActualiza = row["UsuarioActualiza"].ToString()
-                        });
-                    }
+                        Id = int.Parse(row["Id"].ToString()),
+                        Persona = row["idPersona"].ToString(),
+                        Sucursal = row["Sucursal"].ToString(),
+                        Puesto = row["Puesto"].ToString(),
+                        usuarioActualiza = row["usuarioActualiza"].ToString(),
+                        fechaRegistro = DateTime.Parse(row["fechaRegistro"].ToString()),
+                        fechaActualiza = DateTime.Parse(row["fechaActualiza"].ToString())
+
+                    });
                 }
-                return 1;
             }
+            return lista;
+
+        }
             catch (Exception ex)
             {
-                Console.Write(ex.Message);
-                return 0;
+                throw ex;
             }
-        }
-        public int UpdateEmpleados(UpdateEmpleadosModel empleadosModel)
+
+
+}
+public int InsertEmpleado(InsertEmpleadosModel empleadosModel)
+{
+    ArrayList parametros = new ArrayList();
+    ConexionDataAccess dac = new ConexionDataAccess(connection);
+    var lista = new List<GetEmpleadosModel>();
+
+    try
+    {
+        parametros.Add(new SqlParameter { ParameterName = "@pIdPersona", SqlDbType = SqlDbType.Int, Value = empleadosModel.IdPersona });
+        parametros.Add(new SqlParameter { ParameterName = "@pIdSucursal", SqlDbType = SqlDbType.Int, Value = empleadosModel.IdSucursal });
+        parametros.Add(new SqlParameter { ParameterName = "@pIdPuesto", SqlDbType = SqlDbType.Int, Value = empleadosModel.IdPuesto });
+        parametros.Add(new SqlParameter { ParameterName = "@pUsuarioAct", SqlDbType = SqlDbType.Int, Value = empleadosModel.usuarioActualiza });
+
+
+        DataSet ds = dac.Fill("sp_InsertEmpleado", parametros);
+        if (ds.Tables[0].Rows.Count > 0)
         {
-            ArrayList parametros = new ArrayList();
-            ConexionDataAccess dac = new ConexionDataAccess(connection);
-            var lista = new List<GetEmpleadosModel>();
-
-            try
-            {
-                parametros.Add(new SqlParameter { ParameterName = "@pId", SqlDbType = SqlDbType.Int, Value = empleadosModel.Id });
-                parametros.Add(new SqlParameter { ParameterName = "@pIdPersona", SqlDbType = SqlDbType.Int, Value = empleadosModel.IdPersona });
-                parametros.Add(new SqlParameter { ParameterName = "@pIdSucursal", SqlDbType = SqlDbType.Int, Value = empleadosModel.IdSucursal });
-                parametros.Add(new SqlParameter { ParameterName = "@pIdPuesto", SqlDbType = SqlDbType.Int, Value = empleadosModel.IdPuesto });
-                parametros.Add(new SqlParameter { ParameterName = "@pUsuarioAct", SqlDbType = SqlDbType.Int, Value = empleadosModel.usuarioActualiza });
-                DataSet ds = dac.Fill("sp_UpdateEmpleados", parametros);
-                if (ds.Tables[0].Rows.Count > 0)
-                {
-                    foreach (DataRow row in ds.Tables[0].Rows)
-                    {
-                        lista.Add(new GetEmpleadosModel
-                        {
-                            Id = int.Parse(row["Id"].ToString()),
-                            Persona = row["idPersona"].ToString(),
-                            Sucursal = row["Sucursal"].ToString(),
-                            Puesto = row["Puesto"].ToString(),
-                            fechaRegistro = DateTime.Parse(row["fechaRegistro"].ToString()),
-                            fechaActualiza = DateTime.Parse(row["fechaActualiza"].ToString()),
-                            usuarioActualiza = row["UsuarioActualiza"].ToString()
-
-                        });
-                    }
-                }
-                return 1;
-            }
-            catch (Exception ex)
-            {
-                Console.Write(ex.Message);
-                return 0;
-            }
+            return ds.Tables[0].Rows[0]["Mensaje"].ToString();
         }
-
-        public int DeleteEmpleados(DeleteEmpleadosModel empleadosModel)
+        else
         {
-            ArrayList parametros = new ArrayList();
-            ConexionDataAccess dac = new ConexionDataAccess(connection);
-            var lista = new List<GetEmpleadosModel>();
-
-            try
-            {
-                parametros.Add(new SqlParameter { ParameterName = "@pId", SqlDbType = SqlDbType.Int, Value = empleadosModel.Id });
-                DataSet ds = dac.Fill("sp_DeleteEmpleados", parametros);
-                if (ds.Tables[0].Rows.Count > 0)
-                {
-                    foreach (DataRow row in ds.Tables[0].Rows)
-                    {
-                        lista.Add(new GetEmpleadosModel
-                        {
-                            Id = int.Parse(row["Id"].ToString())
-                        });
-                    }
-                }
-                return 1;
-            }
-            catch (Exception ex)
-            {
-                Console.Write(ex.Message);
-                return 0;
-            }
+            return "No se recibió ningún mensaje desde la base de datos";
         }
+    }
+    catch (Exception ex)
+    {
+        Console.Write(ex.Message);
+        return "Error: " + ex.Message;
+    }
+}
+public string UpdateEmpleados(UpdateEmpleadosModel empleadosModel)
+{
+    ArrayList parametros = new ArrayList();
+    ConexionDataAccess dac = new ConexionDataAccess(connection);
+    var lista = new List<GetEmpleadosModel>();
+
+    try
+    {
+        parametros.Add(new SqlParameter { ParameterName = "@pId", SqlDbType = SqlDbType.Int, Value = empleadosModel.Id });
+        parametros.Add(new SqlParameter { ParameterName = "@pIdPersona", SqlDbType = SqlDbType.Int, Value = empleadosModel.IdPersona });
+        parametros.Add(new SqlParameter { ParameterName = "@pIdSucursal", SqlDbType = SqlDbType.Int, Value = empleadosModel.IdSucursal });
+        parametros.Add(new SqlParameter { ParameterName = "@pIdPuesto", SqlDbType = SqlDbType.Int, Value = empleadosModel.IdPuesto });
+        parametros.Add(new SqlParameter { ParameterName = "@pUsuarioAct", SqlDbType = SqlDbType.Int, Value = empleadosModel.usuarioActualiza });
+        DataSet ds = dac.Fill("sp_UpdateEmpleados", parametros);
+        if (ds.Tables[0].Rows.Count > 0)
+        {
+            return ds.Tables[0].Rows[0]["Mensaje"].ToString();
+        }
+        else
+        {
+            return "No se recibió ningún mensaje desde la base de datos";
+        }
+    }
+    catch (Exception ex)
+    {
+        Console.Write(ex.Message);
+        return "Error: " + ex.Message;
+    }
+}
+
+public string DeleteEmpleados(DeleteEmpleadosModel empleadosModel)
+{
+    ArrayList parametros = new ArrayList();
+    ConexionDataAccess dac = new ConexionDataAccess(connection);
+    var lista = new List<GetEmpleadosModel>();
+
+    try
+    {
+        parametros.Add(new SqlParameter { ParameterName = "@pId", SqlDbType = SqlDbType.Int, Value = empleadosModel.Id });
+        DataSet ds = dac.Fill("sp_DeleteEmpleados", parametros);
+        if (ds.Tables[0].Rows.Count > 0)
+        {
+            return ds.Tables[0].Rows[0]["Mensaje"].ToString();
+        }
+        else
+        {
+            return "No se recibió ningún mensaje desde la base de datos";
+        }
+    }
+    catch (Exception ex)
+    {
+        Console.Write(ex.Message);
+        return "Error: " + ex.Message;
+    }
+}
 
 
 
