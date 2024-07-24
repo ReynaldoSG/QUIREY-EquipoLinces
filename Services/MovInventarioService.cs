@@ -55,7 +55,7 @@ namespace marcatel_api.Services
 
         }
 
-        public string InsertMovInventario(InsertMovimientoModels MovInv)
+        public List<GetMovInventarioModels> InsertMovInventario(InsertMovimientoModels MovInv)
         {
             ArrayList parametros = new ArrayList();
             ConexionDataAccess dac = new ConexionDataAccess(connection);
@@ -69,19 +69,24 @@ namespace marcatel_api.Services
                 parametros.Add(new SqlParameter { ParameterName = "@pIdDestino", SqlDbType = SqlDbType.Int, Value = MovInv.IdDestino });
 
                 DataSet ds = dac.Fill("sp_InsertMovimientosInv", parametros);
-                 if (ds.Tables[0].Rows.Count > 0)
+                if (ds.Tables[0].Rows.Count > 0)
                 {
-                    return ds.Tables[0].Rows[0]["Mensaje"].ToString();
+                    foreach (DataRow row in ds.Tables[0].Rows)
+                    {
+                        lista.Add(new GetMovInventarioModels
+                        {
+                            Id = int.Parse(row["Id"].ToString()),
+                            Mensaje = row["Mensaje"].ToString()
+                        });
+                    }
+
                 }
-                else
-                {
-                    return "No se recibió ningún mensaje desde la base de datos";
-                }
+
+                return lista;
             }
             catch (Exception ex)
             {
-                Console.Write(ex.Message);
-                return "Error: " + ex.Message;
+                throw ex;
             }
         }
         public string UpdateMovIntentario(UpdateMovimientoInvModel MovInv)
@@ -97,7 +102,7 @@ namespace marcatel_api.Services
                 parametros.Add(new SqlParameter { ParameterName = "@pIdAlmacen", SqlDbType = SqlDbType.Int, Value = MovInv.IdAlmacen });
                 parametros.Add(new SqlParameter { ParameterName = "@pUsuarioActualiza", SqlDbType = SqlDbType.Int, Value = MovInv.IdAlmacen });
                 DataSet ds = dac.Fill("sp_UpdateMov_Inventario", parametros);
-                 if (ds.Tables[0].Rows.Count > 0)
+                if (ds.Tables[0].Rows.Count > 0)
                 {
                     return ds.Tables[0].Rows[0]["Mensaje"].ToString();
                 }
@@ -123,7 +128,7 @@ namespace marcatel_api.Services
             {
                 parametros.Add(new SqlParameter { ParameterName = "@pId", SqlDbType = SqlDbType.Int, Value = MovInv.Id });
                 DataSet ds = dac.Fill("dbo.sp_DeleteMovInventario", parametros);
-                 if (ds.Tables[0].Rows.Count > 0)
+                if (ds.Tables[0].Rows.Count > 0)
                 {
                     return ds.Tables[0].Rows[0]["Mensaje"].ToString();
                 }
