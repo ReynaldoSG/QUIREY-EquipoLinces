@@ -34,7 +34,7 @@ namespace marcatel_api.Controllers
             {
                 var CatClienteResponse = _DetalleTicketService.InsertDetalleTicket(detalleticket);
 
-                string msgDefault = "Registro insertado con éxito.";
+                string msgDefault = "Venta realizada con éxito.";
 
                 if (msgDefault == CatClienteResponse)
                 {

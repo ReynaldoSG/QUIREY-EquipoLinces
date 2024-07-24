@@ -25,10 +25,11 @@ namespace marcatel_api.Controllers
 
 
         //[Authorize(AuthenticationSchemes = "Bearer")]
-        
+
         [Authorize(AuthenticationSchemes = "Bearer")]
         [HttpGet("Get")]
-        public IActionResult GetMovInventario(GetMovInvFiltroModel movimiento){
+        public IActionResult GetMovInventario(GetMovInvFiltroModel movimiento)
+        {
             var MovInventario = _movInventarioService.GetMovInventario(movimiento);
             return Ok(MovInventario);
         }
@@ -39,30 +40,46 @@ namespace marcatel_api.Controllers
             var objectResponse = Helper.GetStructResponse();
             try
             {
-                var CatClienteResponse = _movInventarioService.InsertMovInventario(MovInv);
-                string msgDefault = "Registro insertado con éxito.";
-
-                if (msgDefault == CatClienteResponse)
+                var movModel = _movInventarioService.InsertMovInventario(MovInv);
+                if (movModel.Count > 0)
                 {
-                    objectResponse.StatusCode = (int)HttpStatusCode.OK;
-                    objectResponse.success = true;
-                    objectResponse.message = "Éxito.";
+                    var Id = movModel[0].Id;
+                    var Msg = movModel[0].Mensaje;
 
-                    objectResponse.response = new
+                    string msgDefault = "Movimiento exitoso.";
+
+                    if (msgDefault == Msg)
                     {
-                        data = CatClienteResponse
-                    };
+                        objectResponse.StatusCode = (int)HttpStatusCode.OK;
+                        objectResponse.success = true;
+                        objectResponse.message = "Éxito.";
+
+                        objectResponse.response = new
+                        {
+                            data = Id,
+                            Msg
+                        };
+                    }
+                    else
+                    {
+                        objectResponse.StatusCode = (int)HttpStatusCode.BadRequest;
+                        objectResponse.success = true;
+                        objectResponse.message = "Error.";
+
+                        objectResponse.response = new
+                        {
+                            data = Id,
+                            Msg
+                        };
+                    }
                 }
                 else
                 {
                     objectResponse.StatusCode = (int)HttpStatusCode.BadRequest;
                     objectResponse.success = true;
-                    objectResponse.message = "Error.";
+                    objectResponse.message = "Error: No se devolvió ningún resultado.";
 
-                    objectResponse.response = new
-                    {
-                        data = CatClienteResponse
-                    };
+                    objectResponse.response = null;
                 }
             }
             catch (System.Exception ex)

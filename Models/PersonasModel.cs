@@ -21,7 +21,6 @@ namespace marcatel_api.Models
         public string ApPaterno { get; set; }
         public string ApMaterno { get; set; }
         public string Direccion { get; set; }
-        public int Rol { get; set; }
         public int Usuario { get; set; }
     }
     public class UpdatePersonasModel
@@ -31,7 +30,6 @@ namespace marcatel_api.Models
         public string ApPaterno { get; set; }
         public string ApMaterno { get; set; }
         public string Direccion { get; set; }
-        public int rol { get; set; }
         public int Usuario { get; set; }
     }
     public class DeletePersonasModel

@@ -56,121 +56,89 @@ namespace marcatel_api.Services
         }
         public string InsertEmpleado(InsertEmpleadosModel empleadosModel)
         {
+            ArrayList parametros = new ArrayList();
+            ConexionDataAccess dac = new ConexionDataAccess(connection);
+            var lista = new List<GetEmpleadosModel>();
 
-
-            DataSet ds = dac.Fill("sp_GetEmpleado", parametros);
-            if (ds.Tables[0].Rows.Count > 0)
+            try
             {
-                foreach (DataRow row in ds.Tables[0].Rows)
-                {
-                    lista.Add(new GetEmpleadosModel
-                    {
-                        Id = int.Parse(row["Id"].ToString()),
-                        Persona = row["idPersona"].ToString(),
-                        Sucursal = row["Sucursal"].ToString(),
-                        Puesto = row["Puesto"].ToString(),
-                        usuarioActualiza = row["usuarioActualiza"].ToString(),
-                        fechaRegistro = DateTime.Parse(row["fechaRegistro"].ToString()),
-                        fechaActualiza = DateTime.Parse(row["fechaActualiza"].ToString())
+                parametros.Add(new SqlParameter { ParameterName = "@pIdPersona", SqlDbType = SqlDbType.Int, Value = empleadosModel.IdPersona });
+                parametros.Add(new SqlParameter { ParameterName = "@pIdSucursal", SqlDbType = SqlDbType.Int, Value = empleadosModel.IdSucursal });
+                parametros.Add(new SqlParameter { ParameterName = "@pIdPuesto", SqlDbType = SqlDbType.Int, Value = empleadosModel.IdPuesto });
+                parametros.Add(new SqlParameter { ParameterName = "@pUsuarioAct", SqlDbType = SqlDbType.Int, Value = empleadosModel.usuarioActualiza });
 
-                    });
+
+                DataSet ds = dac.Fill("sp_InsertEmpleado", parametros);
+                if (ds.Tables[0].Rows.Count > 0)
+                {
+                    return ds.Tables[0].Rows[0]["Mensaje"].ToString();
+                }
+                else
+                {
+                    return "No se recibió ningún mensaje desde la base de datos";
                 }
             }
-            return lista;
-
-        }
             catch (Exception ex)
             {
-                throw ex;
+                Console.Write(ex.Message);
+                return "Error: " + ex.Message;
             }
-
-
-}
-public int InsertEmpleado(InsertEmpleadosModel empleadosModel)
-{
-    ArrayList parametros = new ArrayList();
-    ConexionDataAccess dac = new ConexionDataAccess(connection);
-    var lista = new List<GetEmpleadosModel>();
-
-    try
-    {
-        parametros.Add(new SqlParameter { ParameterName = "@pIdPersona", SqlDbType = SqlDbType.Int, Value = empleadosModel.IdPersona });
-        parametros.Add(new SqlParameter { ParameterName = "@pIdSucursal", SqlDbType = SqlDbType.Int, Value = empleadosModel.IdSucursal });
-        parametros.Add(new SqlParameter { ParameterName = "@pIdPuesto", SqlDbType = SqlDbType.Int, Value = empleadosModel.IdPuesto });
-        parametros.Add(new SqlParameter { ParameterName = "@pUsuarioAct", SqlDbType = SqlDbType.Int, Value = empleadosModel.usuarioActualiza });
-
-
-        DataSet ds = dac.Fill("sp_InsertEmpleado", parametros);
-        if (ds.Tables[0].Rows.Count > 0)
-        {
-            return ds.Tables[0].Rows[0]["Mensaje"].ToString();
         }
-        else
+        public string UpdateEmpleados(UpdateEmpleadosModel empleadosModel)
         {
-            return "No se recibió ningún mensaje desde la base de datos";
-        }
-    }
-    catch (Exception ex)
-    {
-        Console.Write(ex.Message);
-        return "Error: " + ex.Message;
-    }
-}
-public string UpdateEmpleados(UpdateEmpleadosModel empleadosModel)
-{
-    ArrayList parametros = new ArrayList();
-    ConexionDataAccess dac = new ConexionDataAccess(connection);
-    var lista = new List<GetEmpleadosModel>();
+            ArrayList parametros = new ArrayList();
+            ConexionDataAccess dac = new ConexionDataAccess(connection);
+            var lista = new List<GetEmpleadosModel>();
 
-    try
-    {
-        parametros.Add(new SqlParameter { ParameterName = "@pId", SqlDbType = SqlDbType.Int, Value = empleadosModel.Id });
-        parametros.Add(new SqlParameter { ParameterName = "@pIdPersona", SqlDbType = SqlDbType.Int, Value = empleadosModel.IdPersona });
-        parametros.Add(new SqlParameter { ParameterName = "@pIdSucursal", SqlDbType = SqlDbType.Int, Value = empleadosModel.IdSucursal });
-        parametros.Add(new SqlParameter { ParameterName = "@pIdPuesto", SqlDbType = SqlDbType.Int, Value = empleadosModel.IdPuesto });
-        parametros.Add(new SqlParameter { ParameterName = "@pUsuarioAct", SqlDbType = SqlDbType.Int, Value = empleadosModel.usuarioActualiza });
-        DataSet ds = dac.Fill("sp_UpdateEmpleados", parametros);
-        if (ds.Tables[0].Rows.Count > 0)
-        {
-            return ds.Tables[0].Rows[0]["Mensaje"].ToString();
+            try
+            {
+                parametros.Add(new SqlParameter { ParameterName = "@pId", SqlDbType = SqlDbType.Int, Value = empleadosModel.Id });
+                parametros.Add(new SqlParameter { ParameterName = "@pIdPersona", SqlDbType = SqlDbType.Int, Value = empleadosModel.IdPersona });
+                parametros.Add(new SqlParameter { ParameterName = "@pIdSucursal", SqlDbType = SqlDbType.Int, Value = empleadosModel.IdSucursal });
+                parametros.Add(new SqlParameter { ParameterName = "@pIdPuesto", SqlDbType = SqlDbType.Int, Value = empleadosModel.IdPuesto });
+                parametros.Add(new SqlParameter { ParameterName = "@pUsuarioAct", SqlDbType = SqlDbType.Int, Value = empleadosModel.usuarioActualiza });
+                DataSet ds = dac.Fill("sp_UpdateEmpleados", parametros);
+                if (ds.Tables[0].Rows.Count > 0)
+                {
+                    return ds.Tables[0].Rows[0]["Mensaje"].ToString();
+                }
+                else
+                {
+                    return "No se recibió ningún mensaje desde la base de datos";
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.Write(ex.Message);
+                return "Error: " + ex.Message;
+            }
         }
-        else
-        {
-            return "No se recibió ningún mensaje desde la base de datos";
-        }
-    }
-    catch (Exception ex)
-    {
-        Console.Write(ex.Message);
-        return "Error: " + ex.Message;
-    }
-}
 
-public string DeleteEmpleados(DeleteEmpleadosModel empleadosModel)
-{
-    ArrayList parametros = new ArrayList();
-    ConexionDataAccess dac = new ConexionDataAccess(connection);
-    var lista = new List<GetEmpleadosModel>();
+        public string DeleteEmpleados(DeleteEmpleadosModel empleadosModel)
+        {
+            ArrayList parametros = new ArrayList();
+            ConexionDataAccess dac = new ConexionDataAccess(connection);
+            var lista = new List<GetEmpleadosModel>();
 
-    try
-    {
-        parametros.Add(new SqlParameter { ParameterName = "@pId", SqlDbType = SqlDbType.Int, Value = empleadosModel.Id });
-        DataSet ds = dac.Fill("sp_DeleteEmpleados", parametros);
-        if (ds.Tables[0].Rows.Count > 0)
-        {
-            return ds.Tables[0].Rows[0]["Mensaje"].ToString();
+            try
+            {
+                parametros.Add(new SqlParameter { ParameterName = "@pId", SqlDbType = SqlDbType.Int, Value = empleadosModel.Id });
+                DataSet ds = dac.Fill("sp_DeleteEmpleados", parametros);
+                if (ds.Tables[0].Rows.Count > 0)
+                {
+                    return ds.Tables[0].Rows[0]["Mensaje"].ToString();
+                }
+                else
+                {
+                    return "No se recibió ningún mensaje desde la base de datos";
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.Write(ex.Message);
+                return "Error: " + ex.Message;
+            }
         }
-        else
-        {
-            return "No se recibió ningún mensaje desde la base de datos";
-        }
-    }
-    catch (Exception ex)
-    {
-        Console.Write(ex.Message);
-        return "Error: " + ex.Message;
-    }
-}
 
 
 

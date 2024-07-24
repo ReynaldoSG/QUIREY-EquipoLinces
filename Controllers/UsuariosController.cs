@@ -88,9 +88,12 @@ namespace marcatel_api.Controllers
         [HttpPut("Update")]
         public JsonResult UpdatePersonas([FromBody] UpdateUsuariosModel usuarios)
         {
+
+
             var objectResponse = Helper.GetStructResponse();
             try
             {
+                usuarios.Contrasena = enc.GetSHA256(usuarios.Contrasena);
                 var CatClienteResponse = _UsuarioService.UpdateUsuarios(usuarios);
                 string msgDefault = "Registro actualizado con éxito.";
 
