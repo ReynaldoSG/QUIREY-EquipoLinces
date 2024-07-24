@@ -33,7 +33,11 @@ namespace marcatel_api.Services
                             Nombre = row["Nombre"].ToString(),
                             FechaActualiza = DateTime.Parse(row["FechaActualiza"].ToString()),
                             FechaRegristro = DateTime.Parse(row["FechaRegistro"].ToString()),
-                            Usuario = row["UsuarioActualiza"].ToString()
+                            Usuario = row["UsuarioActualiza"].ToString(),
+                            Matricula = row["Matricula"].ToString(),
+                            Conductor = row["NombreConductor"].ToString(),
+                            NoLicencia = row["NumeroLicencia"].ToString(),
+                            NoSeguro = row["NoSeguro"].ToString()
                         });
                     }
                 }
@@ -58,6 +62,10 @@ namespace marcatel_api.Services
             {
                 parametros.Add(new SqlParameter { ParameterName = "@pNombre", SqlDbType = SqlDbType.VarChar, Value = InsertRutas.Nombre });
                 parametros.Add(new SqlParameter { ParameterName = "@pUsuario", SqlDbType = SqlDbType.Int, Value = InsertRutas.Usuario });
+                parametros.Add(new SqlParameter { ParameterName = "@pMatricula", SqlDbType = SqlDbType.VarChar, Value = InsertRutas.Matricula });
+                parametros.Add(new SqlParameter { ParameterName = "@pNombreConductor", SqlDbType = SqlDbType.VarChar, Value = InsertRutas.Conductor });
+                parametros.Add(new SqlParameter { ParameterName = "@pNumLicencia", SqlDbType = SqlDbType.VarChar, Value = InsertRutas.NoLicencia });
+                parametros.Add(new SqlParameter { ParameterName = "@pNumSeguro", SqlDbType = SqlDbType.VarChar, Value = InsertRutas.NoSeguro });
                 DataSet ds = dac.Fill("sp_InsertRutas", parametros);
                 if (ds.Tables[0].Rows.Count > 0)
                 {
@@ -86,6 +94,10 @@ namespace marcatel_api.Services
                 parametros.Add(new SqlParameter { ParameterName = "@pId", SqlDbType = SqlDbType.Int, Value = UpdateRutas.Id });
                 parametros.Add(new SqlParameter { ParameterName = "@pNombre", SqlDbType = SqlDbType.VarChar, Value = UpdateRutas.Nombre });
                 parametros.Add(new SqlParameter { ParameterName = "@pUsuario", SqlDbType = SqlDbType.Int, Value = UpdateRutas.Usuario });
+                parametros.Add(new SqlParameter { ParameterName = "@pMatricula", SqlDbType = SqlDbType.VarChar, Value = UpdateRutas.Matricula });
+                parametros.Add(new SqlParameter { ParameterName = "@pNombreConductor", SqlDbType = SqlDbType.VarChar, Value = UpdateRutas.Conductor });
+                parametros.Add(new SqlParameter { ParameterName = "@pNumLicencia", SqlDbType = SqlDbType.VarChar, Value = UpdateRutas.NoLicencia });
+                parametros.Add(new SqlParameter { ParameterName = "@pNumSeguro", SqlDbType = SqlDbType.VarChar, Value = UpdateRutas.NoSeguro });
                 DataSet ds = dac.Fill("sp_UpdateRutas", parametros);
                 if (ds.Tables[0].Rows.Count > 0)
                 {

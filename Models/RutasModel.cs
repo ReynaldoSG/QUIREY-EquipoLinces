@@ -8,6 +8,11 @@ namespace marcatel_api.Models
         public string Usuario { get; set; }
         public DateTime FechaRegristro { get; set; }
         public DateTime FechaActualiza { get; set; }
+        public string Matricula { get; set; }
+        public string Conductor { get; set; }
+        public string NoLicencia { get; set; }
+        public string NoSeguro { get; set; }
+
         public string Mensaje { get; set; }
 
     }
@@ -16,6 +21,10 @@ namespace marcatel_api.Models
     {
         public string Nombre { get; set; }
         public int Usuario { get; set; }
+        public string Matricula { get; set; }
+        public string Conductor { get; set; }
+        public string NoLicencia { get; set; }
+        public string NoSeguro { get; set; }
     }
 
     public class UpdateRutasModel
@@ -23,6 +32,10 @@ namespace marcatel_api.Models
         public int Id { get; set; }
         public string Nombre { get; set; }
         public int Usuario { get; set; }
+        public string Matricula { get; set; }
+        public string Conductor { get; set; }
+        public string NoLicencia { get; set; }
+        public string NoSeguro { get; set; }
     }
 
     public class DeleteRutasModel

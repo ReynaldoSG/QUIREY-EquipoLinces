@@ -32,16 +32,30 @@ namespace marcatel_api.Controllers
                 // Llamada al servicio para ejecutar el procedimiento almacenado
                 var response = _DetalleMovimientoService.InsertDetalleMovimiento(detalleMovimiento);
 
-                // Aquí puedes manejar el resultado como lo necesites
-                objectResponse.StatusCode = (int)HttpStatusCode.OK;
-                objectResponse.success = true;
-                objectResponse.message = "Registro insertado con éxito";
+                string msgDefault = "Movimiento Existoso.";
 
-                // Puedes enviar el mensaje de respuesta al front-end si es necesario
-                objectResponse.response = new
+                if (msgDefault == response)
                 {
-                    data = response // Aquí puedes incluir más información si es necesario
-                };
+                    objectResponse.StatusCode = (int)HttpStatusCode.OK;
+                    objectResponse.success = true;
+                    objectResponse.message = "Éxito.";
+
+                    objectResponse.response = new
+                    {
+                        data = response
+                    };
+                }
+                else
+                {
+                    objectResponse.StatusCode = (int)HttpStatusCode.BadRequest;
+                    objectResponse.success = true;
+                    objectResponse.message = "Error.";
+
+                    objectResponse.response = new
+                    {
+                        data = response
+                    };
+                }
             }
             catch (System.Exception ex)
             {
