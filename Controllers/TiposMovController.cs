@@ -92,7 +92,7 @@ namespace marcatel_api.Controllers
 
         }
 
-        [HttpDelete("Delete")]
+        [HttpPut("Delete")]
         public JsonResult DeleteTiposMov([FromBody] DeleteTiposMovModel tiposmov)
         {
             var objectResponse = Helper.GetStructResponse();
