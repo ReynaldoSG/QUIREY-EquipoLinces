@@ -73,8 +73,8 @@ namespace marcatel_api.Controllers
 
 
 
-        [Authorize(AuthenticationSchemes = "Bearer")]
-        [HttpGet("Get")]
+/*         [Authorize(AuthenticationSchemes = "Bearer")]
+ */        [HttpGet("Get")]
         public IActionResult GetCatModulo()
         {
             var catModulo = _catModuloService.GetCatModulo();

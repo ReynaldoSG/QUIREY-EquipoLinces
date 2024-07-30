@@ -32,7 +32,7 @@ namespace marcatel_api.Controllers
                 // Llamada al servicio para ejecutar el procedimiento almacenado
                 var response = _DetalleMovimientoService.InsertDetalleMovimiento(detalleMovimiento);
 
-                string msgDefault = "Movimiento Existoso.";
+                string msgDefault = "Movimiento Exitoso.";
 
                 if (msgDefault == response)
                 {
