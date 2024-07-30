@@ -23,8 +23,8 @@ namespace marcatel_api.Controllers
 
 
 
-        [Authorize(AuthenticationSchemes = "Bearer")]
-
+      /*   [Authorize(AuthenticationSchemes = "Bearer")]
+ */
 
         [HttpPut("Update")]
         public JsonResult AutorizarMov([FromBody] AutorizarMovModel autorizarmov)
