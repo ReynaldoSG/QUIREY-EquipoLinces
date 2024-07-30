@@ -153,10 +153,10 @@ namespace marcatel_api.Services
 
             try
             {
-                parametros.Add(new SqlParameter { ParameterName = "@pId", SqlDbType = SqlDbType.Int, Value = autorizarticket.Id });
+                parametros.Add(new SqlParameter { ParameterName = "@pIdTicket", SqlDbType = SqlDbType.Int, Value = autorizarticket.Id });
                 parametros.Add(new SqlParameter { ParameterName = "@pEstatus", SqlDbType = SqlDbType.VarChar, Value = autorizarticket.Estatus });
 
-                DataSet ds = dac.Fill("sp_AutorizarMov", parametros);
+                DataSet ds = dac.Fill("sp_AutorizarTicket", parametros);
 
                 return 1;
             }
