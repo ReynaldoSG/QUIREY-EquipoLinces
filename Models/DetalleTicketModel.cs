@@ -13,6 +13,7 @@ namespace marcatel_api.Models
         public decimal TotalTicket { get; set; }
         public string Usuario { get; set; }
         public string Estatus { get; set; }
+        public string UUID { get; set; }
         public string Mensaje { get; set; }
 
     }
@@ -28,6 +29,7 @@ namespace marcatel_api.Models
         public string Codigo { get; set; }
         public decimal Cantidad { get; set; }
         public decimal PrecioVenta { get; set; }
+        public string UUID { get; set; }
         public int Usuario { get; set; }
     }
 
@@ -38,6 +40,7 @@ namespace marcatel_api.Models
         public decimal Cantidad { get; set; }
         public decimal PrecioVenta { get; set; }
         public int Estatus { get; set; }
+        public string UUID { get; set; }
         public int Usuario { get; set; }
     }
 

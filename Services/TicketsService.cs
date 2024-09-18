@@ -40,6 +40,7 @@ namespace marcatel_api.Services
                             Cliente = row["Cliente"].ToString(),
                             Vendedor = row["Vendedor"].ToString(),
                             Usuario = row["UsuarioActualiza"].ToString(),
+                            UUID = row["UUID"].ToString(),
                             Fecha = DateTime.Parse(row["FechaVenta"].ToString()),
                             Estatus = row["Estatus"].ToString()
                         });
@@ -65,6 +66,7 @@ namespace marcatel_api.Services
                 parametros.Add(new SqlParameter { ParameterName = "@pIdCliente", SqlDbType = SqlDbType.VarChar, Value = ticket.IdCliente });
                 parametros.Add(new SqlParameter { ParameterName = "@pIdVendedor", SqlDbType = SqlDbType.Int, Value = ticket.IdVendedor });
                 parametros.Add(new SqlParameter { ParameterName = "@pUsuarioActualiza", SqlDbType = SqlDbType.Int, Value = ticket.Usuario });
+                parametros.Add(new SqlParameter { ParameterName = "@pUUID", SqlDbType = SqlDbType.VarChar, Value = ticket.UUID });
                 DataSet ds = dac.Fill("sp_InsertTickets", parametros);
                 if (ds.Tables[0].Rows.Count > 0)
                 {
@@ -97,6 +99,7 @@ namespace marcatel_api.Services
             {
                 parametros.Add(new SqlParameter { ParameterName = "@pId", SqlDbType = SqlDbType.Int, Value = ticket.Id });
                 parametros.Add(new SqlParameter { ParameterName = "@pEstatus", SqlDbType = SqlDbType.Int, Value = ticket.Estatus });
+                parametros.Add(new SqlParameter { ParameterName = "@pUUID", SqlDbType = SqlDbType.VarChar, Value = ticket.UUID });
                 DataSet ds = dac.Fill("sp_UpdateTickets", parametros);
                 if (ds.Tables[0].Rows.Count > 0)
                 {
