@@ -23,7 +23,7 @@ namespace marcatel_api.Services
 
             try
             {
-                parametros.Add(new SqlParameter { ParameterName = "@pId", SqlDbType = SqlDbType.Int, Value = autorizarmov.Id });
+                parametros.Add(new SqlParameter { ParameterName = "@pIdMov", SqlDbType = SqlDbType.Int, Value = autorizarmov.Id });
                 parametros.Add(new SqlParameter { ParameterName = "@pEstatus", SqlDbType = SqlDbType.VarChar, Value = autorizarmov.Estatus });
 
                 DataSet ds = dac.Fill("sp_AutorizarMov", parametros);

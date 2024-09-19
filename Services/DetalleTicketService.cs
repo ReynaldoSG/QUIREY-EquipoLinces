@@ -6,6 +6,7 @@ using marcatel_api.DataContext;
 using marcatel_api.Models;
 using System.Collections;
 
+
 namespace marcatel_api.Services
 {
     public class DetalleTicketService
@@ -42,7 +43,8 @@ namespace marcatel_api.Services
                             Total = decimal.Parse(row["Total"].ToString()),
                             TotalTicket = decimal.Parse(row["TotalTicket"].ToString()),
                             Estatus = row["Estatus"].ToString(),
-                            Usuario = row["UsuarioActualiza"].ToString()
+                            Usuario = row["UsuarioActualiza"].ToString(),
+                            UUID = row["UUID"].ToString()
                         });
                     }
                 }
@@ -70,6 +72,7 @@ namespace marcatel_api.Services
                 parametros.Add(new SqlParameter { ParameterName = "@pCantidad", SqlDbType = SqlDbType.Decimal, Value = detalleticket.Cantidad });
                 parametros.Add(new SqlParameter { ParameterName = "@pPrecioVenta", SqlDbType = SqlDbType.Decimal, Value = detalleticket.PrecioVenta });
                 parametros.Add(new SqlParameter { ParameterName = "@pUsuarioActualiza", SqlDbType = SqlDbType.Int, Value = detalleticket.Usuario });
+                parametros.Add(new SqlParameter { ParameterName = "@pUUID", SqlDbType = SqlDbType.VarChar, Value = detalleticket.UUID });
 
                 DataSet ds = dac.Fill("sp_InsertDetalleTicket", parametros);
 
@@ -103,8 +106,9 @@ namespace marcatel_api.Services
                 parametros.Add(new SqlParameter { ParameterName = "@pPrecioventa", SqlDbType = SqlDbType.Decimal, Value = detalleticket.PrecioVenta });
                 parametros.Add(new SqlParameter { ParameterName = "@pEstatus", SqlDbType = SqlDbType.Int, Value = detalleticket.Estatus });
                 parametros.Add(new SqlParameter { ParameterName = "@pUsuarioActualiza", SqlDbType = SqlDbType.Int, Value = detalleticket.Usuario });
+                parametros.Add(new SqlParameter { ParameterName = "@pUUID", SqlDbType = SqlDbType.VarChar, Value = detalleticket.UUID });
                 DataSet ds = dac.Fill("sp_UpdateDetalleTicket", parametros);
-                 if (ds.Tables[0].Rows.Count > 0)
+                if (ds.Tables[0].Rows.Count > 0)
                 {
                     return ds.Tables[0].Rows[0]["Mensaje"].ToString();
                 }
@@ -130,7 +134,7 @@ namespace marcatel_api.Services
             {
                 parametros.Add(new SqlParameter { ParameterName = "@pId", SqlDbType = SqlDbType.Int, Value = detalleticket.Id });
                 DataSet ds = dac.Fill("sp_DeleteDetalleTicket", parametros);
-                 if (ds.Tables[0].Rows.Count > 0)
+                if (ds.Tables[0].Rows.Count > 0)
                 {
                     return ds.Tables[0].Rows[0]["Mensaje"].ToString();
                 }
@@ -153,10 +157,10 @@ namespace marcatel_api.Services
 
             try
             {
-                parametros.Add(new SqlParameter { ParameterName = "@pId", SqlDbType = SqlDbType.Int, Value = autorizarticket.Id });
+                parametros.Add(new SqlParameter { ParameterName = "@pIdTicket", SqlDbType = SqlDbType.Int, Value = autorizarticket.Id });
                 parametros.Add(new SqlParameter { ParameterName = "@pEstatus", SqlDbType = SqlDbType.VarChar, Value = autorizarticket.Estatus });
 
-                DataSet ds = dac.Fill("sp_AutorizarMov", parametros);
+                DataSet ds = dac.Fill("sp_AutorizarTicket", parametros);
 
                 return 1;
             }

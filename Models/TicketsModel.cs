@@ -12,6 +12,7 @@ namespace marcatel_api.Models
         public DateTime FechaInicio { get; set; }
         public DateTime FechaFin { get; set; }
         public string Estatus { get; set; }
+        public string UUID { get; set; }
         public string Mensaje { get; set; }
 
     }
@@ -29,6 +30,7 @@ namespace marcatel_api.Models
         public int IdCliente { get; set; }
         public int IdVendedor { get; set; }
         public int Usuario { get; set; }
+        public string UUID { get; set; }
 
     }
 
@@ -36,6 +38,7 @@ namespace marcatel_api.Models
     {
         public int Id { get; set; }
         public int Estatus { get; set; }
+        public string UUID { get; set; }
     }
 
     public class DeleteTicketsModel
