@@ -55,7 +55,7 @@ namespace marcatel_api.Services
 
         }
 
-        public int InsertMovInventario(InsertMovimientoModels MovInv)
+        public List<GetMovInventarioModels> InsertMovInventario(InsertMovimientoModels MovInv)
         {
             ArrayList parametros = new ArrayList();
             ConexionDataAccess dac = new ConexionDataAccess(connection);
@@ -76,18 +76,20 @@ namespace marcatel_api.Services
                         lista.Add(new GetMovInventarioModels
                         {
                             Id = int.Parse(row["Id"].ToString()),
+                            Mensaje = row["Mensaje"].ToString()
                         });
                     }
+
                 }
-                return lista[0].Id;
+
+                return lista;
             }
             catch (Exception ex)
             {
-                Console.Write(ex.Message);
-                return 0;
+                throw ex;
             }
         }
-        public int UpdateMovIntentario(UpdateMovimientoInvModel MovInv)
+        public string UpdateMovIntentario(UpdateMovimientoInvModel MovInv)
         {
             ArrayList parametros = new ArrayList();
             ConexionDataAccess dac = new ConexionDataAccess(connection);
@@ -102,27 +104,21 @@ namespace marcatel_api.Services
                 DataSet ds = dac.Fill("sp_UpdateMov_Inventario", parametros);
                 if (ds.Tables[0].Rows.Count > 0)
                 {
-                    foreach (DataRow row in ds.Tables[0].Rows)
-                    {
-                        lista.Add(new GetMovInventarioModels
-                        {
-                            Id = int.Parse(row["Id"].ToString()),
-                            IdTipoMov = row["TipoMovimiento"].ToString(),
-                            IdAlmacen = row["Almacen"].ToString(),
-                            Usuario = row["UsuarioActualiza"].ToString(),
-                        });
-                    }
+                    return ds.Tables[0].Rows[0]["Mensaje"].ToString();
                 }
-                return 1;
+                else
+                {
+                    return "No se recibió ningún mensaje desde la base de datos";
+                }
             }
             catch (Exception ex)
             {
                 Console.Write(ex.Message);
-                return 0;
+                return "Error: " + ex.Message;
             }
         }
 
-        public int DeleteMovInventario(DeleteMovimientoInvModel MovInv)
+        public string DeleteMovInventario(DeleteMovimientoInvModel MovInv)
         {
             ArrayList parametros = new ArrayList();
             ConexionDataAccess dac = new ConexionDataAccess(connection);
@@ -134,26 +130,17 @@ namespace marcatel_api.Services
                 DataSet ds = dac.Fill("dbo.sp_DeleteMovInventario", parametros);
                 if (ds.Tables[0].Rows.Count > 0)
                 {
-                    foreach (DataRow row in ds.Tables[0].Rows)
-                    {
-                        lista.Add(new GetMovInventarioModels
-                        {
-                            Id = int.Parse(row["Id"].ToString()),
-                            IdTipoMov = row["TipoMovimiento"].ToString(),
-                            IdAlmacen = row["Almacen"].ToString(),
-                            fechaMovimiento = DateTime.Parse(row["FechaMovimiento"].ToString()),
-                            Estatus = row["Estatus"].ToString(),
-                            Usuario = row["UsuarioActualiza"].ToString(),
-                            FechaActualiza = DateTime.Parse(row["FechaActualiza"].ToString())
-                        });
-                    }
+                    return ds.Tables[0].Rows[0]["Mensaje"].ToString();
                 }
-                return 1;
+                else
+                {
+                    return "No se recibió ningún mensaje desde la base de datos";
+                }
             }
             catch (Exception ex)
             {
                 Console.Write(ex.Message);
-                return 0;
+                return "Error: " + ex.Message;
             }
         }
 

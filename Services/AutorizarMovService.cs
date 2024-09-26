@@ -16,24 +16,30 @@ namespace marcatel_api.Services
             connection = settings.ConnectionString;
         }
 
-        public int AutorizarMovInv(AutorizarMovModel autorizarmov)
+        public string AutorizarMovInv(AutorizarMovModel autorizarmov)
         {
             ArrayList parametros = new ArrayList();
             ConexionDataAccess dac = new ConexionDataAccess(connection);
 
             try
             {
-                parametros.Add(new SqlParameter { ParameterName = "@pId", SqlDbType = SqlDbType.Int, Value = autorizarmov.Id });
+                parametros.Add(new SqlParameter { ParameterName = "@pIdMov", SqlDbType = SqlDbType.Int, Value = autorizarmov.Id });
                 parametros.Add(new SqlParameter { ParameterName = "@pEstatus", SqlDbType = SqlDbType.VarChar, Value = autorizarmov.Estatus });
 
                 DataSet ds = dac.Fill("sp_AutorizarMov", parametros);
-
-                return 1;
+                if (ds.Tables[0].Rows.Count > 0)
+                {
+                    return ds.Tables[0].Rows[0]["Mensaje"].ToString();
+                }
+                else
+                {
+                    return "No se recibió ningún mensaje desde la base de datos";
+                }
             }
             catch (Exception ex)
             {
                 Console.Write(ex.Message);
-                return 0;
+                return "Error" + ex.Message;
             }
         }
 

@@ -11,6 +11,8 @@ namespace marcatel_api.Models
      public string usuarioActualiza{get; set;}
     public DateTime fechaRegistro {get; set;}
     public DateTime fechaActualiza{get; set;}
+
+    public string Mensaje {get; set;}
    
   }
 

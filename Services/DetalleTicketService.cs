@@ -6,6 +6,7 @@ using marcatel_api.DataContext;
 using marcatel_api.Models;
 using System.Collections;
 
+
 namespace marcatel_api.Services
 {
     public class DetalleTicketService
@@ -42,7 +43,8 @@ namespace marcatel_api.Services
                             Total = decimal.Parse(row["Total"].ToString()),
                             TotalTicket = decimal.Parse(row["TotalTicket"].ToString()),
                             Estatus = row["Estatus"].ToString(),
-                            Usuario = row["UsuarioActualiza"].ToString()
+                            Usuario = row["UsuarioActualiza"].ToString(),
+                            UUID = row["UUID"].ToString()
                         });
                     }
                 }
@@ -70,6 +72,7 @@ namespace marcatel_api.Services
                 parametros.Add(new SqlParameter { ParameterName = "@pCantidad", SqlDbType = SqlDbType.Decimal, Value = detalleticket.Cantidad });
                 parametros.Add(new SqlParameter { ParameterName = "@pPrecioVenta", SqlDbType = SqlDbType.Decimal, Value = detalleticket.PrecioVenta });
                 parametros.Add(new SqlParameter { ParameterName = "@pUsuarioActualiza", SqlDbType = SqlDbType.Int, Value = detalleticket.Usuario });
+                parametros.Add(new SqlParameter { ParameterName = "@pUUID", SqlDbType = SqlDbType.VarChar, Value = detalleticket.UUID });
 
                 DataSet ds = dac.Fill("sp_InsertDetalleTicket", parametros);
 
@@ -89,7 +92,7 @@ namespace marcatel_api.Services
             }
         }
 
-        public int UpdateDetalleTicket(UpdateDetalleTicketModel detalleticket)
+        public string UpdateDetalleTicket(UpdateDetalleTicketModel detalleticket)
         {
             ArrayList parametros = new ArrayList();
             ConexionDataAccess dac = new ConexionDataAccess(connection);
@@ -103,34 +106,25 @@ namespace marcatel_api.Services
                 parametros.Add(new SqlParameter { ParameterName = "@pPrecioventa", SqlDbType = SqlDbType.Decimal, Value = detalleticket.PrecioVenta });
                 parametros.Add(new SqlParameter { ParameterName = "@pEstatus", SqlDbType = SqlDbType.Int, Value = detalleticket.Estatus });
                 parametros.Add(new SqlParameter { ParameterName = "@pUsuarioActualiza", SqlDbType = SqlDbType.Int, Value = detalleticket.Usuario });
+                parametros.Add(new SqlParameter { ParameterName = "@pUUID", SqlDbType = SqlDbType.VarChar, Value = detalleticket.UUID });
                 DataSet ds = dac.Fill("sp_UpdateDetalleTicket", parametros);
                 if (ds.Tables[0].Rows.Count > 0)
                 {
-                    foreach (DataRow row in ds.Tables[0].Rows)
-                    {
-                        lista.Add(new GetDetalleTicketModel
-                        {
-                            Id = int.Parse(row["Id"].ToString()),
-                            IdTicket = int.Parse(row["IdTicket"].ToString()),
-                            Codigo = row["Codigo"].ToString(),
-                            Cantidad = decimal.Parse(row["Cantidad"].ToString()),
-                            PrecioVenta = decimal.Parse(row["PrecioVenta"].ToString()),
-                            Estatus = row["Estatus"].ToString(),
-                            Usuario = row["Usuario"].ToString()
-
-                        });
-                    }
+                    return ds.Tables[0].Rows[0]["Mensaje"].ToString();
                 }
-                return 1;
+                else
+                {
+                    return "No se recibió ningún mensaje desde la base de datos";
+                }
             }
             catch (Exception ex)
             {
                 Console.Write(ex.Message);
-                return 0;
+                return "Error: " + ex.Message;
             }
         }
 
-        public int DeleteDetalleTicket(DeleteDetalleTicketModel detalleticket)
+        public string DeleteDetalleTicket(DeleteDetalleTicketModel detalleticket)
         {
             ArrayList parametros = new ArrayList();
             ConexionDataAccess dac = new ConexionDataAccess(connection);
@@ -142,20 +136,17 @@ namespace marcatel_api.Services
                 DataSet ds = dac.Fill("sp_DeleteDetalleTicket", parametros);
                 if (ds.Tables[0].Rows.Count > 0)
                 {
-                    foreach (DataRow row in ds.Tables[0].Rows)
-                    {
-                        lista.Add(new GetDetalleTicketModel
-                        {
-                            Id = int.Parse(row["Id"].ToString())
-                        });
-                    }
+                    return ds.Tables[0].Rows[0]["Mensaje"].ToString();
                 }
-                return 1;
+                else
+                {
+                    return "No se recibió ningún mensaje desde la base de datos";
+                }
             }
             catch (Exception ex)
             {
                 Console.Write(ex.Message);
-                return 0;
+                return "Error: " + ex.Message;
             }
         }
 
@@ -166,10 +157,10 @@ namespace marcatel_api.Services
 
             try
             {
-                parametros.Add(new SqlParameter { ParameterName = "@pId", SqlDbType = SqlDbType.Int, Value = autorizarticket.Id });
+                parametros.Add(new SqlParameter { ParameterName = "@pIdTicket", SqlDbType = SqlDbType.Int, Value = autorizarticket.Id });
                 parametros.Add(new SqlParameter { ParameterName = "@pEstatus", SqlDbType = SqlDbType.VarChar, Value = autorizarticket.Estatus });
 
-                DataSet ds = dac.Fill("sp_AutorizarMov", parametros);
+                DataSet ds = dac.Fill("sp_AutorizarTicket", parametros);
 
                 return 1;
             }

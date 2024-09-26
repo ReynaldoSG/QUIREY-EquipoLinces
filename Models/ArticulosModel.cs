@@ -13,6 +13,8 @@ namespace marcatel_api.Models
     public DateTime FechaReg {get;set;}
     public DateTime FechaAct{get;set;}
 
+    public string Mensaje {get; set;}
+
 }
 
 public class InsertArticulosModel

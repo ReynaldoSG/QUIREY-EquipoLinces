@@ -14,6 +14,8 @@ namespace marcatel_api.Models
         public string CURP { get; set; }
         public string Email { get; set; }
         public string Coordenadas { get; set; }
+
+        public string Mensaje {get; set;}
     }
 
     public class InsertClientesModel
